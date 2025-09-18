@@ -1,0 +1,6 @@
+指令
+node -v
+cd vocab-converter
+node convert.js
+node vocab_test.js
+pkg vocab_test.js --output vocab_test.exe --targets node18-win-x64

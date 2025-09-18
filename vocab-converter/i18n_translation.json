@@ -1,0 +1,5672 @@
+{
+  "519-5/19": {
+    "01 Occupations 職業": {
+      "en": "01 Occupations 職業",
+      "zh": ""
+    },
+    "receptionist": {
+      "en": "receptionist",
+      "zh": "接待員"
+    },
+    "dentist": {
+      "en": "dentist",
+      "zh": "牙醫"
+    },
+    "electrician": {
+      "en": "electrician",
+      "zh": "電工"
+    },
+    "surgeon": {
+      "en": "surgeon",
+      "zh": "外科醫生"
+    },
+    "painter": {
+      "en": "painter",
+      "zh": "畫家、油漆工"
+    },
+    "tailor": {
+      "en": "tailor",
+      "zh": "裁縫師"
+    },
+    "captain": {
+      "en": "captain",
+      "zh": "機長、船長"
+    },
+    "hairstylist": {
+      "en": "hairstylist",
+      "zh": "髮型師"
+    },
+    "pharmacist": {
+      "en": "pharmacist",
+      "zh": "藥劑師"
+    },
+    "typist": {
+      "en": "typist",
+      "zh": "打字員"
+    },
+    "construction worker": {
+      "en": "construction worker",
+      "zh": "建築工人"
+    },
+    "accountant": {
+      "en": "accountant",
+      "zh": "會計師"
+    },
+    "housekeeper": {
+      "en": "housekeeper",
+      "zh": "飯店房務"
+    },
+    "musician": {
+      "en": "musician",
+      "zh": "音樂家"
+    },
+    "travel agent": {
+      "en": "travel agent",
+      "zh": "旅遊專員"
+    },
+    "editor": {
+      "en": "editor",
+      "zh": "編輯"
+    },
+    "pilot": {
+      "en": "pilot",
+      "zh": "機師、飛行員"
+    },
+    "florist": {
+      "en": "florist",
+      "zh": "花商"
+    },
+    "architect": {
+      "en": "architect",
+      "zh": "建築師"
+    },
+    "mechanic": {
+      "en": "mechanic",
+      "zh": "技師"
+    },
+    "banker": {
+      "en": "banker",
+      "zh": "銀行家"
+    },
+    "entrepreneur": {
+      "en": "entrepreneur",
+      "zh": "企業家"
+    },
+    "carpenter": {
+      "en": "carpenter",
+      "zh": "木工、木匠"
+    },
+    "technician": {
+      "en": "technician",
+      "zh": "技術人員"
+    },
+    "engineer": {
+      "en": "engineer",
+      "zh": "工程師"
+    },
+    "chef": {
+      "en": "chef",
+      "zh": "廚師"
+    },
+    "realtor": {
+      "en": "realtor",
+      "zh": "房屋仲介"
+    },
+    "secretary": {
+      "en": "secretary",
+      "zh": "秘書"
+    },
+    "attorney": {
+      "en": "attorney",
+      "zh": "律師"
+    },
+    "butcher": {
+      "en": "butcher",
+      "zh": "屠夫"
+    }
+  },
+  "519-__EMPTY_1": {
+    "02 Recreations 娛樂": {
+      "en": "02 Recreations 娛樂",
+      "zh": ""
+    },
+    "entry-level": {
+      "en": "entry-level",
+      "zh": "入門的、初階的"
+    },
+    "circus": {
+      "en": "circus",
+      "zh": "馬戲團"
+    },
+    "professional": {
+      "en": "professional",
+      "zh": "專業的"
+    },
+    "excited": {
+      "en": "excited",
+      "zh": "興奮的"
+    },
+    "favorable": {
+      "en": "favorable",
+      "zh": "贊同的、有利的"
+    },
+    "gym": {
+      "en": "gym",
+      "zh": "健身房"
+    },
+    "celebrity": {
+      "en": "celebrity",
+      "zh": "名人"
+    },
+    "location": {
+      "en": "location",
+      "zh": "地點"
+    },
+    "participate": {
+      "en": "participate",
+      "zh": "參加、參與"
+    },
+    "outdoors": {
+      "en": "outdoors",
+      "zh": "在室外"
+    },
+    "accustomed": {
+      "en": "accustomed",
+      "zh": "習慣的"
+    },
+    "pass": {
+      "en": "pass",
+      "zh": "通行證、通過"
+    },
+    "indulge": {
+      "en": "indulge",
+      "zh": "沉迷"
+    },
+    "drama": {
+      "en": "drama",
+      "zh": "戲劇"
+    },
+    "fascinating": {
+      "en": "fascinating",
+      "zh": "令人著迷的"
+    },
+    "salon": {
+      "en": "salon",
+      "zh": "美容院"
+    },
+    "occasion": {
+      "en": "occasion",
+      "zh": "場合、時機、時刻"
+    },
+    "headline": {
+      "en": "headline",
+      "zh": "標題"
+    },
+    "traditional": {
+      "en": "traditional",
+      "zh": "傳統的"
+    },
+    "fishing": {
+      "en": "fishing",
+      "zh": "釣魚"
+    },
+    "amuse": {
+      "en": "amuse",
+      "zh": "使開心、逗開心"
+    },
+    "live": {
+      "en": "live",
+      "zh": "現場的"
+    },
+    "recreation": {
+      "en": "recreation",
+      "zh": "娛樂"
+    },
+    "cozy": {
+      "en": "cozy",
+      "zh": "安逸舒適的"
+    },
+    "exhilarating": {
+      "en": "exhilarating",
+      "zh": "令人興奮的"
+    },
+    "photography": {
+      "en": "photography",
+      "zh": "攝影"
+    },
+    "indoors": {
+      "en": "indoors",
+      "zh": "在室內"
+    },
+    "craft": {
+      "en": "craft",
+      "zh": "手藝、工藝"
+    },
+    "enjoyable": {
+      "en": "enjoyable",
+      "zh": "令人愉快的"
+    },
+    "adventure": {
+      "en": "adventure",
+      "zh": "冒險"
+    }
+  },
+  "519-__EMPTY_3": {
+    "03 Sports 運動": {
+      "en": "03 Sports 運動",
+      "zh": ""
+    },
+    "extremely": {
+      "en": "extremely",
+      "zh": "極度地、非常"
+    },
+    "challenge": {
+      "en": "challenge",
+      "zh": "挑戰、考驗"
+    },
+    "tournament": {
+      "en": "tournament",
+      "zh": "錦標賽"
+    },
+    "chase": {
+      "en": "chase",
+      "zh": "追逐"
+    },
+    "spectator": {
+      "en": "spectator",
+      "zh": "觀眾"
+    },
+    "race": {
+      "en": "race",
+      "zh": "賽跑、種族"
+    },
+    "stadium": {
+      "en": "stadium",
+      "zh": "體育場"
+    },
+    "workout": {
+      "en": "workout",
+      "zh": "健身、鍛鍊"
+    },
+    "intensity": {
+      "en": "intensity",
+      "zh": "強烈、強度"
+    },
+    "fitness": {
+      "en": "fitness",
+      "zh": "健康、健壯、合適"
+    },
+    "collaborate": {
+      "en": "collaborate",
+      "zh": "合作"
+    },
+    "habit": {
+      "en": "habit",
+      "zh": "習慣"
+    },
+    "still": {
+      "en": "still",
+      "zh": "仍然、還是; 靜止不動的"
+    },
+    "combative": {
+      "en": "combative",
+      "zh": "好戰的、鬥志高昂的"
+    },
+    "league": {
+      "en": "league",
+      "zh": "聯盟"
+    },
+    "grab": {
+      "en": "grab",
+      "zh": "抓住、奪取"
+    },
+    "defense": {
+      "en": "defense",
+      "zh": "防禦、保衛"
+    },
+    "aerobics": {
+      "en": "aerobics",
+      "zh": "有氧運動"
+    },
+    "marathon": {
+      "en": "marathon",
+      "zh": "馬拉松"
+    },
+    "dynamic": {
+      "en": "dynamic",
+      "zh": "動態的、活躍的"
+    },
+    "lose": {
+      "en": "lose",
+      "zh": "丟失、遺失、輸掉"
+    },
+    "commentary": {
+      "en": "commentary",
+      "zh": "實況報導"
+    },
+    "lift": {
+      "en": "lift",
+      "zh": "舉起、抬起"
+    },
+    "mountaineering": {
+      "en": "mountaineering",
+      "zh": "登山"
+    },
+    "prize": {
+      "en": "prize",
+      "zh": "獎項"
+    },
+    "gesture": {
+      "en": "gesture",
+      "zh": "手勢、表態"
+    },
+    "runner-up": {
+      "en": "runner-up",
+      "zh": "亞軍"
+    },
+    "coach": {
+      "en": "coach",
+      "zh": "教練"
+    },
+    "lean": {
+      "en": "lean",
+      "zh": "傾斜"
+    },
+    "stiff": {
+      "en": "stiff",
+      "zh": "硬挺的、僵硬的"
+    }
+  },
+  "519-5/20": {
+    "04 Events 活動": {
+      "en": "04 Events 活動",
+      "zh": ""
+    },
+    "regulation": {
+      "en": "regulation",
+      "zh": "規範、條例"
+    },
+    "anniversary": {
+      "en": "anniversary",
+      "zh": "周年紀念"
+    },
+    "gathering": {
+      "en": "gathering",
+      "zh": "聚會、集會"
+    },
+    "site": {
+      "en": "site",
+      "zh": "地點、位置、網站"
+    },
+    "subsequent": {
+      "en": "subsequent",
+      "zh": "隨後的、接著的"
+    },
+    "venue": {
+      "en": "venue",
+      "zh": "場地、場所"
+    },
+    "plan": {
+      "en": "plan",
+      "zh": "計畫、規劃"
+    },
+    "auction": {
+      "en": "auction",
+      "zh": "拍賣"
+    },
+    "festivity": {
+      "en": "festivity",
+      "zh": "歡慶、慶祝活動"
+    },
+    "seminar": {
+      "en": "seminar",
+      "zh": "研討會"
+    },
+    "contest": {
+      "en": "contest",
+      "zh": "競賽、比賽"
+    },
+    "routine": {
+      "en": "routine",
+      "zh": "慣例、常規"
+    },
+    "celebration": {
+      "en": "celebration",
+      "zh": "慶祝"
+    },
+    "opening": {
+      "en": "opening",
+      "zh": "開幕、空缺、開始"
+    },
+    "banquet": {
+      "en": "banquet",
+      "zh": "宴會"
+    },
+    "host": {
+      "en": "host",
+      "zh": "主持人、主辦方;主辦"
+    },
+    "parade": {
+      "en": "parade",
+      "zh": "遊行"
+    },
+    "carnival": {
+      "en": "carnival",
+      "zh": "嘉年華"
+    },
+    "proximity": {
+      "en": "proximity",
+      "zh": "N 接近、鄰近"
+    },
+    "biannually": {
+      "en": "biannually",
+      "zh": "一年兩次"
+    },
+    "previous": {
+      "en": "previous",
+      "zh": "先前的"
+    },
+    "dimension": {
+      "en": "dimension",
+      "zh": "尺寸、大小、規模"
+    },
+    "public": {
+      "en": "public",
+      "zh": "大眾的、公眾的"
+    },
+    "coordinate": {
+      "en": "coordinate",
+      "zh": "協調、統籌"
+    },
+    "fair": {
+      "en": "fair",
+      "zh": "市集;公平的"
+    },
+    "assist": {
+      "en": "assist",
+      "zh": "幫助、協助"
+    },
+    "theme": {
+      "en": "theme",
+      "zh": "主題"
+    },
+    "abruptly": {
+      "en": "abruptly",
+      "zh": "突然地、頓時"
+    },
+    "consecutive": {
+      "en": "consecutive",
+      "zh": "連續的、不間斷的"
+    },
+    "rally": {
+      "en": "rally",
+      "zh": "集會、大會"
+    }
+  },
+  "519-__EMPTY_6": {
+    "05 Shopping 購物": {
+      "en": "05 Shopping 購物",
+      "zh": ""
+    },
+    "receipt": {
+      "en": "receipt",
+      "zh": "發票、收據"
+    },
+    "high-end": {
+      "en": "high-end",
+      "zh": "高價的、高檔的"
+    },
+    "plaza": {
+      "en": "plaza",
+      "zh": "露天廣場"
+    },
+    "cosmetic": {
+      "en": "cosmetic",
+      "zh": "化妝的、美容的"
+    },
+    "grocery": {
+      "en": "grocery",
+      "zh": "食品雜貨"
+    },
+    "discount": {
+      "en": "discount",
+      "zh": "打折、折扣"
+    },
+    "parlor": {
+      "en": "parlor",
+      "zh": "店鋪"
+    },
+    "cart": {
+      "en": "cart",
+      "zh": "購物車、手推車"
+    },
+    "vender": {
+      "en": "vender",
+      "zh": "小販、賣主"
+    },
+    "spending": {
+      "en": "spending",
+      "zh": "花費"
+    },
+    "check out": {
+      "en": "check out",
+      "zh": "結帳離開、退房"
+    },
+    "refund": {
+      "en": "refund",
+      "zh": "退款、退費"
+    },
+    "stall": {
+      "en": "stall",
+      "zh": "攤位、小隔間"
+    },
+    "cashier": {
+      "en": "cashier",
+      "zh": "收銀員"
+    },
+    "voucher": {
+      "en": "voucher",
+      "zh": "兌換券"
+    },
+    "showcase": {
+      "en": "showcase",
+      "zh": "陳列櫃、展示櫥窗"
+    },
+    "change": {
+      "en": "change",
+      "zh": "零錢"
+    },
+    "extravagance": {
+      "en": "extravagance",
+      "zh": "奢侈"
+    },
+    "trial": {
+      "en": "trial",
+      "zh": "試驗、試用"
+    },
+    "shopkeeper": {
+      "en": "shopkeeper",
+      "zh": "店主"
+    },
+    "check": {
+      "en": "check",
+      "zh": "支票;檢查"
+    },
+    "return": {
+      "en": "return",
+      "zh": "退還、返回"
+    },
+    "lavish": {
+      "en": "lavish",
+      "zh": "奢華的、豪華的"
+    },
+    "shopper": {
+      "en": "shopper",
+      "zh": "購物者、顧客"
+    },
+    "cash register": {
+      "en": "cash register",
+      "zh": "收銀機"
+    },
+    "apparel": {
+      "en": "apparel",
+      "zh": "服裝"
+    },
+    "select": {
+      "en": "select",
+      "zh": "選擇"
+    },
+    "patron": {
+      "en": "patron",
+      "zh": "顧客"
+    },
+    "clerk": {
+      "en": "clerk",
+      "zh": "職員、店員"
+    },
+    "thrifty": {
+      "en": "thrifty",
+      "zh": "節約的、節儉的"
+    }
+  },
+  "519-__EMPTY_8": {
+    "06 Fashion 流行": {
+      "en": "06 Fashion 流行",
+      "zh": ""
+    },
+    "fabric": {
+      "en": "fabric",
+      "zh": "布料、織品"
+    },
+    "leather": {
+      "en": "leather",
+      "zh": "皮革"
+    },
+    "elegant": {
+      "en": "elegant",
+      "zh": "優美的、優雅的"
+    },
+    "design": {
+      "en": "design",
+      "zh": "設計"
+    },
+    "accessory": {
+      "en": "accessory",
+      "zh": "配飾、配件"
+    },
+    "tie": {
+      "en": "tie",
+      "zh": "領帶;繫綁"
+    },
+    "fold": {
+      "en": "fold",
+      "zh": "對折"
+    },
+    "merchant": {
+      "en": "merchant",
+      "zh": "商人"
+    },
+    "gem": {
+      "en": "gem",
+      "zh": "寶石"
+    },
+    "tailored": {
+      "en": "tailored",
+      "zh": "量身訂製的、特製的"
+    },
+    "fit": {
+      "en": "fit",
+      "zh": "適合、合身"
+    },
+    "phenomenon": {
+      "en": "phenomenon",
+      "zh": "現象"
+    },
+    "dress": {
+      "en": "dress",
+      "zh": "洋裝;幫...穿衣"
+    },
+    "nylon": {
+      "en": "nylon",
+      "zh": "尼龍"
+    },
+    "trend": {
+      "en": "trend",
+      "zh": "趨勢、趨向"
+    },
+    "suit": {
+      "en": "suit",
+      "zh": "西裝外套;適合相稱"
+    },
+    "garment": {
+      "en": "garment",
+      "zh": "(一件)衣服"
+    },
+    "uniform": {
+      "en": "uniform",
+      "zh": "制服"
+    },
+    "exquisite": {
+      "en": "exquisite",
+      "zh": "精緻的、精美的"
+    },
+    "necklace": {
+      "en": "necklace",
+      "zh": "項鍊"
+    },
+    "out of fashion": {
+      "en": "out of fashion",
+      "zh": "過時的"
+    },
+    "casual": {
+      "en": "casual",
+      "zh": "休閒的、隨性的"
+    },
+    "trim": {
+      "en": "trim",
+      "zh": "修剪"
+    },
+    "high-heels": {
+      "en": "high-heels",
+      "zh": "高跟鞋"
+    },
+    "stylish": {
+      "en": "stylish",
+      "zh": "時髦的、有型的"
+    },
+    "formal": {
+      "en": "formal",
+      "zh": "正式的"
+    },
+    "silk": {
+      "en": "silk",
+      "zh": "絲綢、絲織品"
+    },
+    "discriminating": {
+      "en": "discriminating",
+      "zh": "有鑑賞力的、識貨的"
+    },
+    "outerwear": {
+      "en": "outerwear",
+      "zh": "外衣"
+    },
+    "textile": {
+      "en": "textile",
+      "zh": "紡織品"
+    }
+  },
+  "519-5/21": {
+    "07 Social Contact 社交接觸": {
+      "en": "07 Social Contact 社交接觸",
+      "zh": ""
+    },
+    "offensive": {
+      "en": "offensive",
+      "zh": "冒犯的"
+    },
+    "modest": {
+      "en": "modest",
+      "zh": "謙虛的、不大的、適中的"
+    },
+    "insult": {
+      "en": "insult",
+      "zh": "汙辱"
+    },
+    "behavior": {
+      "en": "behavior",
+      "zh": "行為"
+    },
+    "reunion": {
+      "en": "reunion",
+      "zh": "團聚、重逢"
+    },
+    "force": {
+      "en": "force",
+      "zh": "力量、武力;強迫、迫使"
+    },
+    "charitable": {
+      "en": "charitable",
+      "zh": "慈善的"
+    },
+    "gossip": {
+      "en": "gossip",
+      "zh": "八卦、說三道四"
+    },
+    "barrier": {
+      "en": "barrier",
+      "zh": "障礙、阻礙"
+    },
+    "perpetual": {
+      "en": "perpetual",
+      "zh": "長期的、長久的"
+    },
+    "conversation": {
+      "en": "conversation",
+      "zh": "對話、交談"
+    },
+    "encounter": {
+      "en": "encounter",
+      "zh": "偶然遇到、遭遇"
+    },
+    "contribute": {
+      "en": "contribute",
+      "zh": "貢獻、捐獻"
+    },
+    "regrettable": {
+      "en": "regrettable",
+      "zh": "另人懊悔的"
+    },
+    "customary": {
+      "en": "customary",
+      "zh": "習慣的、慣例性的"
+    },
+    "farewell": {
+      "en": "farewell",
+      "zh": "再會、告辭"
+    },
+    "respectful": {
+      "en": "respectful",
+      "zh": "恭敬的"
+    },
+    "acquaintance": {
+      "en": "acquaintance",
+      "zh": "相識、熟識、熟人"
+    },
+    "gather": {
+      "en": "gather",
+      "zh": "聚集、集合"
+    },
+    "eloquent": {
+      "en": "eloquent",
+      "zh": "能言善道的、有說服力的"
+    },
+    "resist": {
+      "en": "resist",
+      "zh": "抵抗、抗拒"
+    },
+    "congratulate": {
+      "en": "congratulate",
+      "zh": "恭喜、祝賀"
+    },
+    "solicit": {
+      "en": "solicit",
+      "zh": "請求、呼籲"
+    },
+    "courtesy": {
+      "en": "courtesy",
+      "zh": "禮貌"
+    },
+    "indifferent": {
+      "en": "indifferent",
+      "zh": "漠不關心的、冷淡的"
+    },
+    "etiquette": {
+      "en": "etiquette",
+      "zh": "禮儀"
+    },
+    "society": {
+      "en": "society",
+      "zh": "社會"
+    },
+    "compliment": {
+      "en": "compliment",
+      "zh": "恭維、讚美"
+    },
+    "solitary": {
+      "en": "solitary",
+      "zh": "獨自的、單獨的"
+    },
+    "defensive": {
+      "en": "defensive",
+      "zh": "防禦性的、防衛的"
+    }
+  },
+  "519-__EMPTY_11": {
+    "08 Restaurants 餐廳": {
+      "en": "08 Restaurants 餐廳",
+      "zh": ""
+    },
+    "cafeteria": {
+      "en": "cafeteria",
+      "zh": "自助餐廳、員工餐廳"
+    },
+    "judge": {
+      "en": "judge",
+      "zh": "判斷、評判;法官、評審"
+    },
+    "greet": {
+      "en": "greet",
+      "zh": "問候、打招呼"
+    },
+    "leftover": {
+      "en": "leftover",
+      "zh": "剩餘物;剩餘的"
+    },
+    "caterer": {
+      "en": "caterer",
+      "zh": "外燴公司"
+    },
+    "plate": {
+      "en": "plate",
+      "zh": "盤子、碟子"
+    },
+    "invitation": {
+      "en": "invitation",
+      "zh": "邀請(函)"
+    },
+    "stand": {
+      "en": "stand",
+      "zh": "攤位；支撐架"
+    },
+    "helping": {
+      "en": "helping",
+      "zh": "一份(食物)"
+    },
+    "bakery": {
+      "en": "bakery",
+      "zh": "麵包店"
+    },
+    "stew": {
+      "en": "stew",
+      "zh": "燉菜、燉煮"
+    },
+    "hospitality": {
+      "en": "hospitality",
+      "zh": "款待、招待"
+    },
+    "guide": {
+      "en": "guide",
+      "zh": "指引、引導"
+    },
+    "scrub": {
+      "en": "scrub",
+      "zh": "刷洗"
+    },
+    "line": {
+      "en": "line",
+      "zh": "排成一排"
+    },
+    "bother": {
+      "en": "bother",
+      "zh": "麻煩、煩惱"
+    },
+    "suggestion": {
+      "en": "suggestion",
+      "zh": "建議"
+    },
+    "clean": {
+      "en": "clean",
+      "zh": "乾淨的;打掃清理"
+    },
+    "familiar": {
+      "en": "familiar",
+      "zh": "熟悉的"
+    },
+    "treat": {
+      "en": "treat",
+      "zh": "請客;對待"
+    },
+    "attentive": {
+      "en": "attentive",
+      "zh": "全神關注的;體貼周到的"
+    },
+    "spill": {
+      "en": "spill",
+      "zh": "灑出、潑灑"
+    },
+    "refill": {
+      "en": "refill",
+      "zh": "填充、再次填滿"
+    },
+    "polite": {
+      "en": "polite",
+      "zh": "有禮貌的"
+    },
+    "serve": {
+      "en": "serve",
+      "zh": "服務、端上"
+    },
+    "counter": {
+      "en": "counter",
+      "zh": "櫃台、料理台、長桌"
+    },
+    "hectic": {
+      "en": "hectic",
+      "zh": "繁忙的、忙碌的"
+    },
+    "sanitary": {
+      "en": "sanitary",
+      "zh": "衛生的"
+    },
+    "basic": {
+      "en": "basic",
+      "zh": "基本的"
+    },
+    "distill": {
+      "en": "distill",
+      "zh": "蒸餾"
+    }
+  },
+  "519-__EMPTY_13": {
+    "09 Dining 用餐": {
+      "en": "09 Dining 用餐",
+      "zh": ""
+    },
+    "silverware": {
+      "en": "silverware",
+      "zh": "餐具、銀製品"
+    },
+    "fresh": {
+      "en": "fresh",
+      "zh": "新鮮的"
+    },
+    "appetite": {
+      "en": "appetite",
+      "zh": "胃口"
+    },
+    "pour": {
+      "en": "pour",
+      "zh": "傾倒"
+    },
+    "entrée": {
+      "en": "entrée",
+      "zh": "主菜"
+    },
+    "alcohol": {
+      "en": "alcohol",
+      "zh": "酒精"
+    },
+    "dietitian": {
+      "en": "dietitian",
+      "zh": "營養師"
+    },
+    "beverage": {
+      "en": "beverage",
+      "zh": "飲料"
+    },
+    "refreshment": {
+      "en": "refreshment",
+      "zh": "茶點、點心"
+    },
+    "dairy": {
+      "en": "dairy",
+      "zh": "乳製品"
+    },
+    "liquor": {
+      "en": "liquor",
+      "zh": "烈酒"
+    },
+    "intake": {
+      "en": "intake",
+      "zh": "攝取、攝入"
+    },
+    "vegetarian": {
+      "en": "vegetarian",
+      "zh": "素食的;素食者"
+    },
+    "buffet": {
+      "en": "buffet",
+      "zh": "自助餐"
+    },
+    "hearty": {
+      "en": "hearty",
+      "zh": "豐盛美味的"
+    },
+    "serving": {
+      "en": "serving",
+      "zh": "份量、一份"
+    },
+    "delicate": {
+      "en": "delicate",
+      "zh": "精緻的、精美的"
+    },
+    "luncheon": {
+      "en": "luncheon",
+      "zh": "午餐、午宴"
+    },
+    "spoil": {
+      "en": "spoil",
+      "zh": "變質、壞掉"
+    },
+    "full": {
+      "en": "full",
+      "zh": "吃飽的、裝滿的"
+    },
+    "palate": {
+      "en": "palate",
+      "zh": "品味、鑑賞力"
+    },
+    "decaffeinated": {
+      "en": "decaffeinated",
+      "zh": "無咖啡因的"
+    },
+    "gourmet": {
+      "en": "gourmet",
+      "zh": "老饕、美食佳餚;精緻美味的"
+    },
+    "plentiful": {
+      "en": "plentiful",
+      "zh": "充足的、多的"
+    },
+    "sip": {
+      "en": "sip",
+      "zh": "啜飲"
+    },
+    "dessert": {
+      "en": "dessert",
+      "zh": "甜點、甜品"
+    },
+    "starve": {
+      "en": "starve",
+      "zh": "挨餓"
+    },
+    "refrigerator": {
+      "en": "refrigerator",
+      "zh": "冰箱"
+    },
+    "peddler": {
+      "en": "peddler",
+      "zh": "小販"
+    },
+    "appetizer": {
+      "en": "appetizer",
+      "zh": "開胃菜"
+    }
+  },
+  "519-5/22": {
+    "10 Cooking 烹飪": {
+      "en": "10 Cooking 烹飪",
+      "zh": ""
+    },
+    "recipe": {
+      "en": "recipe",
+      "zh": "食譜"
+    },
+    "flavor": {
+      "en": "flavor",
+      "zh": "味道、口味"
+    },
+    "scoop": {
+      "en": "scoop",
+      "zh": "勺子"
+    },
+    "dispose of": {
+      "en": "dispose of",
+      "zh": "處理掉、清除掉"
+    },
+    "grill": {
+      "en": "grill",
+      "zh": "火烤、燒烤"
+    },
+    "blend": {
+      "en": "blend",
+      "zh": "混合、融合"
+    },
+    "homemade": {
+      "en": "homemade",
+      "zh": "自製的"
+    },
+    "rinse": {
+      "en": "rinse",
+      "zh": "沖洗、清洗"
+    },
+    "container": {
+      "en": "container",
+      "zh": "容器"
+    },
+    "specialty": {
+      "en": "specialty",
+      "zh": "專長、專業、特產"
+    },
+    "peel": {
+      "en": "peel",
+      "zh": "去皮、剝殼"
+    },
+    "cupboard": {
+      "en": "cupboard",
+      "zh": "碗櫥、櫥櫃"
+    },
+    "utensil": {
+      "en": "utensil",
+      "zh": "器具、用具"
+    },
+    "stove": {
+      "en": "stove",
+      "zh": "爐子"
+    },
+    "rack": {
+      "en": "rack",
+      "zh": "置物架"
+    },
+    "exotic": {
+      "en": "exotic",
+      "zh": "異國風味的"
+    },
+    "snack": {
+      "en": "snack",
+      "zh": "點心"
+    },
+    "dishwasher": {
+      "en": "dishwasher",
+      "zh": "洗碗機"
+    },
+    "ingredient": {
+      "en": "ingredient",
+      "zh": "食材、成分"
+    },
+    "organic": {
+      "en": "organic",
+      "zh": "有機的"
+    },
+    "chop": {
+      "en": "chop",
+      "zh": "切、砍、劈"
+    },
+    "grease": {
+      "en": "grease",
+      "zh": "油脂"
+    },
+    "delicacy": {
+      "en": "delicacy",
+      "zh": "佳餚、美食"
+    },
+    "sift": {
+      "en": "sift",
+      "zh": "篩、仔細檢查"
+    },
+    "fragrant": {
+      "en": "fragrant",
+      "zh": "芳香的"
+    },
+    "pot": {
+      "en": "pot",
+      "zh": "鍋子、壺、罐"
+    },
+    "condense": {
+      "en": "condense",
+      "zh": "濃縮、壓縮"
+    },
+    "squeeze": {
+      "en": "squeeze",
+      "zh": "擠壓、擰、捏"
+    },
+    "mix": {
+      "en": "mix",
+      "zh": "混合、結合"
+    },
+    "brew": {
+      "en": "brew",
+      "zh": "沖泡、釀"
+    }
+  },
+  "519-__EMPTY_16": {
+    "11 Weather 天氣": {
+      "en": "11 Weather 天氣",
+      "zh": ""
+    },
+    "thunderstorm": {
+      "en": "thunderstorm",
+      "zh": "雷雨"
+    },
+    "temperature": {
+      "en": "temperature",
+      "zh": "溫度"
+    },
+    "precipitation": {
+      "en": "precipitation",
+      "zh": "降雨"
+    },
+    "non-stop": {
+      "en": "non-stop",
+      "zh": "不停頓的;不間斷地"
+    },
+    "hurricane": {
+      "en": "hurricane",
+      "zh": "颶風"
+    },
+    "mild": {
+      "en": "mild",
+      "zh": "溫和的"
+    },
+    "subside": {
+      "en": "subside",
+      "zh": "平緩、平息"
+    },
+    "cloudy": {
+      "en": "cloudy",
+      "zh": "陰天的"
+    },
+    "hazard": {
+      "en": "hazard",
+      "zh": "危險"
+    },
+    "sunset": {
+      "en": "sunset",
+      "zh": "日落"
+    },
+    "forecast": {
+      "en": "forecast",
+      "zh": "預測、預報"
+    },
+    "hail": {
+      "en": "hail",
+      "zh": "冰雹"
+    },
+    "downpour": {
+      "en": "downpour",
+      "zh": "暴雨、傾盆大雨"
+    },
+    "chilly": {
+      "en": "chilly",
+      "zh": "寒冷的"
+    },
+    "intermittent": {
+      "en": "intermittent",
+      "zh": "間歇的、斷斷續續的"
+    },
+    "splash": {
+      "en": "splash",
+      "zh": "潑濺"
+    },
+    "humid": {
+      "en": "humid",
+      "zh": "潮濕的"
+    },
+    "dense": {
+      "en": "dense",
+      "zh": "濃密的、稠密的"
+    },
+    "torrential": {
+      "en": "torrential",
+      "zh": "傾瀉的"
+    },
+    "endless": {
+      "en": "endless",
+      "zh": "無止盡的"
+    },
+    "disaster": {
+      "en": "disaster",
+      "zh": "災難"
+    },
+    "shower": {
+      "en": "shower",
+      "zh": "陣雨、淋浴、沖澡"
+    },
+    "gradual": {
+      "en": "gradual",
+      "zh": "逐漸的、逐步的"
+    },
+    "drought": {
+      "en": "drought",
+      "zh": "旱災、乾旱"
+    },
+    "shadow": {
+      "en": "shadow",
+      "zh": "影子"
+    },
+    "drench": {
+      "en": "drench",
+      "zh": "使...濕透"
+    },
+    "dehydration": {
+      "en": "dehydration",
+      "zh": "脫水"
+    },
+    "freezing": {
+      "en": "freezing",
+      "zh": "極冷的"
+    },
+    "drastic": {
+      "en": "drastic",
+      "zh": "猛然的、激烈的"
+    },
+    "flood": {
+      "en": "flood",
+      "zh": "洪水、淹水；淹沒"
+    }
+  },
+  "519-__EMPTY_18": {
+    "12 General Travel 一般旅遊": {
+      "en": "12 General Travel 一般旅遊",
+      "zh": ""
+    },
+    "memorable": {
+      "en": "memorable",
+      "zh": "值得紀念的、難忘的"
+    },
+    "landmark": {
+      "en": "landmark",
+      "zh": "地標"
+    },
+    "stroll": {
+      "en": "stroll",
+      "zh": "漫步、散步"
+    },
+    "countryside": {
+      "en": "countryside",
+      "zh": "鄉村、鄉下"
+    },
+    "route": {
+      "en": "route",
+      "zh": "路線"
+    },
+    "jet lag": {
+      "en": "jet lag",
+      "zh": "時差"
+    },
+    "detour": {
+      "en": "detour",
+      "zh": "繞行、繞路"
+    },
+    "sightseeing": {
+      "en": "sightseeing",
+      "zh": "觀光、遊覽"
+    },
+    "overseas": {
+      "en": "overseas",
+      "zh": "在海外、在國外"
+    },
+    "cruise": {
+      "en": "cruise",
+      "zh": "乘船遊覽"
+    },
+    "journey": {
+      "en": "journey",
+      "zh": "旅行"
+    },
+    "lodging": {
+      "en": "lodging",
+      "zh": "住宿、住處"
+    },
+    "agent": {
+      "en": "agent",
+      "zh": "代辦人、代理人"
+    },
+    "excursion": {
+      "en": "excursion",
+      "zh": "遠足"
+    },
+    "group rate": {
+      "en": "group rate",
+      "zh": "團體價"
+    },
+    "resort": {
+      "en": "resort",
+      "zh": "旅遊勝地、度假村"
+    },
+    "pack": {
+      "en": "pack",
+      "zh": "小包、一套；打包、收拾"
+    },
+    "itinerary": {
+      "en": "itinerary",
+      "zh": "旅遊行程"
+    },
+    "distance": {
+      "en": "distance",
+      "zh": "距離"
+    },
+    "border": {
+      "en": "border",
+      "zh": "邊界"
+    },
+    "proximity": {
+      "en": "proximity",
+      "zh": "接近、鄰近"
+    },
+    "must-see": {
+      "en": "must-see",
+      "zh": "非看不可的事物"
+    },
+    "embark": {
+      "en": "embark",
+      "zh": "上船、上機、上車"
+    },
+    "luggage/baggage": {
+      "en": "luggage/baggage",
+      "zh": "行李"
+    },
+    "en route": {
+      "en": "en route",
+      "zh": "在途中、在路上"
+    },
+    "property": {
+      "en": "property",
+      "zh": "財產、所有物、房產"
+    },
+    "halfway": {
+      "en": "halfway",
+      "zh": "半途的、途中的"
+    },
+    "escort": {
+      "en": "escort",
+      "zh": "護送、結伴同行"
+    },
+    "deck": {
+      "en": "deck",
+      "zh": "甲板"
+    },
+    "bypass": {
+      "en": "bypass",
+      "zh": "繞過、繞道"
+    }
+  },
+  "519-5/23": {
+    "13 Traffic 交通": {
+      "en": "13 Traffic 交通",
+      "zh": ""
+    },
+    "transit": {
+      "en": "transit",
+      "zh": "運輸、輸送"
+    },
+    "lane": {
+      "en": "lane",
+      "zh": "巷子、車道"
+    },
+    "suburb": {
+      "en": "suburb",
+      "zh": "郊區、近郊"
+    },
+    "nearby": {
+      "en": "nearby",
+      "zh": "附近"
+    },
+    "pedestrian": {
+      "en": "pedestrian",
+      "zh": "行人"
+    },
+    "downtown": {
+      "en": "downtown",
+      "zh": "市區、市中心"
+    },
+    "intersection": {
+      "en": "intersection",
+      "zh": "十字路口"
+    },
+    "path": {
+      "en": "path",
+      "zh": "人形小徑"
+    },
+    "sidewalk": {
+      "en": "sidewalk",
+      "zh": "人行道"
+    },
+    "highway": {
+      "en": "highway",
+      "zh": "公路"
+    },
+    "curb": {
+      "en": "curb",
+      "zh": "路緣；約束、抑制"
+    },
+    "subway": {
+      "en": "subway",
+      "zh": "地鐵"
+    },
+    "rush hour": {
+      "en": "rush hour",
+      "zh": "尖峰時段"
+    },
+    "crosswalk": {
+      "en": "crosswalk",
+      "zh": "斑馬線"
+    },
+    "aviation": {
+      "en": "aviation",
+      "zh": "航空"
+    },
+    "commute": {
+      "en": "commute",
+      "zh": "通勤"
+    },
+    "shelter": {
+      "en": "shelter",
+      "zh": "遮蔽處、避難所、收容所"
+    },
+    "pavement": {
+      "en": "pavement",
+      "zh": "人行道"
+    },
+    "driveway": {
+      "en": "driveway",
+      "zh": "私人車道"
+    },
+    "sail": {
+      "en": "sail",
+      "zh": "航行"
+    },
+    "urban": {
+      "en": "urban",
+      "zh": "城市的"
+    },
+    "congestion": {
+      "en": "congestion",
+      "zh": "堵塞、壅塞"
+    },
+    "transport": {
+      "en": "transport",
+      "zh": "運輸、運送；交通工具"
+    },
+    "ramp": {
+      "en": "ramp",
+      "zh": "坡道、匝道"
+    },
+    "curve": {
+      "en": "curve",
+      "zh": "曲線、弧線；轉彎處"
+    },
+    "outskirts": {
+      "en": "outskirts",
+      "zh": "市郊、郊區"
+    },
+    "incline": {
+      "en": "incline",
+      "zh": "傾斜、斜坡"
+    },
+    "conjunction": {
+      "en": "conjunction",
+      "zh": "結合、連接"
+    },
+    "slope": {
+      "en": "slope",
+      "zh": "斜坡、坡道"
+    },
+    "off-peak": {
+      "en": "off-peak",
+      "zh": "離峰的"
+    }
+  },
+  "519-__EMPTY_21": {
+    "14 Transportation 交通工具": {
+      "en": "14 Transportation 交通工具",
+      "zh": ""
+    },
+    "board": {
+      "en": "board",
+      "zh": "上車、上機、上船"
+    },
+    "load": {
+      "en": "load",
+      "zh": "負荷、載重、裝載"
+    },
+    "convey": {
+      "en": "convey",
+      "zh": "傳達、運送"
+    },
+    "shore": {
+      "en": "shore",
+      "zh": "岸邊"
+    },
+    "garage": {
+      "en": "garage",
+      "zh": "車庫、修車廠"
+    },
+    "aboard": {
+      "en": "aboard",
+      "zh": "在船上、機上、車上"
+    },
+    "voyage": {
+      "en": "voyage",
+      "zh": "航行、航程、旅途"
+    },
+    "cab": {
+      "en": "cab",
+      "zh": "計程車"
+    },
+    "automobile": {
+      "en": "automobile",
+      "zh": "汽車"
+    },
+    "park": {
+      "en": "park",
+      "zh": "停放；公園"
+    },
+    "limousine": {
+      "en": "limousine",
+      "zh": "禮車、豪華轎車"
+    },
+    "buckle up": {
+      "en": "buckle up",
+      "zh": "扣上、扣緊"
+    },
+    "disembark": {
+      "en": "disembark",
+      "zh": "下車、下船、下機"
+    },
+    "fuel": {
+      "en": "fuel",
+      "zh": "燃料"
+    },
+    "public transport": {
+      "en": "public transport",
+      "zh": "大眾運輸"
+    },
+    "ferry": {
+      "en": "ferry",
+      "zh": "渡輪"
+    },
+    "collide": {
+      "en": "collide",
+      "zh": "撞擊、碰撞"
+    },
+    "vehicle": {
+      "en": "vehicle",
+      "zh": "車輛、汽車"
+    },
+    "stationary": {
+      "en": "stationary",
+      "zh": "靜止不動的"
+    },
+    "bound": {
+      "en": "bound",
+      "zh": "開往...的、前往...的"
+    },
+    "shuttle bus": {
+      "en": "shuttle bus",
+      "zh": "接駁車"
+    },
+    "charter": {
+      "en": "charter",
+      "zh": "(交通工具)包租"
+    },
+    "pollution": {
+      "en": "pollution",
+      "zh": "汙染"
+    },
+    "dock": {
+      "en": "dock",
+      "zh": "碼頭；靠岸"
+    },
+    "steering wheel": {
+      "en": "steering wheel",
+      "zh": "方向盤"
+    },
+    "via": {
+      "en": "via",
+      "zh": "經由、透過"
+    },
+    "cyclist": {
+      "en": "cyclist",
+      "zh": "單車騎士"
+    },
+    "navigate": {
+      "en": "navigate",
+      "zh": "航行、導航"
+    },
+    "harbor": {
+      "en": "harbor",
+      "zh": "港口"
+    },
+    "divert": {
+      "en": "divert",
+      "zh": "轉向、轉移"
+    }
+  },
+  "519-__EMPTY_23": {
+    "15 Car Rental 車輛租賃": {
+      "en": "15 Car Rental 車輛租賃",
+      "zh": ""
+    },
+    "dependable": {
+      "en": "dependable",
+      "zh": "可靠的、靠得住的"
+    },
+    "tire": {
+      "en": "tire",
+      "zh": "輪胎；使...疲累"
+    },
+    "windshield": {
+      "en": "windshield",
+      "zh": "擋風玻璃"
+    },
+    "scratch": {
+      "en": "scratch",
+      "zh": "抓傷、刮傷、劃傷"
+    },
+    "recondition": {
+      "en": "recondition",
+      "zh": "整修、修復"
+    },
+    "lock": {
+      "en": "lock",
+      "zh": "鎖、鎖上"
+    },
+    "compact": {
+      "en": "compact",
+      "zh": "小巧的、緊實的"
+    },
+    "advantage": {
+      "en": "advantage",
+      "zh": "優點、優勢、好處"
+    },
+    "headlight": {
+      "en": "headlight",
+      "zh": "頭燈、大燈"
+    },
+    "jeopardy": {
+      "en": "jeopardy",
+      "zh": "危險"
+    },
+    "extra": {
+      "en": "extra",
+      "zh": "額外的、附加的"
+    },
+    "convertible": {
+      "en": "convertible",
+      "zh": "敞篷車"
+    },
+    "tank": {
+      "en": "tank",
+      "zh": "油箱、水缸"
+    },
+    "optional": {
+      "en": "optional",
+      "zh": "可選擇的、非強制的"
+    },
+    "drive": {
+      "en": "drive",
+      "zh": "駕駛、迫使、驅趕"
+    },
+    "license plate": {
+      "en": "license plate",
+      "zh": "車牌"
+    },
+    "nervous": {
+      "en": "nervous",
+      "zh": "緊張的"
+    },
+    "contact": {
+      "en": "contact",
+      "zh": "聯繫、接觸"
+    },
+    "tempt": {
+      "en": "tempt",
+      "zh": "引誘"
+    },
+    "rear": {
+      "en": "rear",
+      "zh": "後部、後面"
+    },
+    "polish": {
+      "en": "polish",
+      "zh": "擦亮、拋光"
+    },
+    "disappoint": {
+      "en": "disappoint",
+      "zh": "使...失望"
+    },
+    "trunk": {
+      "en": "trunk",
+      "zh": "後車箱、樹幹"
+    },
+    "leg room": {
+      "en": "leg room",
+      "zh": "腿部空間"
+    },
+    "confusion": {
+      "en": "confusion",
+      "zh": "困惑、不解、混淆"
+    },
+    "gasoline": {
+      "en": "gasoline",
+      "zh": "汽油"
+    },
+    "careful": {
+      "en": "careful",
+      "zh": "仔細的、小心的"
+    },
+    "intend": {
+      "en": "intend",
+      "zh": "想要、打算"
+    },
+    "license": {
+      "en": "license",
+      "zh": "執照、許可證；特許、許可"
+    },
+    "carpool": {
+      "en": "carpool",
+      "zh": "共乘"
+    }
+  },
+  "526-5/26": {
+    "16 Train 火車": {
+      "en": "16 Train 火車",
+      "zh": ""
+    },
+    "express": {
+      "en": "express",
+      "zh": "直達車、快遞"
+    },
+    "reach": {
+      "en": "reach",
+      "zh": "抵達、到達、伸手"
+    },
+    "punctual": {
+      "en": "punctual",
+      "zh": "準時的、守時的"
+    },
+    "local": {
+      "en": "local",
+      "zh": "當地的、本地的"
+    },
+    "approximately": {
+      "en": "approximately",
+      "zh": "大約、大概"
+    },
+    "unload": {
+      "en": "unload",
+      "zh": "卸貨、卸下"
+    },
+    "tunnel": {
+      "en": "tunnel",
+      "zh": "隧道"
+    },
+    "leave": {
+      "en": "leave",
+      "zh": "離開、出發"
+    },
+    "conductor": {
+      "en": "conductor",
+      "zh": "列車長、指揮家"
+    },
+    "gap": {
+      "en": "gap",
+      "zh": "間隙、缺口、裂口"
+    },
+    "transfer": {
+      "en": "transfer",
+      "zh": "調職、轉接、轉職、轉讓"
+    },
+    "fare": {
+      "en": "fare",
+      "zh": "車資"
+    },
+    "platform": {
+      "en": "platform",
+      "zh": "月台、平台"
+    },
+    "operate": {
+      "en": "operate",
+      "zh": "操作、運作"
+    },
+    "duration": {
+      "en": "duration",
+      "zh": "持續時間"
+    },
+    "overhead rack": {
+      "en": "overhead rack",
+      "zh": "頂上置物架"
+    },
+    "relatively": {
+      "en": "relatively",
+      "zh": "相對地"
+    },
+    "belongings": {
+      "en": "belongings",
+      "zh": "行李、財務"
+    },
+    "remainder": {
+      "en": "remainder",
+      "zh": "剩餘物、剩餘部分"
+    },
+    "passenger": {
+      "en": "passenger",
+      "zh": "乘客"
+    },
+    "directory": {
+      "en": "directory",
+      "zh": "指南、指引"
+    },
+    "remote": {
+      "en": "remote",
+      "zh": "遙遠的、偏遠的"
+    },
+    "carriage": {
+      "en": "carriage",
+      "zh": "車廂"
+    },
+    "ridership": {
+      "en": "ridership",
+      "zh": "載客量、乘客量"
+    },
+    "intercom": {
+      "en": "intercom",
+      "zh": "對講機"
+    },
+    "rocky": {
+      "en": "rocky",
+      "zh": "不穩定的、搖搖晃晃的"
+    },
+    "concourse": {
+      "en": "concourse",
+      "zh": "車站大廳、機場大廳"
+    },
+    "round trip": {
+      "en": "round trip",
+      "zh": "往返旅程"
+    },
+    "timetable": {
+      "en": "timetable",
+      "zh": "時刻表"
+    },
+    "offset": {
+      "en": "offset",
+      "zh": "抵銷、彌補"
+    }
+  },
+  "526-__EMPTY_1": {
+    "17 Airport 機場": {
+      "en": "17 Airport 機場",
+      "zh": ""
+    },
+    "depart": {
+      "en": "depart",
+      "zh": "離開、啟程"
+    },
+    "connecting flight": {
+      "en": "connecting flight",
+      "zh": "轉機"
+    },
+    "lounge": {
+      "en": "lounge",
+      "zh": "休息室、等候室"
+    },
+    "visa": {
+      "en": "visa",
+      "zh": "簽證"
+    },
+    "terminal": {
+      "en": "terminal",
+      "zh": "航廈"
+    },
+    "locker": {
+      "en": "locker",
+      "zh": "置物櫃"
+    },
+    "duty-free": {
+      "en": "duty-free",
+      "zh": "免稅的"
+    },
+    "aisle": {
+      "en": "aisle",
+      "zh": "走道、通道"
+    },
+    "scale": {
+      "en": "scale",
+      "zh": "磅秤、比例、規模"
+    },
+    "foreign": {
+      "en": "foreign",
+      "zh": "外國的"
+    },
+    "ground crew": {
+      "en": "ground crew",
+      "zh": "地勤人員"
+    },
+    "exit": {
+      "en": "exit",
+      "zh": "出口；離開、出去"
+    },
+    "destination": {
+      "en": "destination",
+      "zh": "目的地"
+    },
+    "taxi stand": {
+      "en": "taxi stand",
+      "zh": "計程車招呼站"
+    },
+    "carousel": {
+      "en": "carousel",
+      "zh": "行李轉盤、旋轉木馬"
+    },
+    "gate": {
+      "en": "gate",
+      "zh": "登機門、閘門"
+    },
+    "overweight": {
+      "en": "overweight",
+      "zh": "超重的、過重的"
+    },
+    "flight ticket": {
+      "en": "flight ticket",
+      "zh": "機票"
+    },
+    "customs": {
+      "en": "customs",
+      "zh": "海關"
+    },
+    "book": {
+      "en": "book",
+      "zh": "預定、預約"
+    },
+    "fee": {
+      "en": "fee",
+      "zh": "費用"
+    },
+    "delay": {
+      "en": "delay",
+      "zh": "延遲、延誤"
+    },
+    "runway": {
+      "en": "runway",
+      "zh": "飛機跑道"
+    },
+    "first class": {
+      "en": "first class",
+      "zh": "頭等艙"
+    },
+    "passport": {
+      "en": "passport",
+      "zh": "護照"
+    },
+    "arrive": {
+      "en": "arrive",
+      "zh": "抵達"
+    },
+    "lost and found": {
+      "en": "lost and found",
+      "zh": "失物招領"
+    },
+    "crash": {
+      "en": "crash",
+      "zh": "撞擊、事故"
+    },
+    "weight limit": {
+      "en": "weight limit",
+      "zh": "限重"
+    },
+    "carrier": {
+      "en": "carrier",
+      "zh": "航空公司、運送人"
+    }
+  },
+  "526-__EMPTY_3": {
+    "18 Airplane 飛機": {
+      "en": "18 Airplane 飛機",
+      "zh": ""
+    },
+    "boarding pass": {
+      "en": "boarding pass",
+      "zh": "登機證"
+    },
+    "safety": {
+      "en": "safety",
+      "zh": "安全"
+    },
+    "fasten": {
+      "en": "fasten",
+      "zh": "繫緊"
+    },
+    "inconvenience": {
+      "en": "inconvenience",
+      "zh": "麻煩、不便"
+    },
+    "cockpit": {
+      "en": "cockpit",
+      "zh": "駕駛艙"
+    },
+    "service": {
+      "en": "service",
+      "zh": "服務"
+    },
+    "turbulence": {
+      "en": "turbulence",
+      "zh": "亂流、動盪、混亂"
+    },
+    "land": {
+      "en": "land",
+      "zh": "降落；土地、地面"
+    },
+    "carry-on": {
+      "en": "carry-on",
+      "zh": "登機行李、隨身行李"
+    },
+    "blanket": {
+      "en": "blanket",
+      "zh": "毛毯"
+    },
+    "take off": {
+      "en": "take off",
+      "zh": "起飛"
+    },
+    "in-flight": {
+      "en": "in-flight",
+      "zh": "飛行途中的"
+    },
+    "compartment": {
+      "en": "compartment",
+      "zh": "隔層、隔間"
+    },
+    "tag": {
+      "en": "tag",
+      "zh": "標籤、吊牌"
+    },
+    "ahead of": {
+      "en": "ahead of",
+      "zh": "在...之前"
+    },
+    "stow": {
+      "en": "stow",
+      "zh": "儲放"
+    },
+    "crew": {
+      "en": "crew",
+      "zh": "全體人員"
+    },
+    "airsickness": {
+      "en": "airsickness",
+      "zh": "暈機"
+    },
+    "propel": {
+      "en": "propel",
+      "zh": "推進、推動"
+    },
+    "check in": {
+      "en": "check in",
+      "zh": "登記入住、托運、報到"
+    },
+    "frighten": {
+      "en": "frighten",
+      "zh": "使...害怕、使...驚恐"
+    },
+    "purser": {
+      "en": "purser",
+      "zh": "座艙長、乘務長"
+    },
+    "airfare": {
+      "en": "airfare",
+      "zh": "飛機票價"
+    },
+    "cabin": {
+      "en": "cabin",
+      "zh": "機艙"
+    },
+    "altitude": {
+      "en": "altitude",
+      "zh": "海拔高度"
+    },
+    "flight attendant": {
+      "en": "flight attendant",
+      "zh": "空服員"
+    },
+    "aircraft": {
+      "en": "aircraft",
+      "zh": "飛機"
+    },
+    "wing": {
+      "en": "wing",
+      "zh": "翅膀、機翼"
+    },
+    "aisle seat": {
+      "en": "aisle seat",
+      "zh": "走道座位"
+    },
+    "declaration form": {
+      "en": "declaration form",
+      "zh": "申報單"
+    }
+  },
+  "526-5/27": {
+    "19 Customs 海關": {
+      "en": "19 Customs 海關",
+      "zh": ""
+    },
+    "inspection": {
+      "en": "inspection",
+      "zh": "檢查"
+    },
+    "guard": {
+      "en": "guard",
+      "zh": "警衛、守衛；看守"
+    },
+    "prohibit": {
+      "en": "prohibit",
+      "zh": "禁止"
+    },
+    "wonder": {
+      "en": "wonder",
+      "zh": "想知道、疑惑"
+    },
+    "doubtful": {
+      "en": "doubtful",
+      "zh": "懷疑的、有疑慮的"
+    },
+    "suitcase": {
+      "en": "suitcase",
+      "zh": "行李箱"
+    },
+    "possession": {
+      "en": "possession",
+      "zh": "個人物品、所有物"
+    },
+    "liquid": {
+      "en": "liquid",
+      "zh": "液體、液態的"
+    },
+    "detector": {
+      "en": "detector",
+      "zh": "探測器"
+    },
+    "obvious": {
+      "en": "obvious",
+      "zh": "顯然的、明顯的"
+    },
+    "flammable": {
+      "en": "flammable",
+      "zh": "易燃的、可燃的"
+    },
+    "X-ray": {
+      "en": "X-ray",
+      "zh": "X光"
+    },
+    "precaution": {
+      "en": "precaution",
+      "zh": "預防措施"
+    },
+    "empty": {
+      "en": "empty",
+      "zh": "空的；清空"
+    },
+    "immigration": {
+      "en": "immigration",
+      "zh": "移民(入境)"
+    },
+    "find out": {
+      "en": "find out",
+      "zh": "發現、得知"
+    },
+    "deter": {
+      "en": "deter",
+      "zh": "阻饒、威嚇"
+    },
+    "freight": {
+      "en": "freight",
+      "zh": "貨物、貨運"
+    },
+    "punish": {
+      "en": "punish",
+      "zh": "懲罰"
+    },
+    "declaration": {
+      "en": "declaration",
+      "zh": "申報"
+    },
+    "security": {
+      "en": "security",
+      "zh": "安全"
+    },
+    "time-consuming": {
+      "en": "time-consuming",
+      "zh": "耗費時間的"
+    },
+    "panic": {
+      "en": "panic",
+      "zh": "驚慌、恐慌"
+    },
+    "belong to": {
+      "en": "belong to",
+      "zh": "屬於"
+    },
+    "smuggle": {
+      "en": "smuggle",
+      "zh": "走私"
+    },
+    "nationality": {
+      "en": "nationality",
+      "zh": "國籍"
+    },
+    "fake": {
+      "en": "fake",
+      "zh": "假的；贗品"
+    },
+    "ritual": {
+      "en": "ritual",
+      "zh": "慣例、例行公事"
+    },
+    "pass": {
+      "en": "pass",
+      "zh": "通過、批准"
+    },
+    "confiscate": {
+      "en": "confiscate",
+      "zh": "沒收"
+    }
+  },
+  "526-__EMPTY_6": {
+    "20 Movie 電影": {
+      "en": "20 Movie 電影",
+      "zh": ""
+    },
+    "evacuate": {
+      "en": "evacuate",
+      "zh": "疏散、撤離"
+    },
+    "view": {
+      "en": "view",
+      "zh": "觀看;視野、看法"
+    },
+    "pleasant": {
+      "en": "pleasant",
+      "zh": "令人愉快的"
+    },
+    "film": {
+      "en": "film",
+      "zh": "拍攝；電影、影片"
+    },
+    "offend": {
+      "en": "offend",
+      "zh": "冒犯、得罪"
+    },
+    "box office": {
+      "en": "box office",
+      "zh": "售票數、票房"
+    },
+    "entertainment": {
+      "en": "entertainment",
+      "zh": "娛樂"
+    },
+    "showing": {
+      "en": "showing",
+      "zh": "放映、撥放、表現"
+    },
+    "release": {
+      "en": "release",
+      "zh": "發布、發行、釋放"
+    },
+    "cinema": {
+      "en": "cinema",
+      "zh": "電影院"
+    },
+    "influence": {
+      "en": "influence",
+      "zh": "影響"
+    },
+    "thrill": {
+      "en": "thrill",
+      "zh": "毛骨悚然"
+    },
+    "respective": {
+      "en": "respective",
+      "zh": "各自的、個別的"
+    },
+    "combine": {
+      "en": "combine",
+      "zh": "組合、結合、合併"
+    },
+    "appealing": {
+      "en": "appealing",
+      "zh": "有吸引力的、令人感興趣的"
+    },
+    "leading-edge": {
+      "en": "leading-edge",
+      "zh": "尖端的、先進的"
+    },
+    "representation": {
+      "en": "representation",
+      "zh": "代表"
+    },
+    "cast": {
+      "en": "cast",
+      "zh": "演員陣容、卡司、石膏"
+    },
+    "integration": {
+      "en": "integration",
+      "zh": "整合"
+    },
+    "series": {
+      "en": "series",
+      "zh": "系列"
+    },
+    "premiere": {
+      "en": "premiere",
+      "zh": "首映、首演"
+    },
+    "attainment": {
+      "en": "attainment",
+      "zh": "獲得、達到、成就"
+    },
+    "range": {
+      "en": "range",
+      "zh": "範圍"
+    },
+    "separately": {
+      "en": "separately",
+      "zh": "各自、分別"
+    },
+    "outlook": {
+      "en": "outlook",
+      "zh": "看法、觀點"
+    },
+    "successive": {
+      "en": "successive",
+      "zh": "連續的"
+    },
+    "poor": {
+      "en": "poor",
+      "zh": "糟糕的、貧窮的"
+    },
+    "finale": {
+      "en": "finale",
+      "zh": "結局"
+    },
+    "captivate": {
+      "en": "captivate",
+      "zh": "使...著迷"
+    },
+    "sequel": {
+      "en": "sequel",
+      "zh": "續集、續篇"
+    }
+  },
+  "526-__EMPTY_8": {
+    "21 Theater 劇場": {
+      "en": "21 Theater 劇場",
+      "zh": ""
+    },
+    "dialogue": {
+      "en": "dialogue",
+      "zh": "對白"
+    },
+    "usher": {
+      "en": "usher",
+      "zh": "帶位員、引座員"
+    },
+    "out-of-date": {
+      "en": "out-of-date",
+      "zh": "過時的、陳舊的"
+    },
+    "element": {
+      "en": "element",
+      "zh": "要素、元素"
+    },
+    "play": {
+      "en": "play",
+      "zh": "戲劇、劇本"
+    },
+    "sell out": {
+      "en": "sell out",
+      "zh": "賣光、售完"
+    },
+    "rehearse": {
+      "en": "rehearse",
+      "zh": "彩排、預演"
+    },
+    "creative": {
+      "en": "creative",
+      "zh": "有創意的"
+    },
+    "applaud": {
+      "en": "applaud",
+      "zh": "讚賞、鼓掌歡呼"
+    },
+    "perform": {
+      "en": "perform",
+      "zh": "演出、表演、表現"
+    },
+    "improvise": {
+      "en": "improvise",
+      "zh": "即興"
+    },
+    "audience": {
+      "en": "audience",
+      "zh": "觀眾"
+    },
+    "prestigious": {
+      "en": "prestigious",
+      "zh": "有聲望的、享譽盛名的"
+    },
+    "occur": {
+      "en": "occur",
+      "zh": "發生"
+    },
+    "auditorium": {
+      "en": "auditorium",
+      "zh": "觀眾席、禮堂"
+    },
+    "playwright": {
+      "en": "playwright",
+      "zh": "劇作家"
+    },
+    "dramatic": {
+      "en": "dramatic",
+      "zh": "戲劇的、戲劇化的、劇烈的"
+    },
+    "booklet": {
+      "en": "booklet",
+      "zh": "小冊子"
+    },
+    "splendid": {
+      "en": "splendid",
+      "zh": "壯麗的、壯觀的"
+    },
+    "crowded": {
+      "en": "crowded",
+      "zh": "壅擠的"
+    },
+    "approach": {
+      "en": "approach",
+      "zh": "方法;接近"
+    },
+    "stage": {
+      "en": "stage",
+      "zh": "舞台、階段"
+    },
+    "review": {
+      "en": "review",
+      "zh": "評論、評價、檢視"
+    },
+    "talented": {
+      "en": "talented",
+      "zh": "有天賦的、有才能的"
+    },
+    "costume": {
+      "en": "costume",
+      "zh": "服裝"
+    },
+    "surprising": {
+      "en": "surprising",
+      "zh": "驚人的"
+    },
+    "ascend": {
+      "en": "ascend",
+      "zh": "上升、攀登"
+    },
+    "stunt": {
+      "en": "stunt",
+      "zh": "絕技、特技"
+    },
+    "rave review": {
+      "en": "rave review",
+      "zh": "佳評如潮"
+    },
+    "cloakroom": {
+      "en": "cloakroom",
+      "zh": "衣帽間"
+    }
+  },
+  "526-5/28": {
+    "22 Music 音樂": {
+      "en": "22 Music 音樂",
+      "zh": ""
+    },
+    "divide": {
+      "en": "divide",
+      "zh": "分開、劃分、隔開"
+    },
+    "leisure": {
+      "en": "leisure",
+      "zh": "空閒、休閒"
+    },
+    "preference": {
+      "en": "preference",
+      "zh": "偏好、喜好"
+    },
+    "clap": {
+      "en": "clap",
+      "zh": "拍手"
+    },
+    "renowned": {
+      "en": "renowned",
+      "zh": "著名的、有名的"
+    },
+    "buzz": {
+      "en": "buzz",
+      "zh": "嗡嗡聲"
+    },
+    "enthusiasm": {
+      "en": "enthusiasm",
+      "zh": "熱誠、熱情"
+    },
+    "choice": {
+      "en": "choice",
+      "zh": "選擇"
+    },
+    "praise": {
+      "en": "praise",
+      "zh": "讚揚、表揚"
+    },
+    "taste": {
+      "en": "taste",
+      "zh": "品味；品嘗"
+    },
+    "boast": {
+      "en": "boast",
+      "zh": "誇耀、吹噓、自豪"
+    },
+    "urge": {
+      "en": "urge",
+      "zh": "呼籲"
+    },
+    "stand for": {
+      "en": "stand for",
+      "zh": "代表"
+    },
+    "dislike": {
+      "en": "dislike",
+      "zh": "不喜歡、厭惡"
+    },
+    "appeal to": {
+      "en": "appeal to",
+      "zh": "對...有吸引力"
+    },
+    "favor": {
+      "en": "favor",
+      "zh": "偏好、愛好"
+    },
+    "specialize": {
+      "en": "specialize",
+      "zh": "專攻、專門從事"
+    },
+    "delighted": {
+      "en": "delighted",
+      "zh": "高興的、快樂的"
+    },
+    "remarkable": {
+      "en": "remarkable",
+      "zh": "出色的、卓越的"
+    },
+    "concert": {
+      "en": "concert",
+      "zh": "音樂會、演唱會"
+    },
+    "instinct": {
+      "en": "instinct",
+      "zh": "本能、直覺"
+    },
+    "relaxation": {
+      "en": "relaxation",
+      "zh": "放鬆"
+    },
+    "choir": {
+      "en": "choir",
+      "zh": "合唱團"
+    },
+    "instrument": {
+      "en": "instrument",
+      "zh": "樂器"
+    },
+    "significant": {
+      "en": "significant",
+      "zh": "重要的、顯著的"
+    },
+    "composer": {
+      "en": "composer",
+      "zh": "作曲家"
+    },
+    "reason": {
+      "en": "reason",
+      "zh": "原因、理由；推斷"
+    },
+    "category": {
+      "en": "category",
+      "zh": "種類、類型"
+    },
+    "symphony": {
+      "en": "symphony",
+      "zh": "交響樂"
+    },
+    "disparate": {
+      "en": "disparate",
+      "zh": "截然不同的"
+    }
+  },
+  "526-__EMPTY_11": {
+    "23 Museum 博物館": {
+      "en": "23 Museum 博物館",
+      "zh": ""
+    },
+    "collection": {
+      "en": "collection",
+      "zh": "收藏品"
+    },
+    "artistic": {
+      "en": "artistic",
+      "zh": "藝術的、唯美的"
+    },
+    "imaginable": {
+      "en": "imaginable",
+      "zh": "想像得到的"
+    },
+    "vague": {
+      "en": "vague",
+      "zh": "模糊的"
+    },
+    "exhibit": {
+      "en": "exhibit",
+      "zh": "展品；展覽"
+    },
+    "focus": {
+      "en": "focus",
+      "zh": "聚焦"
+    },
+    "accompany": {
+      "en": "accompany",
+      "zh": "陪同、伴隨"
+    },
+    "vivid": {
+      "en": "vivid",
+      "zh": "生動的、栩栩如生的"
+    },
+    "sculpture": {
+      "en": "sculpture",
+      "zh": "雕塑"
+    },
+    "admission": {
+      "en": "admission",
+      "zh": "入場費、門票"
+    },
+    "private": {
+      "en": "private",
+      "zh": "私人的"
+    },
+    "heritage": {
+      "en": "heritage",
+      "zh": "遺產"
+    },
+    "gallery": {
+      "en": "gallery",
+      "zh": "畫廊"
+    },
+    "paint": {
+      "en": "paint",
+      "zh": "繪畫；顏料、油漆"
+    },
+    "spectrum": {
+      "en": "spectrum",
+      "zh": "範圍、系列、光譜"
+    },
+    "abstract": {
+      "en": "abstract",
+      "zh": "抽象的"
+    },
+    "souvenir": {
+      "en": "souvenir",
+      "zh": "紀念品"
+    },
+    "retrospective": {
+      "en": "retrospective",
+      "zh": "回顧的"
+    },
+    "chronological": {
+      "en": "chronological",
+      "zh": "依時間排序的"
+    },
+    "reproduction": {
+      "en": "reproduction",
+      "zh": "複製品、復刻品"
+    },
+    "artificial": {
+      "en": "artificial",
+      "zh": "人造的、人工的"
+    },
+    "historic": {
+      "en": "historic",
+      "zh": "歷史上的、有歷史意義的"
+    },
+    "commemorate": {
+      "en": "commemorate",
+      "zh": "紀念、緬懷"
+    },
+    "admire": {
+      "en": "admire",
+      "zh": "欽佩、欣賞"
+    },
+    "refrain": {
+      "en": "refrain",
+      "zh": "忍住、克制"
+    },
+    "antique": {
+      "en": "antique",
+      "zh": "骨董"
+    },
+    "contemporary": {
+      "en": "contemporary",
+      "zh": "當代的、現代的"
+    },
+    "genuine": {
+      "en": "genuine",
+      "zh": "真正的"
+    },
+    "criticize": {
+      "en": "criticize",
+      "zh": "批評、評論"
+    },
+    "ambience": {
+      "en": "ambience",
+      "zh": "情調、氛圍"
+    }
+  },
+  "526-__EMPTY_13": {
+    "24 Hotel 飯店": {
+      "en": "24 Hotel 飯店",
+      "zh": ""
+    },
+    "rate": {
+      "en": "rate",
+      "zh": "費用、比率、評價"
+    },
+    "check in": {
+      "en": "check in",
+      "zh": "登記入住、託運、報到"
+    },
+    "amenity": {
+      "en": "amenity",
+      "zh": "便利設施"
+    },
+    "drape / curtain": {
+      "en": "drape / curtain",
+      "zh": "窗簾"
+    },
+    "reception": {
+      "en": "reception",
+      "zh": "接待處、接待、接收"
+    },
+    "lobby": {
+      "en": "lobby",
+      "zh": "大廳"
+    },
+    "advanced": {
+      "en": "advanced",
+      "zh": "高級的、高階的、先進的"
+    },
+    "neat": {
+      "en": "neat",
+      "zh": "整潔的"
+    },
+    "luxurious": {
+      "en": "luxurious",
+      "zh": "奢侈的、豪華的"
+    },
+    "chain": {
+      "en": "chain",
+      "zh": "連鎖店、鍊條"
+    },
+    "reservation": {
+      "en": "reservation",
+      "zh": "預約、預定"
+    },
+    "heat": {
+      "en": "heat",
+      "zh": "熱、高溫；加熱"
+    },
+    "complimentary": {
+      "en": "complimentary",
+      "zh": "免費的"
+    },
+    "alarm": {
+      "en": "alarm",
+      "zh": "警報、鬧鐘"
+    },
+    "situated": {
+      "en": "situated",
+      "zh": "位於...的"
+    },
+    "corridor": {
+      "en": "corridor",
+      "zh": "走廊"
+    },
+    "accommodation": {
+      "en": "accommodation",
+      "zh": "住處"
+    },
+    "smoke detector": {
+      "en": "smoke detector",
+      "zh": "煙霧偵測器"
+    },
+    "errand": {
+      "en": "errand",
+      "zh": "跑腿、差事"
+    },
+    "confirm": {
+      "en": "confirm",
+      "zh": "確認、證實"
+    },
+    "housekeeper": {
+      "en": "housekeeper",
+      "zh": "飯店房務"
+    },
+    "floor": {
+      "en": "floor",
+      "zh": "樓層、地板"
+    },
+    "porter / bellboy": {
+      "en": "porter / bellboy",
+      "zh": "行李員"
+    },
+    "inn": {
+      "en": "inn",
+      "zh": "旅店"
+    },
+    "tourist": {
+      "en": "tourist",
+      "zh": "觀光客"
+    },
+    "extinguish": {
+      "en": "extinguish",
+      "zh": "熄滅、撲滅"
+    },
+    "vending machine": {
+      "en": "vending machine",
+      "zh": "販賣機"
+    },
+    "suite": {
+      "en": "suite",
+      "zh": "(飯店)套房"
+    },
+    "concierge": {
+      "en": "concierge",
+      "zh": "飯店門房、禮賓部"
+    },
+    "preclude": {
+      "en": "preclude",
+      "zh": "杜絕、阻止"
+    }
+  },
+  "526-5/29": {
+    "25 Renting & Leasing 租賃": {
+      "en": "25 Renting & Leasing 租賃",
+      "zh": ""
+    },
+    "tenant": {
+      "en": "tenant",
+      "zh": "租客、房客"
+    },
+    "lease": {
+      "en": "lease",
+      "zh": "租約"
+    },
+    "facilities": {
+      "en": "facilities",
+      "zh": "設施"
+    },
+    "neighborhood": {
+      "en": "neighborhood",
+      "zh": "鄰近地區"
+    },
+    "renovate": {
+      "en": "renovate",
+      "zh": "翻修、翻新"
+    },
+    "occupy": {
+      "en": "occupy",
+      "zh": "居住於、占用、佔據"
+    },
+    "deposit": {
+      "en": "deposit",
+      "zh": "押金、訂金；存錢、存款"
+    },
+    "quiet": {
+      "en": "quiet",
+      "zh": "安靜的"
+    },
+    "indicator": {
+      "en": "indicator",
+      "zh": "指標、指示器"
+    },
+    "relocate": {
+      "en": "relocate",
+      "zh": "(使)搬遷、搬家"
+    },
+    "metropolitan": {
+      "en": "metropolitan",
+      "zh": "大城市的、都會的"
+    },
+    "rental": {
+      "en": "rental",
+      "zh": "租賃、出租"
+    },
+    "furnishings": {
+      "en": "furnishings",
+      "zh": "室內陳設、家具"
+    },
+    "electricity": {
+      "en": "electricity",
+      "zh": "電"
+    },
+    "ornament": {
+      "en": "ornament",
+      "zh": "裝飾、點綴"
+    },
+    "janitor": {
+      "en": "janitor",
+      "zh": "工友、管理員"
+    },
+    "uninhabited": {
+      "en": "uninhabited",
+      "zh": "無人居住的、荒無人煙的"
+    },
+    "district": {
+      "en": "district",
+      "zh": "區域"
+    },
+    "appliance": {
+      "en": "appliance",
+      "zh": "家電"
+    },
+    "setting": {
+      "en": "setting",
+      "zh": "環境、設定、安裝"
+    },
+    "owner": {
+      "en": "owner",
+      "zh": "所有人"
+    },
+    "standard": {
+      "en": "standard",
+      "zh": "標準的"
+    },
+    "circumstance": {
+      "en": "circumstance",
+      "zh": "情況、情勢"
+    },
+    "overlook": {
+      "en": "overlook",
+      "zh": "眺望、俯瞰、忽略"
+    },
+    "utility": {
+      "en": "utility",
+      "zh": "水電瓦斯"
+    },
+    "community": {
+      "en": "community",
+      "zh": "社區、社群"
+    },
+    "fixture": {
+      "en": "fixture",
+      "zh": "固定家具、固定裝置"
+    },
+    "option": {
+      "en": "option",
+      "zh": "選擇"
+    },
+    "apprehensive": {
+      "en": "apprehensive",
+      "zh": "擔憂的、擔心的"
+    },
+    "landlord": {
+      "en": "landlord",
+      "zh": "房東"
+    }
+  },
+  "526-__EMPTY_16": {
+    "26 Housing 居家住宅": {
+      "en": "26 Housing 居家住宅",
+      "zh": ""
+    },
+    "surround": {
+      "en": "surround",
+      "zh": "圍繞、包圍"
+    },
+    "drain": {
+      "en": "drain",
+      "zh": "排水孔、下水道；排放、排乾"
+    },
+    "fence": {
+      "en": "fence",
+      "zh": "柵欄、圍籬"
+    },
+    "stair": {
+      "en": "stair",
+      "zh": "樓梯"
+    },
+    "conspicuous": {
+      "en": "conspicuous",
+      "zh": "明顯的、顯眼的"
+    },
+    "Iron": {
+      "en": "Iron",
+      "zh": "熨斗、鐵；燙衣服"
+    },
+    "refurbish": {
+      "en": "refurbish",
+      "zh": "翻修、整修"
+    },
+    "porch": {
+      "en": "porch",
+      "zh": "門廊"
+    },
+    "collapse": {
+      "en": "collapse",
+      "zh": "倒塌、倒下"
+    },
+    "roof": {
+      "en": "roof",
+      "zh": "屋頂"
+    },
+    "residence": {
+      "en": "residence",
+      "zh": "住宅；居住"
+    },
+    "flower bed": {
+      "en": "flower bed",
+      "zh": "花圃"
+    },
+    "dwelling": {
+      "en": "dwelling",
+      "zh": "房屋、住所、住處"
+    },
+    "hang": {
+      "en": "hang",
+      "zh": "懸掛"
+    },
+    "plumbing": {
+      "en": "plumbing",
+      "zh": "水路管線"
+    },
+    "dig": {
+      "en": "dig",
+      "zh": "挖掘"
+    },
+    "laundry": {
+      "en": "laundry",
+      "zh": "待洗衣物、洗衣店"
+    },
+    "external": {
+      "en": "external",
+      "zh": "外面的"
+    },
+    "shade": {
+      "en": "shade",
+      "zh": "拉簾、陰涼處"
+    },
+    "dump": {
+      "en": "dump",
+      "zh": "傾倒、丟棄"
+    },
+    "concrete": {
+      "en": "concrete",
+      "zh": "混凝土；具體的、確實的"
+    },
+    "blind": {
+      "en": "blind",
+      "zh": "百葉窗；眼盲的"
+    },
+    "hedge": {
+      "en": "hedge",
+      "zh": "樹籬"
+    },
+    "courtyard": {
+      "en": "courtyard",
+      "zh": "庭院"
+    },
+    "fireplace": {
+      "en": "fireplace",
+      "zh": "壁爐"
+    },
+    "down payment": {
+      "en": "down payment",
+      "zh": "頭期款、首付"
+    },
+    "ceiling": {
+      "en": "ceiling",
+      "zh": "天花板"
+    },
+    "awning": {
+      "en": "awning",
+      "zh": "遮雨棚"
+    },
+    "dust": {
+      "en": "dust",
+      "zh": "灰塵；擦去...的灰塵"
+    },
+    "household": {
+      "en": "household",
+      "zh": "家庭"
+    }
+  },
+  "526-__EMPTY_18": {
+    "27 Home Improvement 居家改造": {
+      "en": "27 Home Improvement 居家改造",
+      "zh": ""
+    },
+    "spectacular": {
+      "en": "spectacular",
+      "zh": "壯觀的"
+    },
+    "enlarge": {
+      "en": "enlarge",
+      "zh": "放大、擴大"
+    },
+    "assembly": {
+      "en": "assembly",
+      "zh": "組裝、集合、聚集"
+    },
+    "under construction": {
+      "en": "under construction",
+      "zh": "施工中"
+    },
+    "infrastructure": {
+      "en": "infrastructure",
+      "zh": "公共建設、基礎建設"
+    },
+    "rewire": {
+      "en": "rewire",
+      "zh": "重新佈線"
+    },
+    "decorate": {
+      "en": "decorate",
+      "zh": "裝飾、修飾"
+    },
+    "leak": {
+      "en": "leak",
+      "zh": "洩漏"
+    },
+    "scrutiny": {
+      "en": "scrutiny",
+      "zh": "仔細檢查"
+    },
+    "first-rate": {
+      "en": "first-rate",
+      "zh": "一流的"
+    },
+    "concentrate": {
+      "en": "concentrate",
+      "zh": "集中、聚集、專注"
+    },
+    "shovel": {
+      "en": "shovel",
+      "zh": "鏟子"
+    },
+    "landscape": {
+      "en": "landscape",
+      "zh": "風景、景觀美化、造景"
+    },
+    "ancient": {
+      "en": "ancient",
+      "zh": "古老的、老舊的"
+    },
+    "collaboration": {
+      "en": "collaboration",
+      "zh": "協力合作"
+    },
+    "skyscraper": {
+      "en": "skyscraper",
+      "zh": "摩天大樓"
+    },
+    "illuminate": {
+      "en": "illuminate",
+      "zh": "照亮、照明"
+    },
+    "construct": {
+      "en": "construct",
+      "zh": "建造、建築"
+    },
+    "adjacent": {
+      "en": "adjacent",
+      "zh": "相鄰的"
+    },
+    "corrosion": {
+      "en": "corrosion",
+      "zh": "腐蝕、侵蝕"
+    },
+    "remodel": {
+      "en": "remodel",
+      "zh": "改造、改建"
+    },
+    "complex": {
+      "en": "complex",
+      "zh": "複合建築；複雜的"
+    },
+    "alternative": {
+      "en": "alternative",
+      "zh": "其他選擇、替代方案"
+    },
+    "isolated": {
+      "en": "isolated",
+      "zh": "偏遠的、與世隔絕的"
+    },
+    "blueprint": {
+      "en": "blueprint",
+      "zh": "藍圖"
+    },
+    "disruption": {
+      "en": "disruption",
+      "zh": "擾亂、中斷"
+    },
+    "architecture": {
+      "en": "architecture",
+      "zh": "建築"
+    },
+    "rusty": {
+      "en": "rusty",
+      "zh": "生鏽的"
+    },
+    "convert": {
+      "en": "convert",
+      "zh": "改變、轉變"
+    },
+    "scaffolding": {
+      "en": "scaffolding",
+      "zh": "鷹架"
+    }
+  },
+  "526-5/30": {
+    "28 Environment 環境": {
+      "en": "28 Environment 環境",
+      "zh": ""
+    },
+    "emission": {
+      "en": "emission",
+      "zh": "排放、散發"
+    },
+    "coast": {
+      "en": "coast",
+      "zh": "海岸、沿海地區"
+    },
+    "botanical": {
+      "en": "botanical",
+      "zh": "植物的"
+    },
+    "rainforest": {
+      "en": "rainforest",
+      "zh": "雨林"
+    },
+    "timber": {
+      "en": "timber",
+      "zh": "木材"
+    },
+    "power outage": {
+      "en": "power outage",
+      "zh": "停電"
+    },
+    "landfill": {
+      "en": "landfill",
+      "zh": "垃圾場"
+    },
+    "desert": {
+      "en": "desert",
+      "zh": "沙漠"
+    },
+    "sewage": {
+      "en": "sewage",
+      "zh": "汙水"
+    },
+    "litter": {
+      "en": "litter",
+      "zh": "小塊垃圾；亂扔"
+    },
+    "eco-friendly": {
+      "en": "eco-friendly",
+      "zh": "環保的"
+    },
+    "conservation": {
+      "en": "conservation",
+      "zh": "節約、保護、保育"
+    },
+    "mineral": {
+      "en": "mineral",
+      "zh": "礦物"
+    },
+    "bush": {
+      "en": "bush",
+      "zh": "樹叢"
+    },
+    "petroleum": {
+      "en": "petroleum",
+      "zh": "石油"
+    },
+    "fountain": {
+      "en": "fountain",
+      "zh": "噴泉"
+    },
+    "endangered": {
+      "en": "endangered",
+      "zh": "瀕臨絕種的"
+    },
+    "cave": {
+      "en": "cave",
+      "zh": "洞穴"
+    },
+    "solar": {
+      "en": "solar",
+      "zh": "太陽的"
+    },
+    "geography": {
+      "en": "geography",
+      "zh": "地理學、地勢"
+    },
+    "field": {
+      "en": "field",
+      "zh": "田地、領域、球場"
+    },
+    "scenery": {
+      "en": "scenery",
+      "zh": "風景、景色"
+    },
+    "habitat": {
+      "en": "habitat",
+      "zh": "棲息地"
+    },
+    "extinction": {
+      "en": "extinction",
+      "zh": "滅絕、絕種"
+    },
+    "recycle": {
+      "en": "recycle",
+      "zh": "回收、再利用"
+    },
+    "aggravate": {
+      "en": "aggravate",
+      "zh": "惡化"
+    },
+    "purify": {
+      "en": "purify",
+      "zh": "淨化、使...純淨"
+    },
+    "devastate": {
+      "en": "devastate",
+      "zh": "摧毀、毀滅"
+    },
+    "cluster": {
+      "en": "cluster",
+      "zh": "一群、一束、一叢"
+    },
+    "greenhouse gas": {
+      "en": "greenhouse gas",
+      "zh": "溫室氣體"
+    }
+  },
+  "526-__EMPTY_21": {
+    "29 Agriculture 農業": {
+      "en": "29 Agriculture 農業",
+      "zh": ""
+    },
+    "contaminate": {
+      "en": "contaminate",
+      "zh": "汙染"
+    },
+    "seed": {
+      "en": "seed",
+      "zh": "種子；播種"
+    },
+    "enormous": {
+      "en": "enormous",
+      "zh": "巨大的"
+    },
+    "ground": {
+      "en": "ground",
+      "zh": "地面、土地"
+    },
+    "persist": {
+      "en": "persist",
+      "zh": "堅持、持續"
+    },
+    "dirt": {
+      "en": "dirt",
+      "zh": "塵土、泥土、髒汙"
+    },
+    "harvest": {
+      "en": "harvest",
+      "zh": "收穫、收割"
+    },
+    "environmental": {
+      "en": "environmental",
+      "zh": "環境的、環保的"
+    },
+    "destruction": {
+      "en": "destruction",
+      "zh": "毀滅、破壞"
+    },
+    "grain": {
+      "en": "grain",
+      "zh": "穀物、顆粒"
+    },
+    "fertile": {
+      "en": "fertile",
+      "zh": "肥沃的"
+    },
+    "increase": {
+      "en": "increase",
+      "zh": "增加、增長"
+    },
+    "cultivation": {
+      "en": "cultivation",
+      "zh": "耕種、栽培"
+    },
+    "grow": {
+      "en": "grow",
+      "zh": "成長、增長、種植"
+    },
+    "scarce": {
+      "en": "scarce",
+      "zh": "稀有的、稀缺的"
+    },
+    "produce": {
+      "en": "produce",
+      "zh": "農產品"
+    },
+    "agriculture": {
+      "en": "agriculture",
+      "zh": "農業"
+    },
+    "seasonal": {
+      "en": "seasonal",
+      "zh": "季節性的"
+    },
+    "indigenous": {
+      "en": "indigenous",
+      "zh": "本土的、土著的"
+    },
+    "plant": {
+      "en": "plant",
+      "zh": "種植；植物、工廠"
+    },
+    "overflow": {
+      "en": "overflow",
+      "zh": "溢出、氾濫"
+    },
+    "crop": {
+      "en": "crop",
+      "zh": "作物、莊稼"
+    },
+    "arable": {
+      "en": "arable",
+      "zh": "可耕作的"
+    },
+    "float": {
+      "en": "float",
+      "zh": "(使)漂浮"
+    },
+    "ample": {
+      "en": "ample",
+      "zh": "充足的、充裕的"
+    },
+    "tend": {
+      "en": "tend",
+      "zh": "照顧、照料"
+    },
+    "harmful": {
+      "en": "harmful",
+      "zh": "有害的"
+    },
+    "perspire": {
+      "en": "perspire",
+      "zh": "出汗、流汗"
+    },
+    "flock": {
+      "en": "flock",
+      "zh": "一群"
+    },
+    "irrigation": {
+      "en": "irrigation",
+      "zh": "灌溉"
+    }
+  },
+  "526-__EMPTY_23": {
+    "30 Job Advertising 招聘廣告": {
+      "en": "30 Job Advertising 招聘廣告",
+      "zh": ""
+    },
+    "qualification": {
+      "en": "qualification",
+      "zh": "資格"
+    },
+    "attire": {
+      "en": "attire",
+      "zh": "衣著、服裝"
+    },
+    "competitive": {
+      "en": "competitive",
+      "zh": "競爭的"
+    },
+    "match": {
+      "en": "match",
+      "zh": "相配、相稱"
+    },
+    "recruit": {
+      "en": "recruit",
+      "zh": "招募"
+    },
+    "seek": {
+      "en": "seek",
+      "zh": "尋找、尋求"
+    },
+    "credential": {
+      "en": "credential",
+      "zh": "憑證、證書"
+    },
+    "salary": {
+      "en": "salary",
+      "zh": "薪水"
+    },
+    "amateur": {
+      "en": "amateur",
+      "zh": "業餘愛好者；業餘的"
+    },
+    "require": {
+      "en": "require",
+      "zh": "需要"
+    },
+    "vacancy": {
+      "en": "vacancy",
+      "zh": "空缺"
+    },
+    "position": {
+      "en": "position",
+      "zh": "位置、職務"
+    },
+    "enthusiastic": {
+      "en": "enthusiastic",
+      "zh": "充滿熱誠的"
+    },
+    "duty": {
+      "en": "duty",
+      "zh": "責任、義務"
+    },
+    "candidate": {
+      "en": "candidate",
+      "zh": "候選人"
+    },
+    "full-time": {
+      "en": "full-time",
+      "zh": "全職的"
+    },
+    "abundant": {
+      "en": "abundant",
+      "zh": "充足的、充分的"
+    },
+    "degree": {
+      "en": "degree",
+      "zh": "學位、等級"
+    },
+    "clerical": {
+      "en": "clerical",
+      "zh": "辦公的"
+    },
+    "gain": {
+      "en": "gain",
+      "zh": "獲得"
+    },
+    "submit": {
+      "en": "submit",
+      "zh": "繳交"
+    },
+    "accomplishment": {
+      "en": "accomplishment",
+      "zh": "成就、實現"
+    },
+    "responsible": {
+      "en": "responsible",
+      "zh": "負責任的"
+    },
+    "career": {
+      "en": "career",
+      "zh": "事業、職業"
+    },
+    "meticulous": {
+      "en": "meticulous",
+      "zh": "嚴謹的、一絲不苟的"
+    },
+    "description": {
+      "en": "description",
+      "zh": "描述"
+    },
+    "attitude": {
+      "en": "attitude",
+      "zh": "態度"
+    },
+    "characteristic": {
+      "en": "characteristic",
+      "zh": "特點、特色"
+    },
+    "experienced": {
+      "en": "experienced",
+      "zh": "經驗豐富的"
+    },
+    "aspiration": {
+      "en": "aspiration",
+      "zh": "抱負、志向"
+    }
+  },
+  "7/14": {
+    "31 Application & Interview 申請與面試": {
+      "en": "31 Application & Interview 申請與面試",
+      "zh": ""
+    },
+    "confidence": {
+      "en": "confidence",
+      "zh": "自信"
+    },
+    "result": {
+      "en": "result",
+      "zh": "結果"
+    },
+    "optimistic": {
+      "en": "optimistic",
+      "zh": "樂觀的"
+    },
+    "formal": {
+      "en": "formal",
+      "zh": "正式的"
+    },
+    "self-motivation": {
+      "en": "self-motivation",
+      "zh": "主動、自發"
+    },
+    "perk": {
+      "en": "perk",
+      "zh": "津貼、額外待遇"
+    },
+    "explain": {
+      "en": "explain",
+      "zh": "解釋"
+    },
+    "reference": {
+      "en": "reference",
+      "zh": "推薦信、推薦人、參考"
+    },
+    "weak": {
+      "en": "weak",
+      "zh": "弱的"
+    },
+    "certificate": {
+      "en": "certificate",
+      "zh": "證書、證明"
+    },
+    "opportunity": {
+      "en": "opportunity",
+      "zh": "機會"
+    },
+    "inquire": {
+      "en": "inquire",
+      "zh": "詢問"
+    },
+    "background": {
+      "en": "background",
+      "zh": "背景"
+    },
+    "recommendation": {
+      "en": "recommendation",
+      "zh": "推薦"
+    },
+    "applicant": {
+      "en": "applicant",
+      "zh": "申請人"
+    },
+    "hesitate": {
+      "en": "hesitate",
+      "zh": "猶豫"
+    },
+    "reject": {
+      "en": "reject",
+      "zh": "拒絕"
+    },
+    "ability": {
+      "en": "ability",
+      "zh": "能力"
+    },
+    "overqualified": {
+      "en": "overqualified",
+      "zh": "大材小用的"
+    },
+    "fortunate": {
+      "en": "fortunate",
+      "zh": "幸運的"
+    },
+    "devoted": {
+      "en": "devoted",
+      "zh": "忠誠的"
+    },
+    "successful": {
+      "en": "successful",
+      "zh": "成功的"
+    },
+    "present": {
+      "en": "present",
+      "zh": "呈現、報告"
+    },
+    "expertise": {
+      "en": "expertise",
+      "zh": "專業技能"
+    },
+    "résumé": {
+      "en": "résumé",
+      "zh": "履歷"
+    },
+    "constant": {
+      "en": "constant",
+      "zh": "經常的、不斷的"
+    },
+    "time-consuming": {
+      "en": "time-consuming",
+      "zh": "耗時的"
+    },
+    "probation": {
+      "en": "probation",
+      "zh": "試用期"
+    },
+    "impress": {
+      "en": "impress",
+      "zh": "使印象深刻"
+    },
+    "cover letter": {
+      "en": "cover letter",
+      "zh": "求職信"
+    }
+  },
+  "__EMPTY_1": {
+    "32 Hiring & Training 聘僱與訓練": {
+      "en": "32 Hiring & Training 聘僱與訓練",
+      "zh": ""
+    },
+    "proficiency": {
+      "en": "proficiency",
+      "zh": "熟練、精通"
+    },
+    "trainee": {
+      "en": "trainee",
+      "zh": "受訓者"
+    },
+    "conduct": {
+      "en": "conduct",
+      "zh": "實施、指揮"
+    },
+    "lead": {
+      "en": "lead",
+      "zh": "領導、帶領"
+    },
+    "independent": {
+      "en": "independent",
+      "zh": "獨立的"
+    },
+    "disobedient": {
+      "en": "disobedient",
+      "zh": "不服從的"
+    },
+    "skilled": {
+      "en": "skilled",
+      "zh": "熟練的、有技術的"
+    },
+    "mentor": {
+      "en": "mentor",
+      "zh": "導師、良師益友"
+    },
+    "achievable": {
+      "en": "achievable",
+      "zh": "可達成的"
+    },
+    "hire": {
+      "en": "hire",
+      "zh": "雇用"
+    },
+    "conform to": {
+      "en": "conform to",
+      "zh": "遵守、遵照"
+    },
+    "orientation": {
+      "en": "orientation",
+      "zh": "培訓、員工訓練"
+    },
+    "intern": {
+      "en": "intern",
+      "zh": "實習生"
+    },
+    "capability": {
+      "en": "capability",
+      "zh": "能力"
+    },
+    "objective": {
+      "en": "objective",
+      "zh": "目標、目的；客觀的"
+    },
+    "employee": {
+      "en": "employee",
+      "zh": "員工"
+    },
+    "acquaint": {
+      "en": "acquaint",
+      "zh": "使熟悉"
+    },
+    "motivate": {
+      "en": "motivate",
+      "zh": "給...動機"
+    },
+    "strive": {
+      "en": "strive",
+      "zh": "努力、奮力"
+    },
+    "oversee": {
+      "en": "oversee",
+      "zh": "監管"
+    },
+    "intensive": {
+      "en": "intensive",
+      "zh": "密集的"
+    },
+    "discipline": {
+      "en": "discipline",
+      "zh": "紀律、訓練"
+    },
+    "confuse": {
+      "en": "confuse",
+      "zh": "使困惑"
+    },
+    "novice": {
+      "en": "novice",
+      "zh": "新手"
+    },
+    "compulsory": {
+      "en": "compulsory",
+      "zh": "強制的、義務的"
+    },
+    "apprentice": {
+      "en": "apprentice",
+      "zh": "學徒"
+    },
+    "generate": {
+      "en": "generate",
+      "zh": "產生、引起"
+    },
+    "count on": {
+      "en": "count on",
+      "zh": "依賴、依靠"
+    },
+    "rigorous": {
+      "en": "rigorous",
+      "zh": "嚴格的"
+    },
+    "dispatch": {
+      "en": "dispatch",
+      "zh": "派遣"
+    }
+  },
+  "__EMPTY_3": {
+    "33 Rewards & Benefits 酬金與福利": {
+      "en": "33 Rewards & Benefits 酬金與福利",
+      "zh": ""
+    },
+    "overestimate": {
+      "en": "overestimate",
+      "zh": "高估"
+    },
+    "paycheck": {
+      "en": "paycheck",
+      "zh": "工資"
+    },
+    "advance": {
+      "en": "advance",
+      "zh": "進展、晉升"
+    },
+    "vacation": {
+      "en": "vacation",
+      "zh": "休假"
+    },
+    "reward": {
+      "en": "reward",
+      "zh": "回報、報酬"
+    },
+    "income": {
+      "en": "income",
+      "zh": "收入"
+    },
+    "considerable": {
+      "en": "considerable",
+      "zh": "相當可觀的"
+    },
+    "leave": {
+      "en": "leave",
+      "zh": "休假；離開"
+    },
+    "flexible": {
+      "en": "flexible",
+      "zh": "有彈性的"
+    },
+    "bonus": {
+      "en": "bonus",
+      "zh": "紅利"
+    },
+    "retirement": {
+      "en": "retirement",
+      "zh": "退休"
+    },
+    "license": {
+      "en": "license",
+      "zh": "執照；特許"
+    },
+    "health insurance": {
+      "en": "health insurance",
+      "zh": "健保"
+    },
+    "eligible": {
+      "en": "eligible",
+      "zh": "具備資格的"
+    },
+    "raise": {
+      "en": "raise",
+      "zh": "加薪"
+    },
+    "compensate": {
+      "en": "compensate",
+      "zh": "補償、彌補"
+    },
+    "overtime": {
+      "en": "overtime",
+      "zh": "加班"
+    },
+    "earn": {
+      "en": "earn",
+      "zh": "賺取"
+    },
+    "welfare": {
+      "en": "welfare",
+      "zh": "福利"
+    },
+    "benefit": {
+      "en": "benefit",
+      "zh": "利益"
+    },
+    "excel": {
+      "en": "excel",
+      "zh": "表現優異、擅長"
+    },
+    "payment": {
+      "en": "payment",
+      "zh": "付費、支付"
+    },
+    "desire": {
+      "en": "desire",
+      "zh": "渴望"
+    },
+    "union": {
+      "en": "union",
+      "zh": "公會、聯盟"
+    },
+    "child care": {
+      "en": "child care",
+      "zh": "育兒"
+    },
+    "entitle": {
+      "en": "entitle",
+      "zh": "使有資格、使有權利"
+    },
+    "basis": {
+      "en": "basis",
+      "zh": "基礎、根據"
+    },
+    "negotiate": {
+      "en": "negotiate",
+      "zh": "談判、協商"
+    },
+    "wage": {
+      "en": "wage",
+      "zh": "工資"
+    },
+    "commensurate": {
+      "en": "commensurate",
+      "zh": "相應的、相稱的"
+    }
+  },
+  "7/15": {
+    "34 Advancement & Awards 升遷與獎勵": {
+      "en": "34 Advancement & Awards 升遷與獎勵",
+      "zh": ""
+    },
+    "competent": {
+      "en": "competent",
+      "zh": "有能力的、稱職的"
+    },
+    "value": {
+      "en": "value",
+      "zh": "價值；重視、估價"
+    },
+    "severance": {
+      "en": "severance",
+      "zh": "遣散(費)、斷絕、中斷"
+    },
+    "award": {
+      "en": "award",
+      "zh": "獎項；頒予"
+    },
+    "incentive": {
+      "en": "incentive",
+      "zh": "誘因、激勵"
+    },
+    "percentage": {
+      "en": "percentage",
+      "zh": "百分比"
+    },
+    "appraisal": {
+      "en": "appraisal",
+      "zh": "評鑑、評價"
+    },
+    "substantial": {
+      "en": "substantial",
+      "zh": "可觀的、大幅的"
+    },
+    "loyal": {
+      "en": "loyal",
+      "zh": "忠誠的、忠實的"
+    },
+    "dedication": {
+      "en": "dedication",
+      "zh": "奉獻、致力"
+    },
+    "ceremony": {
+      "en": "ceremony",
+      "zh": "典禮"
+    },
+    "recognition": {
+      "en": "recognition",
+      "zh": "認可、識別、認出"
+    },
+    "promote": {
+      "en": "promote",
+      "zh": "升遷、推廣、推銷"
+    },
+    "achievement": {
+      "en": "achievement",
+      "zh": "成就、達成"
+    },
+    "reform": {
+      "en": "reform",
+      "zh": "改革"
+    },
+    "nomination": {
+      "en": "nomination",
+      "zh": "提名"
+    },
+    "hard-working": {
+      "en": "hard-working",
+      "zh": "努力的、勤勉的"
+    },
+    "pension": {
+      "en": "pension",
+      "zh": "退休金"
+    },
+    "ambitious": {
+      "en": "ambitious",
+      "zh": "有野心的"
+    },
+    "faith": {
+      "en": "faith",
+      "zh": "信念、信心"
+    },
+    "undervalue": {
+      "en": "undervalue",
+      "zh": "低估"
+    },
+    "subsidy": {
+      "en": "subsidy",
+      "zh": "津貼、補貼"
+    },
+    "productive": {
+      "en": "productive",
+      "zh": "多產的、高產的"
+    },
+    "acclaim": {
+      "en": "acclaim",
+      "zh": "讚賞、讚譽"
+    },
+    "merit": {
+      "en": "merit",
+      "zh": "優點、價值"
+    },
+    "deserve": {
+      "en": "deserve",
+      "zh": "值得、應得"
+    },
+    "spontaneous": {
+      "en": "spontaneous",
+      "zh": "一時興起的、自發的"
+    },
+    "aptitude": {
+      "en": "aptitude",
+      "zh": "才能、天資"
+    },
+    "promising": {
+      "en": "promising",
+      "zh": "有前途的"
+    },
+    "seniority": {
+      "en": "seniority",
+      "zh": "年資、資歷"
+    }
+  },
+  "__EMPTY_6": {
+    "35 Taxes 稅務": {
+      "en": "35 Taxes 稅務",
+      "zh": ""
+    },
+    "inaccurate": {
+      "en": "inaccurate",
+      "zh": "不精確的"
+    },
+    "file": {
+      "en": "file",
+      "zh": "歸檔、提出；檔案"
+    },
+    "undercharge": {
+      "en": "undercharge",
+      "zh": "收費不足、收費過低"
+    },
+    "complete": {
+      "en": "complete",
+      "zh": "完成；完整的"
+    },
+    "elevate": {
+      "en": "elevate",
+      "zh": "提高、提升"
+    },
+    "cancel": {
+      "en": "cancel",
+      "zh": "取消"
+    },
+    "surpass": {
+      "en": "surpass",
+      "zh": "超過、勝過"
+    },
+    "fall": {
+      "en": "fall",
+      "zh": "落下、跌倒"
+    },
+    "penalty": {
+      "en": "penalty",
+      "zh": "罰金"
+    },
+    "owe": {
+      "en": "owe",
+      "zh": "欠債"
+    },
+    "exceed": {
+      "en": "exceed",
+      "zh": "超過、超出"
+    },
+    "spouse": {
+      "en": "spouse",
+      "zh": "配偶"
+    },
+    "calculation": {
+      "en": "calculation",
+      "zh": "計算"
+    },
+    "strict": {
+      "en": "strict",
+      "zh": "嚴格的"
+    },
+    "authority": {
+      "en": "authority",
+      "zh": "當局、權威"
+    },
+    "fill out": {
+      "en": "fill out",
+      "zh": "填寫"
+    },
+    "exact": {
+      "en": "exact",
+      "zh": "確切的"
+    },
+    "double": {
+      "en": "double",
+      "zh": "兩倍的"
+    },
+    "overdue": {
+      "en": "overdue",
+      "zh": "過期的"
+    },
+    "face": {
+      "en": "face",
+      "zh": "面對"
+    },
+    "exempt": {
+      "en": "exempt",
+      "zh": "免除、豁免"
+    },
+    "preparation": {
+      "en": "preparation",
+      "zh": "準備"
+    },
+    "credible": {
+      "en": "credible",
+      "zh": "可信的、可靠的"
+    },
+    "follow": {
+      "en": "follow",
+      "zh": "遵循"
+    },
+    "evade": {
+      "en": "evade",
+      "zh": "躲避、規避"
+    },
+    "climb": {
+      "en": "climb",
+      "zh": "攀爬"
+    },
+    "gross": {
+      "en": "gross",
+      "zh": "總額、總量"
+    },
+    "escape": {
+      "en": "escape",
+      "zh": "逃離、逃避"
+    },
+    "deadline": {
+      "en": "deadline",
+      "zh": "期限"
+    },
+    "withhold": {
+      "en": "withhold",
+      "zh": "扣繳"
+    }
+  },
+  "__EMPTY_8": {
+    "36 Health Insurance 健保": {
+      "en": "36 Health Insurance 健保",
+      "zh": ""
+    },
+    "compensation": {
+      "en": "compensation",
+      "zh": "補償、彌補、薪酬"
+    },
+    "treatment": {
+      "en": "treatment",
+      "zh": "治療、對待"
+    },
+    "mandatory": {
+      "en": "mandatory",
+      "zh": "強制的"
+    },
+    "ongoing": {
+      "en": "ongoing",
+      "zh": "持續進行的"
+    },
+    "Insurance": {
+      "en": "Insurance",
+      "zh": "保險"
+    },
+    "checkup": {
+      "en": "checkup",
+      "zh": "健康檢查"
+    },
+    "regardless of": {
+      "en": "regardless of",
+      "zh": "不論、不管"
+    },
+    "coverage": {
+      "en": "coverage",
+      "zh": "保險涵蓋範圍、新聞報導"
+    },
+    "premium": {
+      "en": "premium",
+      "zh": "保費、津貼；頂級的、優質的"
+    },
+    "aspect": {
+      "en": "aspect",
+      "zh": "方面、層面"
+    },
+    "individual": {
+      "en": "individual",
+      "zh": "個人的；個體、個人"
+    },
+    "shorten": {
+      "en": "shorten",
+      "zh": "變短"
+    },
+    "asthma": {
+      "en": "asthma",
+      "zh": "氣喘"
+    },
+    "genetic": {
+      "en": "genetic",
+      "zh": "遺傳的、基因的"
+    },
+    "vulnerable": {
+      "en": "vulnerable",
+      "zh": "易受傷的、脆弱的"
+    },
+    "suit": {
+      "en": "suit",
+      "zh": "適合、相稱；西裝外套"
+    },
+    "chronic": {
+      "en": "chronic",
+      "zh": "慢性的、長期的"
+    },
+    "improper": {
+      "en": "improper",
+      "zh": "不適當的"
+    },
+    "concern": {
+      "en": "concern",
+      "zh": "使擔憂、關於"
+    },
+    "skyrocket": {
+      "en": "skyrocket",
+      "zh": "暴漲、飛漲"
+    },
+    "up-and-down": {
+      "en": "up-and-down",
+      "zh": "時好時壞的、波動的"
+    },
+    "moderate": {
+      "en": "moderate",
+      "zh": "中等的、適度的"
+    },
+    "ensure": {
+      "en": "ensure",
+      "zh": "確保、保證"
+    },
+    "lifespan": {
+      "en": "lifespan",
+      "zh": "壽命"
+    },
+    "comprehensive": {
+      "en": "comprehensive",
+      "zh": "全面的、詳盡的"
+    },
+    "allow": {
+      "en": "allow",
+      "zh": "允許"
+    },
+    "unprecedented": {
+      "en": "unprecedented",
+      "zh": "史無前例的"
+    },
+    "claim": {
+      "en": "claim",
+      "zh": "索賠、索取、宣稱"
+    },
+    "medication": {
+      "en": "medication",
+      "zh": "藥物、藥劑"
+    },
+    "ailing": {
+      "en": "ailing",
+      "zh": "患病的、境況不佳的"
+    }
+  },
+  "7/16": {
+    "37 Hospital 醫院": {
+      "en": "37 Hospital 醫院",
+      "zh": ""
+    },
+    "volunteer": {
+      "en": "volunteer",
+      "zh": "志工；志願"
+    },
+    "negative": {
+      "en": "negative",
+      "zh": "陰性的、否定的"
+    },
+    "medical": {
+      "en": "medical",
+      "zh": "醫療的"
+    },
+    "sustain": {
+      "en": "sustain",
+      "zh": "維持、支撐"
+    },
+    "identify": {
+      "en": "identify",
+      "zh": "辨識、認出"
+    },
+    "outpatient": {
+      "en": "outpatient",
+      "zh": "門診病人"
+    },
+    "therapy": {
+      "en": "therapy",
+      "zh": "治療、療法"
+    },
+    "emergency room": {
+      "en": "emergency room",
+      "zh": "急診室"
+    },
+    "discharge": {
+      "en": "discharge",
+      "zh": "讓出院、解雇"
+    },
+    "blood pressure": {
+      "en": "blood pressure",
+      "zh": "血壓"
+    },
+    "paralysis": {
+      "en": "paralysis",
+      "zh": "癱瘓"
+    },
+    "escort": {
+      "en": "escort",
+      "zh": "護送、結伴同行"
+    },
+    "nursing": {
+      "en": "nursing",
+      "zh": "看護、護理"
+    },
+    "hygiene": {
+      "en": "hygiene",
+      "zh": "衛生"
+    },
+    "conscious": {
+      "en": "conscious",
+      "zh": "有意識的"
+    },
+    "germ": {
+      "en": "germ",
+      "zh": "病菌"
+    },
+    "upset": {
+      "en": "upset",
+      "zh": "不適的、惱火的；使不適、使惱火"
+    },
+    "potential": {
+      "en": "potential",
+      "zh": "潛力、潛在的"
+    },
+    "heart attack": {
+      "en": "heart attack",
+      "zh": "心臟病發"
+    },
+    "contagious": {
+      "en": "contagious",
+      "zh": "傳染性的"
+    },
+    "trauma": {
+      "en": "trauma",
+      "zh": "創傷"
+    },
+    "recover": {
+      "en": "recover",
+      "zh": "恢復、找回"
+    },
+    "epidemic": {
+      "en": "epidemic",
+      "zh": "流行病；肆虐的、流行的"
+    },
+    "vaccine": {
+      "en": "vaccine",
+      "zh": "疫苗"
+    },
+    "diabetes": {
+      "en": "diabetes",
+      "zh": "糖尿病"
+    },
+    "quarantine": {
+      "en": "quarantine",
+      "zh": "隔離檢疫"
+    },
+    "intensive care unit": {
+      "en": "intensive care unit",
+      "zh": "加護病房"
+    },
+    "surgery": {
+      "en": "surgery",
+      "zh": "手術"
+    },
+    "positive": {
+      "en": "positive",
+      "zh": "陽性的、正向的、積極的"
+    },
+    "latent": {
+      "en": "latent",
+      "zh": "潛伏的、潛在的"
+    }
+  },
+  "__EMPTY_11": {
+    "38 Doctor's Office 診所": {
+      "en": "38 Doctor's Office 診所",
+      "zh": ""
+    },
+    "physical": {
+      "en": "physical",
+      "zh": "身體的、物理的"
+    },
+    "ache": {
+      "en": "ache",
+      "zh": "疼痛"
+    },
+    "inhale": {
+      "en": "inhale",
+      "zh": "吸氣"
+    },
+    "stroke": {
+      "en": "stroke",
+      "zh": "中風"
+    },
+    "fatigue": {
+      "en": "fatigue",
+      "zh": "疲憊、使疲勞"
+    },
+    "manage": {
+      "en": "manage",
+      "zh": "管理"
+    },
+    "allergy": {
+      "en": "allergy",
+      "zh": "過敏"
+    },
+    "pulse": {
+      "en": "pulse",
+      "zh": "脈搏"
+    },
+    "infection": {
+      "en": "infection",
+      "zh": "感染"
+    },
+    "diagnose": {
+      "en": "diagnose",
+      "zh": "診斷"
+    },
+    "acute": {
+      "en": "acute",
+      "zh": "劇烈的、急性的"
+    },
+    "fever": {
+      "en": "fever",
+      "zh": "發燒"
+    },
+    "relieve": {
+      "en": "relieve",
+      "zh": "緩減、減輕"
+    },
+    "annually": {
+      "en": "annually",
+      "zh": "每年"
+    },
+    "physician": {
+      "en": "physician",
+      "zh": "內科醫生"
+    },
+    "impair": {
+      "en": "impair",
+      "zh": "損害、損傷"
+    },
+    "effective": {
+      "en": "effective",
+      "zh": "有效的"
+    },
+    "black out": {
+      "en": "black out",
+      "zh": "昏倒"
+    },
+    "refer": {
+      "en": "refer",
+      "zh": "轉介"
+    },
+    "injection": {
+      "en": "injection",
+      "zh": "注射"
+    },
+    "agile": {
+      "en": "agile",
+      "zh": "靈敏的"
+    },
+    "exhale": {
+      "en": "exhale",
+      "zh": "吐氣、呼氣"
+    },
+    "serious": {
+      "en": "serious",
+      "zh": "嚴重的"
+    },
+    "assess": {
+      "en": "assess",
+      "zh": "評估、評價"
+    },
+    "sterilize": {
+      "en": "sterilize",
+      "zh": "消毒"
+    },
+    "implant": {
+      "en": "implant",
+      "zh": "植入"
+    },
+    "remedy": {
+      "en": "remedy",
+      "zh": "療法；補救"
+    },
+    "disease": {
+      "en": "disease",
+      "zh": "疾病"
+    },
+    "blemish": {
+      "en": "blemish",
+      "zh": "疤痕、瑕疵"
+    },
+    "respiratory system": {
+      "en": "respiratory system",
+      "zh": "呼吸系統"
+    }
+  },
+  "__EMPTY_13": {
+    "39 Dentist's Office 牙醫診所": {
+      "en": "39 Dentist's Office 牙醫診所",
+      "zh": ""
+    },
+    "evident": {
+      "en": "evident",
+      "zh": "明顯的"
+    },
+    "worsen": {
+      "en": "worsen",
+      "zh": "惡化"
+    },
+    "certain": {
+      "en": "certain",
+      "zh": "特定的"
+    },
+    "gentle": {
+      "en": "gentle",
+      "zh": "溫柔的"
+    },
+    "intense": {
+      "en": "intense",
+      "zh": "強烈的"
+    },
+    "appointment": {
+      "en": "appointment",
+      "zh": "預約會面"
+    },
+    "examine": {
+      "en": "examine",
+      "zh": "檢查"
+    },
+    "prevent": {
+      "en": "prevent",
+      "zh": "預防"
+    },
+    "aware": {
+      "en": "aware",
+      "zh": "意識到"
+    },
+    "habit": {
+      "en": "habit",
+      "zh": "習慣"
+    },
+    "regularly": {
+      "en": "regularly",
+      "zh": "規律地"
+    },
+    "advice": {
+      "en": "advice",
+      "zh": "建議"
+    },
+    "irritate": {
+      "en": "irritate",
+      "zh": "使疼痛、使惱火"
+    },
+    "bacteria": {
+      "en": "bacteria",
+      "zh": "細菌"
+    },
+    "restraint": {
+      "en": "restraint",
+      "zh": "抑制、限制"
+    },
+    "toothache": {
+      "en": "toothache",
+      "zh": "牙痛"
+    },
+    "dental": {
+      "en": "dental",
+      "zh": "牙齒的"
+    },
+    "aid": {
+      "en": "aid",
+      "zh": "幫助、援助"
+    },
+    "encouragement": {
+      "en": "encouragement",
+      "zh": "鼓勵"
+    },
+    "distraction": {
+      "en": "distraction",
+      "zh": "分心"
+    },
+    "severe": {
+      "en": "severe",
+      "zh": "嚴重的"
+    },
+    "abate": {
+      "en": "abate",
+      "zh": "減弱、減輕"
+    },
+    "suppress": {
+      "en": "suppress",
+      "zh": "忍住、抑制住"
+    },
+    "cavity": {
+      "en": "cavity",
+      "zh": "蛀牙"
+    },
+    "affect": {
+      "en": "affect",
+      "zh": "影響"
+    },
+    "restore": {
+      "en": "restore",
+      "zh": "恢復、修復"
+    },
+    "withstand": {
+      "en": "withstand",
+      "zh": "承受"
+    },
+    "swell": {
+      "en": "swell",
+      "zh": "腫脹"
+    },
+    "dilute": {
+      "en": "dilute",
+      "zh": "稀釋"
+    },
+    "beware": {
+      "en": "beware",
+      "zh": "當心"
+    }
+  },
+  "7/17": {
+    "40 Pharmacy 藥局": {
+      "en": "40 Pharmacy 藥局",
+      "zh": ""
+    },
+    "chemical": {
+      "en": "chemical",
+      "zh": "化學的"
+    },
+    "fluid": {
+      "en": "fluid",
+      "zh": "液體"
+    },
+    "symptom": {
+      "en": "symptom",
+      "zh": "症狀"
+    },
+    "control": {
+      "en": "control",
+      "zh": "控制"
+    },
+    "eradicate": {
+      "en": "eradicate",
+      "zh": "根除"
+    },
+    "heal": {
+      "en": "heal",
+      "zh": "癒合"
+    },
+    "pharmaceutical": {
+      "en": "pharmaceutical",
+      "zh": "製藥的"
+    },
+    "sneeze": {
+      "en": "sneeze",
+      "zh": "打噴嚏"
+    },
+    "consult": {
+      "en": "consult",
+      "zh": "諮詢"
+    },
+    "rest": {
+      "en": "rest",
+      "zh": "休息；剩餘部分"
+    },
+    "nutrition": {
+      "en": "nutrition",
+      "zh": "營養"
+    },
+    "side effect": {
+      "en": "side effect",
+      "zh": "副作用"
+    },
+    "alleviate": {
+      "en": "alleviate",
+      "zh": "減輕、緩和"
+    },
+    "lung": {
+      "en": "lung",
+      "zh": "肺"
+    },
+    "immune": {
+      "en": "immune",
+      "zh": "免疫的"
+    },
+    "spray": {
+      "en": "spray",
+      "zh": "噴霧；噴灑"
+    },
+    "over-the-counter": {
+      "en": "over-the-counter",
+      "zh": "無處方的"
+    },
+    "sense": {
+      "en": "sense",
+      "zh": "感官"
+    },
+    "assorted": {
+      "en": "assorted",
+      "zh": "各式各樣的"
+    },
+    "first aid": {
+      "en": "first aid",
+      "zh": "急救"
+    },
+    "insomnia": {
+      "en": "insomnia",
+      "zh": "失眠"
+    },
+    "badly": {
+      "en": "badly",
+      "zh": "嚴重地"
+    },
+    "recur": {
+      "en": "recur",
+      "zh": "復發"
+    },
+    "heart disease": {
+      "en": "heart disease",
+      "zh": "心臟病"
+    },
+    "antibiotic": {
+      "en": "antibiotic",
+      "zh": "抗生素"
+    },
+    "dose": {
+      "en": "dose",
+      "zh": "劑量"
+    },
+    "sector": {
+      "en": "sector",
+      "zh": "領域、部門"
+    },
+    "ease": {
+      "en": "ease",
+      "zh": "緩解、減輕"
+    },
+    "stomachache": {
+      "en": "stomachache",
+      "zh": "胃痛"
+    },
+    "abuse": {
+      "en": "abuse",
+      "zh": "濫用"
+    }
+  },
+  "__EMPTY_16": {
+    "41 Banking 銀行業務": {
+      "en": "41 Banking 銀行業務",
+      "zh": ""
+    },
+    "cautious": {
+      "en": "cautious",
+      "zh": "謹慎的"
+    },
+    "loan": {
+      "en": "loan",
+      "zh": "貸款"
+    },
+    "restrict": {
+      "en": "restrict",
+      "zh": "限制"
+    },
+    "client": {
+      "en": "client",
+      "zh": "客戶"
+    },
+    "withdraw": {
+      "en": "withdraw",
+      "zh": "提款、撤回"
+    },
+    "slip": {
+      "en": "slip",
+      "zh": "紙條；滑倒、下滑"
+    },
+    "analyst": {
+      "en": "analyst",
+      "zh": "分析師"
+    },
+    "interest": {
+      "en": "interest",
+      "zh": "利息、興趣"
+    },
+    "transaction": {
+      "en": "transaction",
+      "zh": "交易"
+    },
+    "credit": {
+      "en": "credit",
+      "zh": "信用、學分、功勞"
+    },
+    "exchange": {
+      "en": "exchange",
+      "zh": "交換"
+    },
+    "lend": {
+      "en": "lend",
+      "zh": "借(出)"
+    },
+    "reputation": {
+      "en": "reputation",
+      "zh": "名譽、聲望"
+    },
+    "cash": {
+      "en": "cash",
+      "zh": "現金；兌現"
+    },
+    "account": {
+      "en": "account",
+      "zh": "帳戶、戶頭、描述"
+    },
+    "mortgage": {
+      "en": "mortgage",
+      "zh": "房貸、抵押貸款"
+    },
+    "saving": {
+      "en": "saving",
+      "zh": "存款、省錢"
+    },
+    "endorsement": {
+      "en": "endorsement",
+      "zh": "背書"
+    },
+    "wire": {
+      "en": "wire",
+      "zh": "匯款；電線"
+    },
+    "deduct": {
+      "en": "deduct",
+      "zh": "扣除、減去"
+    },
+    "trustworthy": {
+      "en": "trustworthy",
+      "zh": "值得信賴的"
+    },
+    "statement": {
+      "en": "statement",
+      "zh": "對帳明細、說明"
+    },
+    "accept": {
+      "en": "accept",
+      "zh": "接受"
+    },
+    "deposit": {
+      "en": "deposit",
+      "zh": "存款；存款、押金"
+    },
+    "balance": {
+      "en": "balance",
+      "zh": "餘額；平衡"
+    },
+    "delinquent": {
+      "en": "delinquent",
+      "zh": "拖欠的、到期未付的"
+    },
+    "credit limit": {
+      "en": "credit limit",
+      "zh": "信用額度"
+    },
+    "borrow": {
+      "en": "borrow",
+      "zh": "借(入)"
+    },
+    "debit card": {
+      "en": "debit card",
+      "zh": "金融卡"
+    },
+    "collateral": {
+      "en": "collateral",
+      "zh": "抵押物"
+    }
+  },
+  "__EMPTY_18": {
+    "42 Investment 投資": {
+      "en": "42 Investment 投資",
+      "zh": ""
+    },
+    "dividend": {
+      "en": "dividend",
+      "zh": "紅利、股息"
+    },
+    "wise": {
+      "en": "wise",
+      "zh": "有智慧的"
+    },
+    "beneficial": {
+      "en": "beneficial",
+      "zh": "有益的"
+    },
+    "shareholder": {
+      "en": "shareholder",
+      "zh": "股東"
+    },
+    "real estate": {
+      "en": "real estate",
+      "zh": "房地產"
+    },
+    "stock": {
+      "en": "stock",
+      "zh": "股票、庫存"
+    },
+    "portfolio": {
+      "en": "portfolio",
+      "zh": "投資組合、作品集"
+    },
+    "fund": {
+      "en": "fund",
+      "zh": "基金；資助"
+    },
+    "speculate": {
+      "en": "speculate",
+      "zh": "猜測"
+    },
+    "long-term": {
+      "en": "long-term",
+      "zh": "長期的"
+    },
+    "commission": {
+      "en": "commission",
+      "zh": "傭金、委託"
+    },
+    "investor": {
+      "en": "investor",
+      "zh": "投資者"
+    },
+    "aggressive": {
+      "en": "aggressive",
+      "zh": "侵略的"
+    },
+    "coin": {
+      "en": "coin",
+      "zh": "硬幣"
+    },
+    "broker": {
+      "en": "broker",
+      "zh": "經紀人"
+    },
+    "resource": {
+      "en": "resource",
+      "zh": "資源"
+    },
+    "conservative": {
+      "en": "conservative",
+      "zh": "傳統的、保守的"
+    },
+    "entrust": {
+      "en": "entrust",
+      "zh": "委託、託付"
+    },
+    "remuneration": {
+      "en": "remuneration",
+      "zh": "報酬"
+    },
+    "bounce": {
+      "en": "bounce",
+      "zh": "彈起"
+    },
+    "temporary": {
+      "en": "temporary",
+      "zh": "暫時的"
+    },
+    "bargain": {
+      "en": "bargain",
+      "zh": "協議、議價；便宜貨"
+    },
+    "allure": {
+      "en": "allure",
+      "zh": "誘惑"
+    },
+    "commit": {
+      "en": "commit",
+      "zh": "承諾、犯罪"
+    },
+    "statistic": {
+      "en": "statistic",
+      "zh": "統計數字"
+    },
+    "bond": {
+      "en": "bond",
+      "zh": "債券"
+    },
+    "steady": {
+      "en": "steady",
+      "zh": "穩定的、平穩的"
+    },
+    "confront": {
+      "en": "confront",
+      "zh": "面對、遭遇"
+    },
+    "bold": {
+      "en": "bold",
+      "zh": "大膽的"
+    },
+    "inconsistency": {
+      "en": "inconsistency",
+      "zh": "矛盾"
+    }
+  },
+  "7/18": {
+    "43 Finance & Economy 金融與經濟": {
+      "en": "43 Finance & Economy 金融與經濟",
+      "zh": ""
+    },
+    "inflation": {
+      "en": "inflation",
+      "zh": "通貨膨脹"
+    },
+    "overall": {
+      "en": "overall",
+      "zh": "總體的"
+    },
+    "economic": {
+      "en": "economic",
+      "zh": "經濟的"
+    },
+    "strengthen": {
+      "en": "strengthen",
+      "zh": "增強"
+    },
+    "devalue": {
+      "en": "devalue",
+      "zh": "貶值"
+    },
+    "recession": {
+      "en": "recession",
+      "zh": "衰退"
+    },
+    "bankrupt": {
+      "en": "bankrupt",
+      "zh": "破產的"
+    },
+    "fluctuation": {
+      "en": "fluctuation",
+      "zh": "波動、起伏"
+    },
+    "project": {
+      "en": "project",
+      "zh": "專案"
+    },
+    "counselor": {
+      "en": "counselor",
+      "zh": "顧問"
+    },
+    "soar": {
+      "en": "soar",
+      "zh": "激增"
+    },
+    "monetary": {
+      "en": "monetary",
+      "zh": "貨幣的"
+    },
+    "overcome": {
+      "en": "overcome",
+      "zh": "克服"
+    },
+    "worth": {
+      "en": "worth",
+      "zh": "價值"
+    },
+    "economical": {
+      "en": "economical",
+      "zh": "節約的"
+    },
+    "mounting": {
+      "en": "mounting",
+      "zh": "增長的"
+    },
+    "rebound": {
+      "en": "rebound",
+      "zh": "反彈"
+    },
+    "typical": {
+      "en": "typical",
+      "zh": "典型的"
+    },
+    "depreciation": {
+      "en": "depreciation",
+      "zh": "貶值"
+    },
+    "marginal": {
+      "en": "marginal",
+      "zh": "稍微的"
+    },
+    "downfall": {
+      "en": "downfall",
+      "zh": "衰落"
+    },
+    "realistic": {
+      "en": "realistic",
+      "zh": "實際的"
+    },
+    "desire": {
+      "en": "desire",
+      "zh": "渴望"
+    },
+    "prolong": {
+      "en": "prolong",
+      "zh": "延長"
+    },
+    "capital": {
+      "en": "capital",
+      "zh": "資本、首都"
+    },
+    "perspective": {
+      "en": "perspective",
+      "zh": "觀點"
+    },
+    "detail": {
+      "en": "detail",
+      "zh": "細節"
+    },
+    "stagnant": {
+      "en": "stagnant",
+      "zh": "停滯不前的"
+    },
+    "financial": {
+      "en": "financial",
+      "zh": "財物的"
+    },
+    "constraint": {
+      "en": "constraint",
+      "zh": "限制"
+    }
+  },
+  "__EMPTY_21": {
+    "44 Accounting 會計": {
+      "en": "44 Accounting 會計",
+      "zh": ""
+    },
+    "deficit": {
+      "en": "deficit",
+      "zh": "赤字、虧損"
+    },
+    "miss": {
+      "en": "miss",
+      "zh": "缺勤、錯失"
+    },
+    "revenue": {
+      "en": "revenue",
+      "zh": "收益、稅收"
+    },
+    "tax": {
+      "en": "tax",
+      "zh": "稅"
+    },
+    "authorize": {
+      "en": "authorize",
+      "zh": "批准"
+    },
+    "rough": {
+      "en": "rough",
+      "zh": "粗略的"
+    },
+    "expenditure": {
+      "en": "expenditure",
+      "zh": "花費"
+    },
+    "correct": {
+      "en": "correct",
+      "zh": "正確的；改正"
+    },
+    "audit": {
+      "en": "audit",
+      "zh": "審核"
+    },
+    "grant": {
+      "en": "grant",
+      "zh": "補助金；授予"
+    },
+    "residue": {
+      "en": "residue",
+      "zh": "剩餘物"
+    },
+    "bookkeeping": {
+      "en": "bookkeeping",
+      "zh": "記帳"
+    },
+    "turnover": {
+      "en": "turnover",
+      "zh": "營業額、人員替換率"
+    },
+    "accounting": {
+      "en": "accounting",
+      "zh": "會計(學)"
+    },
+    "endorse": {
+      "en": "endorse",
+      "zh": "背書、在背面簽名"
+    },
+    "debit": {
+      "en": "debit",
+      "zh": "(會計)借方"
+    },
+    "asset": {
+      "en": "asset",
+      "zh": "資產"
+    },
+    "profit": {
+      "en": "profit",
+      "zh": "利潤、收益"
+    },
+    "overhead": {
+      "en": "overhead",
+      "zh": "經常性開支、頭頂上的"
+    },
+    "debt": {
+      "en": "debt",
+      "zh": "債務"
+    },
+    "increment": {
+      "en": "increment",
+      "zh": "增加"
+    },
+    "budget": {
+      "en": "budget",
+      "zh": "預算"
+    },
+    "outstanding": {
+      "en": "outstanding",
+      "zh": "傑出的、未支付的"
+    },
+    "indefinite": {
+      "en": "indefinite",
+      "zh": "無限期的、不明確的"
+    },
+    "devaluation": {
+      "en": "devaluation",
+      "zh": "貶值"
+    },
+    "cut down": {
+      "en": "cut down",
+      "zh": "刪減、縮短"
+    },
+    "reconcile": {
+      "en": "reconcile",
+      "zh": "調解"
+    },
+    "creditor": {
+      "en": "creditor",
+      "zh": "債主"
+    },
+    "overdraft": {
+      "en": "overdraft",
+      "zh": "透支"
+    },
+    "ledger": {
+      "en": "ledger",
+      "zh": "(會計)分類帳"
+    }
+  },
+  "__EMPTY_23": {
+    "45 Management 管理": {
+      "en": "45 Management 管理",
+      "zh": ""
+    },
+    "collaboration": {
+      "en": "collaboration",
+      "zh": "協力合作"
+    },
+    "lay off": {
+      "en": "lay off",
+      "zh": "解雇"
+    },
+    "assignment": {
+      "en": "assignment",
+      "zh": "任務、功課、指派"
+    },
+    "outgoing": {
+      "en": "outgoing",
+      "zh": "離開的、即將離職的、開朗外向的"
+    },
+    "resignation": {
+      "en": "resignation",
+      "zh": "辭職"
+    },
+    "appoint": {
+      "en": "appoint",
+      "zh": "任命"
+    },
+    "consent": {
+      "en": "consent",
+      "zh": "許可、同意"
+    },
+    "rank": {
+      "en": "rank",
+      "zh": "等級；分級"
+    },
+    "substitute": {
+      "en": "substitute",
+      "zh": "取代；替代品"
+    },
+    "policy": {
+      "en": "policy",
+      "zh": "政策、保單"
+    },
+    "attendance": {
+      "en": "attendance",
+      "zh": "出席、出席率"
+    },
+    "refuse": {
+      "en": "refuse",
+      "zh": "拒絕"
+    },
+    "procedure": {
+      "en": "procedure",
+      "zh": "步驟"
+    },
+    "mission": {
+      "en": "mission",
+      "zh": "任務"
+    },
+    "compliance": {
+      "en": "compliance",
+      "zh": "服從、遵守"
+    },
+    "presentation": {
+      "en": "presentation",
+      "zh": "報告、外觀"
+    },
+    "allocate": {
+      "en": "allocate",
+      "zh": "分配"
+    },
+    "shift": {
+      "en": "shift",
+      "zh": "輪班、班次；改變、轉移"
+    },
+    "interpretation": {
+      "en": "interpretation",
+      "zh": "解釋、理解"
+    },
+    "array": {
+      "en": "array",
+      "zh": "一系列、大量"
+    },
+    "pending": {
+      "en": "pending",
+      "zh": "待定的"
+    },
+    "strike": {
+      "en": "strike",
+      "zh": "罷工、打擊"
+    },
+    "command": {
+      "en": "command",
+      "zh": "命令"
+    },
+    "peculiar": {
+      "en": "peculiar",
+      "zh": "奇怪的、特殊的"
+    },
+    "anonymous": {
+      "en": "anonymous",
+      "zh": "匿名的"
+    },
+    "schedule": {
+      "en": "schedule",
+      "zh": "行程、排程"
+    },
+    "deprivation": {
+      "en": "deprivation",
+      "zh": "缺乏"
+    },
+    "criterion / criteria": {
+      "en": "criterion / criteria",
+      "zh": "標準"
+    },
+    "assent": {
+      "en": "assent",
+      "zh": "同意"
+    },
+    "reprimand": {
+      "en": "reprimand",
+      "zh": "斥責"
+    }
+  }
+}
