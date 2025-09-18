@@ -56,9 +56,19 @@ function ask() {
     if (answered >= maxQuestions || remaining.length === 0) {
         console.log('\n📘 Ended');
         console.log(`${remaining.length} / ${total}`);
-        rl.close();
+
+        rl.question('\n🔁 Again？（Enter / Q）', (input) => {
+            if (input.trim().toUpperCase() === 'Q') {
+                rl.close();
+            } else {
+                answered = 0;
+                ask();
+            }
+        });
+
         return;
     }
+
 
     const index = Math.floor(Math.random() * remaining.length);
     const word = remaining[index];
