@@ -81,12 +81,15 @@ function ask() {
 
     rl.question('', () => {
         console.log(`💡 ${word.zh}`);
-        rl.question('\n', (key) => {
+        rl.question('', (key) => {
             const input = String(key).trim().toUpperCase();
             if (input === 'D') {
                 remaining.splice(index, 1); // 刪除該筆
                 saveRemainingWords();       // 儲存更新
                 console.log('✅ Deleted');
+            } else if (input === 'Q') {
+                rl.close();
+                return;
             } else {
                 console.log('📌 Saved');
             }
