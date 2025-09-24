@@ -102,5 +102,4 @@ function ask() {
 /* ========= 啟動 ========= */
 
 console.clear();
-console.log(`${remaining.length} / ${total}`);
 setTimeout(ask, 1500);
