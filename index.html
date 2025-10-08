@@ -9,8 +9,7 @@
             :root {
                 --bg: #0f1115;
                 --fg: #e8e8ea;
-                --muted: #9aa0a6;
-                --accent: #6aa9ff
+                --muted: #9aa0a6
             }
 
             html,
@@ -166,12 +165,26 @@
         </div>
 
         <script>
-            /* === 依你環境修改這兩個常數 === */
-            const API_BASE = 'https://script.google.com/macros/s/AKfycbyZ83PSWFhIEljAScXy3jTOsS2t1FYwK9V6UlNIwNHRs4j7TjfiBwMyk9f5-ir_tjww/exec';
-            const TOKEN = 'rvo-2025-chiuchiou';
+            /* === 改成你的部署資訊 === */
+            const API_BASE = "https://script.google.com/macros/s/AKfycbyOv4GDW2Ns8pYfUDm1bKEPoTbYxPTS3VC8HdwLTLF8KyOpDEgqhS-XgIZ_ppDJGKo/exec";
+            const TOKEN = "rvo-2025-chiuchiou";
+            const ROUND_SIZE = 15;
+
+            function jsonp(params) {
+                return new Promise((resolve, reject) => {
+                    const cb = "cb_" + Math.random().toString(36).slice(2);
+                    const qs = new URLSearchParams({ token: TOKEN, callback: cb, ...params });
+                    const s = document.createElement("script");
+                    s.src = API_BASE + "?" + qs.toString();
+                    s.onerror = () => reject(new Error("JSONP load error"));
+                    window[cb] = (data) => { resolve(data); s.remove(); delete window[cb]; };
+                    document.body.appendChild(s);
+                    setTimeout(() => reject(new Error("timeout")), 10000);
+                });
+            }
+
 
             /* === 狀態 === */
-            const ROUND_SIZE = 15;
             let batch = [];
             let ix = -1;
             let revealed = false;
@@ -202,25 +215,9 @@
                 setTimeout(loadVoices, 400);
             }
 
-            /* === API 小幫手 === */
-            async function apiGet(params) {
-                const qs = new URLSearchParams({ token: TOKEN, ...params });
-                const r = await fetch(`${API_BASE}?${qs.toString()}`, { method: 'GET' });
-                return r.json();
-            }
-            async function apiPost(payload) {
-                // 使用 text/plain 避免 CORS 預檢
-                const r = await fetch(API_BASE + `?token=${encodeURIComponent(TOKEN)}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-                return r.json();
-            }
-
             /* === 主流程 === */
             async function startRound() {
-                const res = await apiGet({ action: 'nextBatch', count: ROUND_SIZE });
+                const res = await jsonp({ action: 'nextBatch', count: ROUND_SIZE });
                 if (!res.ok) return showError(res.error || 'API 失敗');
                 batch = res.items || [];
                 remainingTotal = res.remaining ?? 0;
@@ -244,6 +241,7 @@
                     zhEl.textContent = '';
                     bar.style.width = '100%';
                     document.getElementById('roundPos').textContent = String(batch.length);
+                    document.getElementById('remaining').textContent = String(remainingTotal);
                     return;
                 }
                 const item = batch[ix];
@@ -262,7 +260,6 @@
                 const u = new SpeechSynthesisUtterance(text);
                 if (chosenVoice) u.voice = chosenVoice;
                 u.lang = (chosenVoice && chosenVoice.lang) || 'en-US';
-                u.rate = 1.0; u.pitch = 1.0;
                 speechSynthesis.speak(u);
             }
 
@@ -276,22 +273,30 @@
             document.getElementById('word').addEventListener('click', () => { revealed = !revealed; render(); });
             document.getElementById('btnReveal').addEventListener('click', () => { revealed = !revealed; render(); });
             document.getElementById('btnSpeak').addEventListener('click', () => { if (ix >= 0 && ix < batch.length) speak(batch[ix].word); });
+
             document.getElementById('btnWrong').addEventListener('click', async () => {
                 if (ix < 0 || ix >= batch.length) return;
                 const cur = batch[ix];
-                apiPost({ action: 'markwrong', id: cur.id }).catch(() => { });
+                // GET + JSONP
+                jsonp({ action: 'markWrong', id: cur.id }).catch(() => { });
                 next(true);
             });
+
             document.getElementById('btnKnown').addEventListener('click', async () => {
                 if (ix < 0 || ix >= batch.length) return;
                 const cur = batch[ix];
-                const res = await apiPost({ action: 'markknown', ids: [cur.id] });
+                const res = await jsonp({ action: 'markKnown', id: cur.id });
                 if (res && res.ok && typeof res.remaining === 'number') remainingTotal = res.remaining;
                 next(true);
             });
 
             /* 起跑 */
             startRound();
+
+            (async () => {
+                const res = await jsonp({ action: "nextBatch", count: 3 });
+                console.log(res);
+            })();
         </script>
     </body>
 
