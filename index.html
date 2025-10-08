@@ -4,165 +4,91 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>RVOCA — 低調練單字</title>
+        <title>RVOCA :: CLI Mode</title>
         <style>
-            :root {
-                --bg: #0f1115;
-                --fg: #e8e8ea;
-                --muted: #9aa0a6
-            }
-
-            html,
             body {
-                height: 100%;
                 margin: 0;
-                background: var(--bg);
-                color: var(--fg);
-                font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif
-            }
-
-            .wrap {
-                max-width: 720px;
-                margin: 0 auto;
-                padding: 24px
-            }
-
-            h1 {
-                margin: 0 0 12px;
-                font-size: 20px;
-                color: var(--muted);
-                font-weight: 600
-            }
-
-            .panel {
-                background: #151922;
-                border: 1px solid #1d2330;
-                border-radius: 16px;
-                padding: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, .35)
-            }
-
-            .stats {
+                background: #111;
+                color: #eee;
+                font-family: 'Fira Code', Consolas, 'Courier New', monospace;
+                font-size: 15px;
+                line-height: 1.5;
                 display: flex;
-                gap: 12px;
-                flex-wrap: wrap;
-                font-size: 14px;
-                color: var(--muted);
-                margin-bottom: 16px
-            }
-
-            .word {
-                user-select: none;
-                text-align: center;
-                font-size: 48px;
-                font-weight: 800;
-                letter-spacing: .5px;
-                margin: 32px 0 8px;
-                cursor: pointer
-            }
-
-            .zh {
-                text-align: center;
-                font-size: 22px;
-                color: #cfd3da;
-                min-height: 32px;
-                opacity: .95
-            }
-
-            .controls {
-                display: flex;
-                gap: 12px;
                 justify-content: center;
-                margin-top: 24px;
-                flex-wrap: wrap
+                align-items: flex-start;
+                min-height: 100vh;
+                padding: 2rem;
             }
 
-            button {
-                background: #1e2431;
-                color: var(--fg);
-                border: 1px solid #2a3244;
-                border-radius: 12px;
-                padding: 12px 16px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: transform .06s ease, background .2s ease, border .2s ease
-            }
-
-            button:hover {
-                transform: translateY(-1px)
-            }
-
-            button.destructive {
-                background: #3a2025;
-                border-color: #5a2a33
+            #app {
+                width: 600px;
+                max-width: 90vw;
+                background: #111;
+                border: 1px solid #333;
+                padding: 1rem 1.5rem;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             }
 
             .muted {
-                color: var(--muted)
+                color: #666;
             }
 
-            .progress {
-                height: 10px;
-                background: #1b2030;
-                border-radius: 999px;
-                overflow: hidden;
-                margin-top: 8px;
-                border: 1px solid #242c3e
+            .zh {
+                color: #9f9;
+                margin-top: .3rem;
             }
 
-            .progress>i {
-                display: block;
-                height: 100%;
-                width: 0%;
-                background: linear-gradient(90deg, #5fa8ff, #9b7bff)
+            .prompt::before {
+                content: "> ";
+                color: #0f0;
             }
 
-            .foot {
-                margin-top: 24px;
+            .word {
+                color: #fff;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            button {
+                background: none;
+                border: 1px solid #444;
+                color: #ccc;
+                font-family: inherit;
                 font-size: 13px;
-                color: var(--muted);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 8px;
-                flex-wrap: wrap
+                padding: .3rem .8rem;
+                margin-right: .4rem;
+                cursor: pointer;
             }
 
-            .small {
-                font-size: 12px
+            button:hover {
+                background: #222;
+                color: #0f0;
+            }
+
+            .divider {
+                border-top: 1px solid #333;
+                margin: 1rem 0;
             }
         </style>
     </head>
 
     <body>
-        <div class="wrap">
-            <h1>RVOCA — 只顯示英文，點一下才看中文</h1>
-
-            <div class="panel">
-                <div class="stats">
-                    <div>本回合：<span id="roundPos">0</span>/<span id="roundTotal">15</span></div>
-                    <div>剩餘總字數：<span id="remaining">—</span></div>
-                    <div class="small">（點英文顯示中文；切下一題自動朗讀）</div>
-                </div>
-
-                <div class="progress"><i id="bar"></i></div>
-
-                <div id="word" class="word">準備中…</div>
-                <div id="zh" class="zh muted">（點上方英文顯示中文）</div>
-
-                <div class="controls">
-                    <button id="btnReveal">顯示 / 隱藏 中文</button>
-                    <button id="btnSpeak">再念一次</button>
-                    <button id="btnWrong">不熟：下一個</button>
-                    <button id="btnKnown" class="destructive">記熟：刪除並下一個</button>
-                </div>
-
-                <div class="foot">
-                    <div>語音：<select id="voiceSelect"></select></div>
-                    <div class="muted small">若未出聲，先點一個按鈕啟動音訊權限。</div>
-                </div>
+        <div id="app">
+            <div class="prompt">RVOCA CLI initialized.</div>
+            <div class="prompt">Loading next batch...</div>
+            <div class="divider"></div>
+            <div class="prompt"><span id="word" class="word">--</span></div>
+            <div class="prompt"><span id="zh" class="zh muted">(click to reveal translation)</span></div>
+            <div class="divider"></div>
+            <div>
+                <button id="btnReveal">reveal</button>
+                <button id="btnSpeak">speak</button>
+                <button id="btnWrong">wrong</button>
+                <button id="btnKnown">known</button>
             </div>
+            <div class="prompt muted" id="status"></div>
         </div>
+
 
         <script>
             /* === 改成你的部署資訊 === */
@@ -170,6 +96,21 @@
             const TOKEN = "rvo-2025-chiuchiou";
             const ROUND_SIZE = 15;
 
+            let batch = [];
+            let index = -1;
+            let showingZh = false;
+
+            // --- 語音朗讀 ---
+            function speak(text) {
+                if (!('speechSynthesis' in window)) return;
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'en-US';
+                utter.rate = 0.9;
+                window.speechSynthesis.cancel(); // 避免重疊
+                window.speechSynthesis.speak(utter);
+            }
+
+            // --- JSONP 取資料 ---
             function jsonp(params) {
                 return new Promise((resolve, reject) => {
                     const cb = "cb_" + Math.random().toString(36).slice(2);
@@ -183,121 +124,48 @@
                 });
             }
 
-
-            /* === 狀態 === */
-            let batch = [];
-            let ix = -1;
-            let revealed = false;
-            let remainingTotal = 0;
-
-            // 語音
-            let voices = [], chosenVoice = null;
-            function loadVoices() {
-                voices = window.speechSynthesis.getVoices();
-                const sel = document.getElementById('voiceSelect');
-                sel.innerHTML = '';
-                const preferred = voices.sort((a, b) => {
-                    const as = /en/i.test(a.lang) ? 0 : 1;
-                    const bs = /en/i.test(b.lang) ? 0 : 1;
-                    return as - bs || a.name.localeCompare(b.name);
-                });
-                preferred.forEach((v, i) => {
-                    const opt = document.createElement('option');
-                    opt.value = String(i);
-                    opt.textContent = `${v.name} (${v.lang})`;
-                    sel.appendChild(opt);
-                });
-                chosenVoice = preferred[0] || null;
-                sel.onchange = () => { chosenVoice = preferred[Number(sel.value)] || null; };
-            }
-            if ('speechSynthesis' in window) {
-                speechSynthesis.onvoiceschanged = loadVoices;
-                setTimeout(loadVoices, 400);
-            }
-
-            /* === 主流程 === */
-            async function startRound() {
-                const res = await jsonp({ action: 'nextBatch', count: ROUND_SIZE });
-                if (!res.ok) return showError(res.error || 'API 失敗');
-                batch = res.items || [];
-                remainingTotal = res.remaining ?? 0;
-                ix = -1;
-                document.getElementById('roundTotal').textContent = String(batch.length);
-                next();
-            }
-
-            function showError(msg) {
-                document.getElementById('word').textContent = '⚠ ' + msg;
-                document.getElementById('zh').textContent = '';
-            }
-
+            // --- 顯示單字 ---
             function render() {
-                const wordEl = document.getElementById('word');
-                const zhEl = document.getElementById('zh');
-                const bar = document.getElementById('bar');
-
-                if (ix < 0 || ix >= batch.length) {
-                    wordEl.textContent = '本回合完成 🎉';
-                    zhEl.textContent = '';
-                    bar.style.width = '100%';
-                    document.getElementById('roundPos').textContent = String(batch.length);
-                    document.getElementById('remaining').textContent = String(remainingTotal);
+                if (index >= batch.length) {
+                    document.getElementById("word").textContent = "本回合結束 ✔";
+                    document.getElementById("zh").style.display = "none";
                     return;
                 }
-                const item = batch[ix];
-                wordEl.textContent = item.word;
-                zhEl.textContent = revealed ? (item.zh || '（未填中文）') : '（點上方英文顯示中文）';
-                zhEl.classList.toggle('muted', !revealed);
-
-                document.getElementById('roundPos').textContent = String(ix + 1);
-                document.getElementById('remaining').textContent = String(remainingTotal);
-                bar.style.width = (ix / Math.max(1, batch.length)) * 100 + '%';
+                const w = batch[index];
+                document.getElementById("word").textContent = w.word;
+                document.getElementById("zh").textContent = w.zh;
+                document.getElementById("zh").style.display = showingZh ? "block" : "none";
             }
 
-            function speak(text) {
-                if (!('speechSynthesis' in window)) return;
-                speechSynthesis.cancel();
-                const u = new SpeechSynthesisUtterance(text);
-                if (chosenVoice) u.voice = chosenVoice;
-                u.lang = (chosenVoice && chosenVoice.lang) || 'en-US';
-                speechSynthesis.speak(u);
+            // --- 下一題 ---
+            function nextWord() {
+                if (!showingZh) {
+                    showingZh = true;
+                    document.getElementById("zh").style.display = "block";
+                } else {
+                    index++;
+                    showingZh = false;
+                    render();
+                    if (index < batch.length) speak(batch[index].word); // 自動朗讀
+                }
             }
 
-            function next(autoSpeak = true) {
-                ix++; revealed = false;
-                render();
-                if (ix >= 0 && ix < batch.length && autoSpeak) speak(batch[ix].word);
-            }
-
-            /* === 事件 === */
-            document.getElementById('word').addEventListener('click', () => { revealed = !revealed; render(); });
-            document.getElementById('btnReveal').addEventListener('click', () => { revealed = !revealed; render(); });
-            document.getElementById('btnSpeak').addEventListener('click', () => { if (ix >= 0 && ix < batch.length) speak(batch[ix].word); });
-
-            document.getElementById('btnWrong').addEventListener('click', async () => {
-                if (ix < 0 || ix >= batch.length) return;
-                const cur = batch[ix];
-                // GET + JSONP
-                jsonp({ action: 'markWrong', id: cur.id }).catch(() => { });
-                next(true);
-            });
-
-            document.getElementById('btnKnown').addEventListener('click', async () => {
-                if (ix < 0 || ix >= batch.length) return;
-                const cur = batch[ix];
-                const res = await jsonp({ action: 'markKnown', id: cur.id });
-                if (res && res.ok && typeof res.remaining === 'number') remainingTotal = res.remaining;
-                next(true);
-            });
-
-            /* 起跑 */
-            startRound();
-
+            // --- 初始化 ---
             (async () => {
-                const res = await jsonp({ action: "nextBatch", count: 3 });
-                console.log(res);
+                const res = await jsonp({ action: "nextBatch", count: ROUND_SIZE });
+                batch = res.items || [];
+                index = 0;
+                render();
+                speak(batch[index].word); // 第一題自動朗讀
             })();
+
+            // 點擊任意地方 / 按空白鍵 跳下一題
+            document.body.addEventListener("click", nextWord);
+            document.addEventListener("keydown", e => {
+                if (e.code === "Space" || e.code === "Enter") nextWord();
+            });
         </script>
+
     </body>
 
 </html>
