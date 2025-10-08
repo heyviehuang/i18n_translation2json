@@ -2,10 +2,14 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const gasClient = require('./gas-client');
+
 const PORT = process.env.PORT || 3000;
 const FILE_PATH = path.join(__dirname, 'RVOCA.ini');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const MAX_QUESTIONS = 15;
+
+const useGasBackend = gasClient.isConfigured();
 
 const hasCJK = (s) => /[\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/.test(s);
 
@@ -24,7 +28,7 @@ function splitEnZh(line) {
   return { en, zh: zhParts.join(' ') };
 }
 
-function loadWords() {
+function loadWordsFromFile() {
   const raw = fs
     .readFileSync(FILE_PATH, 'utf8')
     .replace(/^\uFEFF/, '')
@@ -43,10 +47,38 @@ function saveWords(words) {
   fs.writeFileSync(FILE_PATH, lines.join('\n'), 'utf8');
 }
 
-let wordList = loadWords();
-let remaining = [...wordList];
+async function loadWords() {
+  if (useGasBackend) {
+    const records = await gasClient.fetchWords();
+    return records
+      .map((record, index) => ({
+        id: record.id,
+        order: typeof record.order === 'number' ? record.order : index,
+        en: record.en,
+        zh: record.zh,
+      }))
+      .filter((word) => word.en && word.zh);
+  }
+
+  return loadWordsFromFile();
+}
+
+let wordList = [];
+let remaining = [];
 let sessionAnswered = 0;
 let lastWordId = null;
+
+async function refreshWords() {
+  wordList = await loadWords();
+  remaining = [...wordList];
+  sessionAnswered = 0;
+  lastWordId = null;
+}
+
+let readyPromise = refreshWords();
+readyPromise.catch((error) => {
+  console.error('Unable to load initial word list', error);
+});
 
 const getStats = () => ({
   total: wordList.length,
@@ -95,7 +127,40 @@ function sendJson(res, statusCode, payload) {
   res.end(body);
 }
 
-function handleApi(req, res, url) {
+function parseJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+      if (body.length > 1e6) {
+        reject(new Error('Payload too large.'));
+        req.destroy();
+      }
+    });
+    req.on('end', () => {
+      if (!body) {
+        resolve({});
+        return;
+      }
+      try {
+        resolve(JSON.parse(body));
+      } catch (error) {
+        reject(error);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+async function handleApi(req, res, url) {
+  try {
+    await readyPromise;
+  } catch (error) {
+    console.error('Failed to initialise word list', error);
+    sendJson(res, 500, { message: '無法載入單字資料。' });
+    return true;
+  }
+
   if (req.method === 'GET' && url.pathname === '/api/state') {
     sendJson(res, 200, { stats: getStats(), finished: sessionFinished() });
     return true;
@@ -118,62 +183,73 @@ function handleApi(req, res, url) {
   }
 
   if (req.method === 'POST' && url.pathname === '/api/word/action') {
-    let body = '';
-    req.on('data', (chunk) => {
-      body += chunk;
-      if (body.length > 1e6) {
-        req.destroy();
+    let data;
+    try {
+      data = await parseJsonBody(req);
+    } catch (error) {
+      sendJson(res, 400, { message: '資料格式錯誤。' });
+      return true;
+    }
+
+    const { id, action } = data || {};
+    if ((typeof id !== 'number' && typeof id !== 'string') || !action) {
+      sendJson(res, 400, { message: '缺少必要的資料。' });
+      return true;
+    }
+
+    const targetId = String(id);
+    const word = wordList.find((item) => String(item.id) === targetId);
+    if (!word) {
+      sendJson(res, 404, { message: '找不到指定的單字。' });
+      return true;
+    }
+
+    if (action === 'delete') {
+      if (useGasBackend) {
+        try {
+          await gasClient.deleteWord(word.id);
+        } catch (error) {
+          console.error('Failed to delete word on GAS', error);
+          sendJson(res, 502, { message: '刪除失敗，請稍後再試。' });
+          return true;
+        }
+      } else {
+        saveWords(
+          wordList.filter((item) => String(item.id) !== targetId)
+        );
       }
-    });
-    req.on('end', () => {
-      try {
-        const data = body ? JSON.parse(body) : {};
-        const { id, action } = data;
 
-        if (typeof id !== 'number' || !action) {
-          sendJson(res, 400, { message: '缺少必要的資料。' });
-          return;
-        }
+      wordList = wordList.filter((item) => String(item.id) !== targetId);
+      remaining = remaining.filter((item) => String(item.id) !== targetId);
+    } else if (action === 'keep') {
+      // Do nothing besides counting the answer.
+    } else {
+      sendJson(res, 400, { message: '未知的操作。' });
+      return true;
+    }
 
-        const word = wordList.find((item) => item.id === id);
-        if (!word) {
-          sendJson(res, 404, { message: '找不到指定的單字。' });
-          return;
-        }
+    sessionAnswered += 1;
 
-        if (action === 'delete') {
-          wordList = wordList.filter((item) => item.id !== id);
-          remaining = remaining.filter((item) => item.id !== id);
-          saveWords(wordList);
-        } else if (action === 'keep') {
-          // Do nothing besides counting the answer.
-        } else {
-          sendJson(res, 400, { message: '未知的操作。' });
-          return;
-        }
+    if (sessionFinished()) {
+      sendJson(res, 200, { finished: true, stats: getStats() });
+      return true;
+    }
 
-        sessionAnswered += 1;
-
-        if (sessionFinished()) {
-          sendJson(res, 200, { finished: true, stats: getStats() });
-          return;
-        }
-
-        sendJson(res, 200, { finished: false, stats: getStats() });
-      } catch (error) {
-        sendJson(res, 400, { message: '資料格式錯誤。' });
-      }
-    });
+    sendJson(res, 200, { finished: false, stats: getStats() });
     return true;
   }
 
   if (req.method === 'POST' && url.pathname === '/api/session/reset') {
-    wordList = loadWords();
-    remaining = [...wordList];
-    sessionAnswered = 0;
-    lastWordId = null;
+    readyPromise = refreshWords();
+    try {
+      await readyPromise;
+    } catch (error) {
+      console.error('Failed to refresh word list', error);
+      sendJson(res, 500, { message: '重新載入失敗，請稍後再試。' });
+      return true;
+    }
 
-    sendJson(res, 200, { stats: getStats(), finished: false });
+    sendJson(res, 200, { stats: getStats(), finished: sessionFinished() });
     return true;
   }
 
@@ -207,10 +283,20 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (url.pathname.startsWith('/api/')) {
-    const handled = handleApi(req, res, url);
-    if (!handled) {
-      sendJson(res, 404, { message: '未知的 API 路徑。' });
-    }
+    handleApi(req, res, url)
+      .then((handled) => {
+        if (!handled && !res.writableEnded) {
+          sendJson(res, 404, { message: '未知的 API 路徑。' });
+        }
+      })
+      .catch((error) => {
+        console.error('Unexpected API error', error);
+        if (!res.headersSent && !res.writableEnded) {
+          sendJson(res, 500, { message: '伺服器錯誤。' });
+        } else if (!res.writableEnded) {
+          res.end();
+        }
+      });
     return;
   }
 
@@ -240,4 +326,9 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Vocabulary web app ready on http://localhost:${PORT}`);
+  if (useGasBackend) {
+    console.log('Using Google Apps Script backend.');
+  } else {
+    console.log('Using local RVOCA.ini backend.');
+  }
 });
