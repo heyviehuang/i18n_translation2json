@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node web-server.js",
+    "cli": "node vocab_test.js",
+    "convert": "node convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
