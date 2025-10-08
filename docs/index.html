@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vocabulary Trainer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
-    <main class="container">
+    <!-- <main class="container">
       <header>
         <h1>Vocabulary Trainer</h1>
         <p class="subtitle">從 RVOCA.ini 快速進行單字測驗與管理</p>
@@ -38,9 +40,53 @@
         <button type="button" class="ghost" id="reset">重新載入 / 重設回合</button>
       </section>
 
-      <p class="message" id="message"></p>
+      <p class="message" id="message"></p> -->
     </main>
 
-    <script src="app.js"></script>
+    <!-- <script src="app.js"></script> -->
+    <script>
+      const GAS_URL = 'https://script.google.com/macros/s/AKfycbyZ83PSWFhIEljAScXy3jTOsS2t1FYwK9V6UlNIwNHRs4j7TjfiBwMyk9f5-ir_tjww/exec';
+      const TOKEN = 'rvo-2025-chiuchiou'; // 要跟 GAS 的 TOKEN 一致
+
+      // 讀取全部單字
+      async function fetchWords() {
+        const res = await fetch(`${GAS_URL}?t=${encodeURIComponent(TOKEN)}`);
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'read failed');
+        return json.data; // [{id, word, zh, status, updatedAt, timesWrong}]
+      }
+
+      // 新增/更新單字
+      async function upsertWord(record) {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ t: TOKEN, action: 'upsert', payload: record })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'write failed');
+      }
+
+      // 使用範例
+      (async () => {
+        // 1) 讀
+        const all = await fetchWords();
+        console.log('目前單字：', all);
+
+        // 2) 寫（沒有 id 也可以，會自動生）
+        await upsertWord({
+          id: 'adhere-001',
+          word: 'adhere',
+          zh: '遵守；黏附',
+          status: '學習中',
+          timesWrong: 2
+        });
+
+        // 3) 再讀確認
+        console.log(await fetchWords());
+      })();
+    </script>
+
   </body>
+
 </html>
