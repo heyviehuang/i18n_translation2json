@@ -1,0 +1,2917 @@
+[
+  {
+    "id": 0,
+    "en": "architect",
+    "zh": "建築師"
+  },
+  {
+    "id": 1,
+    "en": "apparel",
+    "zh": "服裝，衣著"
+  },
+  {
+    "id": 2,
+    "en": "patron",
+    "zh": "顧客，贊助人"
+  },
+  {
+    "id": 3,
+    "en": "thrifty",
+    "zh": "節儉的"
+  },
+  {
+    "id": 4,
+    "en": "exquisite",
+    "zh": "精緻的，優美的"
+  },
+  {
+    "id": 5,
+    "en": "discriminating",
+    "zh": "有辨識力的，有眼光的"
+  },
+  {
+    "id": 6,
+    "en": "solicit",
+    "zh": "請求，懇求"
+  },
+  {
+    "id": 7,
+    "en": "etiquette",
+    "zh": "禮儀，規矩"
+  },
+  {
+    "id": 8,
+    "en": "gourmet",
+    "zh": "美食家；美食的"
+  },
+  {
+    "id": 9,
+    "en": "precipitation",
+    "zh": "降水"
+  },
+  {
+    "id": 10,
+    "en": "subside",
+    "zh": "消退；平息"
+  },
+  {
+    "id": 11,
+    "en": "hazard",
+    "zh": "危險"
+  },
+  {
+    "id": 12,
+    "en": "intermittent",
+    "zh": "間歇的"
+  },
+  {
+    "id": 13,
+    "en": "torrential",
+    "zh": "洪流般的；暴雨的"
+  },
+  {
+    "id": 14,
+    "en": "dehydration",
+    "zh": "脫水"
+  },
+  {
+    "id": 15,
+    "en": "excursion",
+    "zh": "短途旅行"
+  },
+  {
+    "id": 16,
+    "en": "itinerary",
+    "zh": "行程"
+  },
+  {
+    "id": 17,
+    "en": "pedestrian",
+    "zh": "行人"
+  },
+  {
+    "id": 18,
+    "en": "intersection",
+    "zh": "十字路口"
+  },
+  {
+    "id": 19,
+    "en": "limousine",
+    "zh": "豪華轎車"
+  },
+  {
+    "id": 20,
+    "en": "disembark",
+    "zh": "下（船、飛機等）"
+  },
+  {
+    "id": 21,
+    "en": "bound",
+    "zh": "開往…的；注定"
+  },
+  {
+    "id": 22,
+    "en": "charter",
+    "zh": "包租（車、船等）"
+  },
+  {
+    "id": 23,
+    "en": "cyclist",
+    "zh": "自行車騎士"
+  },
+  {
+    "id": 24,
+    "en": "recondition",
+    "zh": "整修；修復"
+  },
+  {
+    "id": 25,
+    "en": "compact",
+    "zh": "小型的；緊湊的"
+  },
+  {
+    "id": 26,
+    "en": "jeopardy",
+    "zh": "危險；危急"
+  },
+  {
+    "id": 27,
+    "en": "convertible",
+    "zh": "敞篷車"
+  },
+  {
+    "id": 28,
+    "en": "concourse",
+    "zh": "車站大廳、機場大廳"
+  },
+  {
+    "id": 29,
+    "en": "lounge",
+    "zh": "休息室、等候室"
+  },
+  {
+    "id": 30,
+    "en": "obvious",
+    "zh": "顯然的、明顯的"
+  },
+  {
+    "id": 31,
+    "en": "confiscate",
+    "zh": "沒收"
+  },
+  {
+    "id": 32,
+    "en": "separately",
+    "zh": "各自、分別"
+  },
+  {
+    "id": 33,
+    "en": "improvise",
+    "zh": "即興"
+  },
+  {
+    "id": 34,
+    "en": "prestigious",
+    "zh": "有聲望的、享譽盛名的"
+  },
+  {
+    "id": 35,
+    "en": "stunt",
+    "zh": "絕技、特技"
+  },
+  {
+    "id": 36,
+    "en": "disparate",
+    "zh": "截然不同的"
+  },
+  {
+    "id": 37,
+    "en": "heritage",
+    "zh": "遺產"
+  },
+  {
+    "id": 38,
+    "en": "retrospective",
+    "zh": "回顧的"
+  },
+  {
+    "id": 39,
+    "en": "chronological",
+    "zh": "依時間排序的"
+  },
+  {
+    "id": 40,
+    "en": "commemorate",
+    "zh": "紀念、緬懷"
+  },
+  {
+    "id": 41,
+    "en": "genuine",
+    "zh": "真正的"
+  },
+  {
+    "id": 42,
+    "en": "luxurious",
+    "zh": "奢侈的、豪華的"
+  },
+  {
+    "id": 43,
+    "en": "concierge",
+    "zh": "飯店門房、禮賓部"
+  },
+  {
+    "id": 44,
+    "en": "ornament",
+    "zh": "裝飾、點綴"
+  },
+  {
+    "id": 45,
+    "en": "appliance",
+    "zh": "家店"
+  },
+  {
+    "id": 46,
+    "en": "circumstance",
+    "zh": "情況、情勢"
+  },
+  {
+    "id": 47,
+    "en": "apprehensive",
+    "zh": "擔憂的、擔心的"
+  },
+  {
+    "id": 48,
+    "en": "conspicuous",
+    "zh": "明顯的、顯眼的"
+  },
+  {
+    "id": 49,
+    "en": "refurbish",
+    "zh": "翻修、整修"
+  },
+  {
+    "id": 50,
+    "en": "awning",
+    "zh": "遮雨棚"
+  },
+  {
+    "id": 51,
+    "en": "assembly",
+    "zh": "組裝、集合、聚集"
+  },
+  {
+    "id": 52,
+    "en": "infrastructure",
+    "zh": "公共建設、基礎建設"
+  },
+  {
+    "id": 53,
+    "en": "scrutiny",
+    "zh": "仔細檢查"
+  },
+  {
+    "id": 54,
+    "en": "first-rate",
+    "zh": "一流的"
+  },
+  {
+    "id": 55,
+    "en": "adjacent",
+    "zh": "相鄰的"
+  },
+  {
+    "id": 56,
+    "en": "alternative",
+    "zh": "其他選擇、替代方案"
+  },
+  {
+    "id": 57,
+    "en": "landfill",
+    "zh": "垃圾場"
+  },
+  {
+    "id": 58,
+    "en": "conservation",
+    "zh": "節約、保護、保育"
+  },
+  {
+    "id": 59,
+    "en": "petroleum",
+    "zh": "石油"
+  },
+  {
+    "id": 60,
+    "en": "aggravate",
+    "zh": "惡化"
+  },
+  {
+    "id": 61,
+    "en": "devastate",
+    "zh": "摧毀、毀滅"
+  },
+  {
+    "id": 62,
+    "en": "cluster",
+    "zh": "一群、一束、一叢"
+  },
+  {
+    "id": 63,
+    "en": "contaminate",
+    "zh": "汙染"
+  },
+  {
+    "id": 64,
+    "en": "persist",
+    "zh": "堅持、持續"
+  },
+  {
+    "id": 65,
+    "en": "indigenous",
+    "zh": "本土的、土著的"
+  },
+  {
+    "id": 66,
+    "en": "arable",
+    "zh": "可耕作的"
+  },
+  {
+    "id": 67,
+    "en": "ample",
+    "zh": "充足的、充裕的"
+  },
+  {
+    "id": 68,
+    "en": "perspire",
+    "zh": "出汗、流汗"
+  },
+  {
+    "id": 69,
+    "en": "irrigation",
+    "zh": "灌溉"
+  },
+  {
+    "id": 70,
+    "en": "qualification",
+    "zh": "資格"
+  },
+  {
+    "id": 71,
+    "en": "attire",
+    "zh": "衣著、服裝"
+  },
+  {
+    "id": 72,
+    "en": "recruit",
+    "zh": "招募"
+  },
+  {
+    "id": 73,
+    "en": "credential",
+    "zh": "憑證、證書"
+  },
+  {
+    "id": 74,
+    "en": "vacancy",
+    "zh": "空缺"
+  },
+  {
+    "id": 75,
+    "en": "clerical",
+    "zh": "辦公的"
+  },
+  {
+    "id": 76,
+    "en": "meticulous",
+    "zh": "嚴謹的、一絲不苟的"
+  },
+  {
+    "id": 77,
+    "en": "characteristic",
+    "zh": "特點、特色"
+  },
+  {
+    "id": 78,
+    "en": "aspiration",
+    "zh": "抱負、志向"
+  },
+  {
+    "id": 79,
+    "en": "applicant",
+    "zh": "申請人"
+  },
+  {
+    "id": 80,
+    "en": "devoted",
+    "zh": "忠誠的"
+  },
+  {
+    "id": 81,
+    "en": "present",
+    "zh": "呈現、報告"
+  },
+  {
+    "id": 82,
+    "en": "proficiency",
+    "zh": "熟練、精通"
+  },
+  {
+    "id": 83,
+    "en": "mentor",
+    "zh": "導師、良師益友"
+  },
+  {
+    "id": 84,
+    "en": "conform to",
+    "zh": "遵守、遵照"
+  },
+  {
+    "id": 85,
+    "en": "orientation",
+    "zh": "培訓、員工訓練"
+  },
+  {
+    "id": 86,
+    "en": "intern",
+    "zh": "實習生"
+  },
+  {
+    "id": 87,
+    "en": "oversee",
+    "zh": "監管"
+  },
+  {
+    "id": 88,
+    "en": "compulsory",
+    "zh": "強制的、義務的"
+  },
+  {
+    "id": 89,
+    "en": "apprentice",
+    "zh": "學徒"
+  },
+  {
+    "id": 90,
+    "en": "count on",
+    "zh": "依賴、依靠"
+  },
+  {
+    "id": 91,
+    "en": "dispatch",
+    "zh": "派遣"
+  },
+  {
+    "id": 92,
+    "en": "eligible",
+    "zh": "具備資格的"
+  },
+  {
+    "id": 93,
+    "en": "entitle",
+    "zh": "使有資格、使有權利"
+  },
+  {
+    "id": 94,
+    "en": "commensurate",
+    "zh": "相應的、相稱的"
+  },
+  {
+    "id": 95,
+    "en": "competent",
+    "zh": "有能力的、稱職的"
+  },
+  {
+    "id": 96,
+    "en": "severance",
+    "zh": "遣散(費)、斷絕、中斷"
+  },
+  {
+    "id": 97,
+    "en": "incentive",
+    "zh": "誘因、激勵"
+  },
+  {
+    "id": 98,
+    "en": "appraisal",
+    "zh": "評鑑、評價"
+  },
+  {
+    "id": 99,
+    "en": "substantial",
+    "zh": "可觀的、大幅的"
+  },
+  {
+    "id": 100,
+    "en": "pension",
+    "zh": "退休金"
+  },
+  {
+    "id": 101,
+    "en": "subsidy",
+    "zh": "津貼、補貼"
+  },
+  {
+    "id": 102,
+    "en": "aptitude",
+    "zh": "才能、天資"
+  },
+  {
+    "id": 103,
+    "en": "promising",
+    "zh": "有前途的"
+  },
+  {
+    "id": 104,
+    "en": "surpass",
+    "zh": "超過、勝過"
+  },
+  {
+    "id": 105,
+    "en": "exact",
+    "zh": "確切的"
+  },
+  {
+    "id": 106,
+    "en": "withhold",
+    "zh": "扣繳"
+  },
+  {
+    "id": 107,
+    "en": "mandatory",
+    "zh": "強制的"
+  },
+  {
+    "id": 108,
+    "en": "premium",
+    "zh": "保費、津貼；頂級的、優質的"
+  },
+  {
+    "id": 109,
+    "en": "vulnerable",
+    "zh": "易受傷的、脆弱的"
+  },
+  {
+    "id": 110,
+    "en": "chronic",
+    "zh": "慢性的、長期的"
+  },
+  {
+    "id": 111,
+    "en": "improper",
+    "zh": "不適當的"
+  },
+  {
+    "id": 112,
+    "en": "comprehensive",
+    "zh": "全面的、詳盡的"
+  },
+  {
+    "id": 113,
+    "en": "unprecedented",
+    "zh": "史無前例的"
+  },
+  {
+    "id": 114,
+    "en": "sustain",
+    "zh": "維持、支撐"
+  },
+  {
+    "id": 115,
+    "en": "therapy",
+    "zh": "治療、療法"
+  },
+  {
+    "id": 116,
+    "en": "discharge",
+    "zh": "讓出院、解雇"
+  },
+  {
+    "id": 117,
+    "en": "paralysis",
+    "zh": "癱瘓"
+  },
+  {
+    "id": 118,
+    "en": "hygiene",
+    "zh": "衛生"
+  },
+  {
+    "id": 119,
+    "en": "contagious",
+    "zh": "傳染性的"
+  },
+  {
+    "id": 120,
+    "en": "epidemic",
+    "zh": "流行病；肆虐的、流行的"
+  },
+  {
+    "id": 121,
+    "en": "vaccine",
+    "zh": "疫苗"
+  },
+  {
+    "id": 122,
+    "en": "quarantine",
+    "zh": "隔離檢疫"
+  },
+  {
+    "id": 123,
+    "en": "positive",
+    "zh": "陽性的、正向的、積極的"
+  },
+  {
+    "id": 124,
+    "en": "latent",
+    "zh": "潛伏的、潛在的"
+  },
+  {
+    "id": 125,
+    "en": "fatigue",
+    "zh": "疲憊、使疲勞"
+  },
+  {
+    "id": 126,
+    "en": "diagnose",
+    "zh": "診斷"
+  },
+  {
+    "id": 127,
+    "en": "acute",
+    "zh": "劇烈的、急性的"
+  },
+  {
+    "id": 128,
+    "en": "physician",
+    "zh": "內科醫生"
+  },
+  {
+    "id": 129,
+    "en": "black out",
+    "zh": "昏倒"
+  },
+  {
+    "id": 130,
+    "en": "agile",
+    "zh": "靈敏的"
+  },
+  {
+    "id": 131,
+    "en": "assess",
+    "zh": "評估、評價"
+  },
+  {
+    "id": 132,
+    "en": "sterilize",
+    "zh": "消毒"
+  },
+  {
+    "id": 133,
+    "en": "remedy",
+    "zh": "療法；補救"
+  },
+  {
+    "id": 134,
+    "en": "blemish",
+    "zh": "疤痕、瑕疵"
+  },
+  {
+    "id": 135,
+    "en": "respiratory system",
+    "zh": "呼吸系統"
+  },
+  {
+    "id": 136,
+    "en": "evident",
+    "zh": "明顯的"
+  },
+  {
+    "id": 137,
+    "en": "examine",
+    "zh": "檢查"
+  },
+  {
+    "id": 138,
+    "en": "irritate",
+    "zh": "使疼痛、使惱火"
+  },
+  {
+    "id": 139,
+    "en": "restraint",
+    "zh": "抑制、限制"
+  },
+  {
+    "id": 140,
+    "en": "distraction",
+    "zh": "分心"
+  },
+  {
+    "id": 141,
+    "en": "abate",
+    "zh": "減弱、減輕"
+  },
+  {
+    "id": 142,
+    "en": "suppress",
+    "zh": "忍住、抑制住"
+  },
+  {
+    "id": 143,
+    "en": "withstand",
+    "zh": "承受"
+  },
+  {
+    "id": 144,
+    "en": "alleviate",
+    "zh": "減輕、緩和"
+  },
+  {
+    "id": 145,
+    "en": "immune",
+    "zh": "免疫的"
+  },
+  {
+    "id": 146,
+    "en": "assorted",
+    "zh": "各式各樣的"
+  },
+  {
+    "id": 147,
+    "en": "insomnia",
+    "zh": "失眠"
+  },
+  {
+    "id": 148,
+    "en": "recur",
+    "zh": "復發"
+  },
+  {
+    "id": 149,
+    "en": "antibiotic",
+    "zh": "抗生素"
+  },
+  {
+    "id": 150,
+    "en": "transaction",
+    "zh": "交易"
+  },
+  {
+    "id": 151,
+    "en": "mortgage",
+    "zh": "房貸、抵押貸款"
+  },
+  {
+    "id": 152,
+    "en": "saving",
+    "zh": "存款、省錢"
+  },
+  {
+    "id": 153,
+    "en": "deduct",
+    "zh": "扣除、減去"
+  },
+  {
+    "id": 154,
+    "en": "statement",
+    "zh": "對帳明細、說明"
+  },
+  {
+    "id": 155,
+    "en": "delinquent",
+    "zh": "拖欠的、到期未付的"
+  },
+  {
+    "id": 156,
+    "en": "collateral",
+    "zh": "抵押物"
+  },
+  {
+    "id": 157,
+    "en": "dividend",
+    "zh": "紅利、股息"
+  },
+  {
+    "id": 158,
+    "en": "real estate",
+    "zh": "房地產"
+  },
+  {
+    "id": 159,
+    "en": "portfolio",
+    "zh": "投資組合、作品集"
+  },
+  {
+    "id": 160,
+    "en": "conservative",
+    "zh": "傳統的、保守的"
+  },
+  {
+    "id": 161,
+    "en": "remuneration",
+    "zh": "報酬"
+  },
+  {
+    "id": 162,
+    "en": "allure",
+    "zh": "誘惑"
+  },
+  {
+    "id": 163,
+    "en": "statistic",
+    "zh": "統計數字"
+  },
+  {
+    "id": 164,
+    "en": "steady",
+    "zh": "穩定的、平穩的"
+  },
+  {
+    "id": 165,
+    "en": "inconsistency",
+    "zh": "矛盾"
+  },
+  {
+    "id": 166,
+    "en": "inflation",
+    "zh": "通貨膨脹"
+  },
+  {
+    "id": 167,
+    "en": "overall",
+    "zh": "總體的"
+  },
+  {
+    "id": 168,
+    "en": "recession",
+    "zh": "衰退"
+  },
+  {
+    "id": 169,
+    "en": "fluctuation",
+    "zh": "波動、起伏"
+  },
+  {
+    "id": 170,
+    "en": "counselor",
+    "zh": "顧問"
+  },
+  {
+    "id": 171,
+    "en": "soar",
+    "zh": "激增"
+  },
+  {
+    "id": 172,
+    "en": "monetary",
+    "zh": "貨幣的"
+  },
+  {
+    "id": 173,
+    "en": "depreciation",
+    "zh": "貶值"
+  },
+  {
+    "id": 174,
+    "en": "downfall",
+    "zh": "衰落"
+  },
+  {
+    "id": 175,
+    "en": "perspective",
+    "zh": "觀點"
+  },
+  {
+    "id": 176,
+    "en": "stagnant",
+    "zh": "停滯不前的"
+  },
+  {
+    "id": 177,
+    "en": "constraint",
+    "zh": "限制"
+  },
+  {
+    "id": 178,
+    "en": "deficit",
+    "zh": "赤字、虧損"
+  },
+  {
+    "id": 179,
+    "en": "revenue",
+    "zh": "收益、稅收"
+  },
+  {
+    "id": 180,
+    "en": "authorize",
+    "zh": "批准"
+  },
+  {
+    "id": 181,
+    "en": "expenditure",
+    "zh": "花費"
+  },
+  {
+    "id": 182,
+    "en": "residue",
+    "zh": "剩餘物"
+  },
+  {
+    "id": 183,
+    "en": "turnover",
+    "zh": "營業額、人員替換率"
+  },
+  {
+    "id": 184,
+    "en": "overhead",
+    "zh": "經常性開支、頭頂上的"
+  },
+  {
+    "id": 185,
+    "en": "outstanding",
+    "zh": "傑出的、未支付的"
+  },
+  {
+    "id": 186,
+    "en": "reconcile",
+    "zh": "調解"
+  },
+  {
+    "id": 187,
+    "en": "creditor",
+    "zh": "債主"
+  },
+  {
+    "id": 188,
+    "en": "overdraft",
+    "zh": "透支"
+  },
+  {
+    "id": 189,
+    "en": "ledger",
+    "zh": "(會計)分類帳"
+  },
+  {
+    "id": 190,
+    "en": "lay off",
+    "zh": "解雇"
+  },
+  {
+    "id": 191,
+    "en": "consent",
+    "zh": "許可、同意"
+  },
+  {
+    "id": 192,
+    "en": "substitute",
+    "zh": "取代；替代品"
+  },
+  {
+    "id": 193,
+    "en": "policy",
+    "zh": "政策、保單"
+  },
+  {
+    "id": 194,
+    "en": "procedure",
+    "zh": "步驟"
+  },
+  {
+    "id": 195,
+    "en": "compliance",
+    "zh": "服從、遵守"
+  },
+  {
+    "id": 196,
+    "en": "presentation",
+    "zh": "報告、外觀"
+  },
+  {
+    "id": 197,
+    "en": "allocate",
+    "zh": "分配"
+  },
+  {
+    "id": 198,
+    "en": "interpretation",
+    "zh": "解釋、理解"
+  },
+  {
+    "id": 199,
+    "en": "peculiar",
+    "zh": "奇怪的、特殊的"
+  },
+  {
+    "id": 200,
+    "en": "deprivation",
+    "zh": "缺乏"
+  },
+  {
+    "id": 201,
+    "en": "criterion / criteria",
+    "zh": "標準"
+  },
+  {
+    "id": 202,
+    "en": "assent",
+    "zh": "同意"
+  },
+  {
+    "id": 203,
+    "en": "reprimand",
+    "zh": "斥責"
+  },
+  {
+    "id": 204,
+    "en": "correspondence",
+    "zh": "信件"
+  },
+  {
+    "id": 205,
+    "en": "classified",
+    "zh": "機密的；分類的"
+  },
+  {
+    "id": 206,
+    "en": "violate",
+    "zh": "違反"
+  },
+  {
+    "id": 207,
+    "en": "petition",
+    "zh": "請願"
+  },
+  {
+    "id": 208,
+    "en": "elaborate",
+    "zh": "詳盡說明；精心製作的"
+  },
+  {
+    "id": 209,
+    "en": "enclose",
+    "zh": "隨信附上"
+  },
+  {
+    "id": 210,
+    "en": "complication",
+    "zh": "複雜"
+  },
+  {
+    "id": 211,
+    "en": "affix",
+    "zh": "黏上、附上"
+  },
+  {
+    "id": 212,
+    "en": "overview",
+    "zh": "概述"
+  },
+  {
+    "id": 213,
+    "en": "finalize",
+    "zh": "最後確定"
+  },
+  {
+    "id": 214,
+    "en": "convince",
+    "zh": "說服"
+  },
+  {
+    "id": 215,
+    "en": "workshop",
+    "zh": "研討會"
+  },
+  {
+    "id": 216,
+    "en": "neutral",
+    "zh": "中立的"
+  },
+  {
+    "id": 217,
+    "en": "assert",
+    "zh": "堅定主張"
+  },
+  {
+    "id": 218,
+    "en": "proceed",
+    "zh": "繼續進行"
+  },
+  {
+    "id": 219,
+    "en": "minute",
+    "zh": "分鐘、會議紀錄"
+  },
+  {
+    "id": 220,
+    "en": "irrelevant",
+    "zh": "不相關的"
+  },
+  {
+    "id": 221,
+    "en": "confer",
+    "zh": "商討"
+  },
+  {
+    "id": 222,
+    "en": "brief",
+    "zh": "短暫的"
+  },
+  {
+    "id": 223,
+    "en": "intermission",
+    "zh": "中場休息、間歇"
+  },
+  {
+    "id": 224,
+    "en": "deviate",
+    "zh": "偏離"
+  },
+  {
+    "id": 225,
+    "en": "concise",
+    "zh": "簡明的"
+  },
+  {
+    "id": 226,
+    "en": "opponent",
+    "zh": "對手、反對者"
+  },
+  {
+    "id": 227,
+    "en": "dispute",
+    "zh": "爭執"
+  },
+  {
+    "id": 228,
+    "en": "rational",
+    "zh": "理性的"
+  },
+  {
+    "id": 229,
+    "en": "compromise",
+    "zh": "妥協"
+  },
+  {
+    "id": 230,
+    "en": "affirmative",
+    "zh": "肯定的"
+  },
+  {
+    "id": 231,
+    "en": "perceptive",
+    "zh": "觀察敏銳的"
+  },
+  {
+    "id": 232,
+    "en": "arbitration",
+    "zh": "仲裁"
+  },
+  {
+    "id": 233,
+    "en": "mediate",
+    "zh": "調停"
+  },
+  {
+    "id": 234,
+    "en": "debate",
+    "zh": "辯論"
+  },
+  {
+    "id": 235,
+    "en": "deteriorate",
+    "zh": "惡化"
+  },
+  {
+    "id": 236,
+    "en": "proponent",
+    "zh": "支持者"
+  },
+  {
+    "id": 237,
+    "en": "tell off",
+    "zh": "責備"
+  },
+  {
+    "id": 238,
+    "en": "concede",
+    "zh": "讓步、承認"
+  },
+  {
+    "id": 239,
+    "en": "logistics",
+    "zh": "物流"
+  },
+  {
+    "id": 240,
+    "en": "alliance",
+    "zh": "結盟"
+  },
+  {
+    "id": 241,
+    "en": "proportion",
+    "zh": "部分、比例"
+  },
+  {
+    "id": 242,
+    "en": "optimal",
+    "zh": "最佳的"
+  },
+  {
+    "id": 243,
+    "en": "plunge",
+    "zh": "暴跌、驟降"
+  },
+  {
+    "id": 244,
+    "en": "mastermind",
+    "zh": "策劃者；策劃"
+  },
+  {
+    "id": 245,
+    "en": "currency",
+    "zh": "貨幣"
+  },
+  {
+    "id": 246,
+    "en": "barter",
+    "zh": "以物易物"
+  },
+  {
+    "id": 247,
+    "en": "lucrative",
+    "zh": "賺錢的、有利可圖的"
+  },
+  {
+    "id": 248,
+    "en": "prerequisite",
+    "zh": "前提、先決條件"
+  },
+  {
+    "id": 249,
+    "en": "conglomerate",
+    "zh": "企業集團"
+  },
+  {
+    "id": 250,
+    "en": "prospective",
+    "zh": "可能的、潛在的"
+  },
+  {
+    "id": 251,
+    "en": "thrive",
+    "zh": "繁榮"
+  },
+  {
+    "id": 252,
+    "en": "liquidate",
+    "zh": "清算"
+  },
+  {
+    "id": 253,
+    "en": "foremost",
+    "zh": "最重要的、最先的"
+  },
+  {
+    "id": 254,
+    "en": "subsidiary",
+    "zh": "子公司；次要的"
+  },
+  {
+    "id": 255,
+    "en": "envision",
+    "zh": "預想、預計"
+  },
+  {
+    "id": 256,
+    "en": "pros and cons",
+    "zh": "利弊、優缺點"
+  },
+  {
+    "id": 257,
+    "en": "exploit",
+    "zh": "利用、剝削"
+  },
+  {
+    "id": 258,
+    "en": "lean",
+    "zh": "人力精簡的、精瘦的"
+  },
+  {
+    "id": 259,
+    "en": "reputable",
+    "zh": "有聲譽的"
+  },
+  {
+    "id": 260,
+    "en": "interdepartmental",
+    "zh": "跨部門的"
+  },
+  {
+    "id": 261,
+    "en": "cutback",
+    "zh": "刪減"
+  },
+  {
+    "id": 262,
+    "en": "affiliated",
+    "zh": "隸屬的"
+  },
+  {
+    "id": 263,
+    "en": "deadlock",
+    "zh": "僵持"
+  },
+  {
+    "id": 264,
+    "en": "consolidate",
+    "zh": "合併、聯合"
+  },
+  {
+    "id": 265,
+    "en": "insolvent",
+    "zh": "無力清償的"
+  },
+  {
+    "id": 266,
+    "en": "premises",
+    "zh": "營業場所"
+  },
+  {
+    "id": 267,
+    "en": "workforce",
+    "zh": "勞動力、職員"
+  },
+  {
+    "id": 268,
+    "en": "on behalf of",
+    "zh": "代表(...的立場)"
+  },
+  {
+    "id": 269,
+    "en": "personnel",
+    "zh": "人事、全體員工"
+  },
+  {
+    "id": 270,
+    "en": "associate",
+    "zh": "同事；聯想"
+  },
+  {
+    "id": 271,
+    "en": "subordinate",
+    "zh": "下屬；次要的"
+  },
+  {
+    "id": 272,
+    "en": "administrative",
+    "zh": "行政的"
+  },
+  {
+    "id": 273,
+    "en": "sales",
+    "zh": "銷售量、銷售部門"
+  },
+  {
+    "id": 274,
+    "en": "streamline",
+    "zh": "流線型；簡化"
+  },
+  {
+    "id": 275,
+    "en": "phase",
+    "zh": "階段"
+  },
+  {
+    "id": 276,
+    "en": "board of directors",
+    "zh": "董事會"
+  },
+  {
+    "id": 277,
+    "en": "predominant",
+    "zh": "主要的"
+  },
+  {
+    "id": 278,
+    "en": "executive",
+    "zh": "行政主管；執行的"
+  },
+  {
+    "id": 279,
+    "en": "deputy",
+    "zh": "副手、代理人"
+  },
+  {
+    "id": 280,
+    "en": "stipulation",
+    "zh": "規定、明確要求"
+  },
+  {
+    "id": 281,
+    "en": "periodically",
+    "zh": "定期地"
+  },
+  {
+    "id": 282,
+    "en": "advocate",
+    "zh": "提倡；擁護者"
+  },
+  {
+    "id": 283,
+    "en": "insight",
+    "zh": "洞察力、見解"
+  },
+  {
+    "id": 284,
+    "en": "adjourned",
+    "zh": "延後、休會"
+  },
+  {
+    "id": 285,
+    "en": "preliminary",
+    "zh": "初步的"
+  },
+  {
+    "id": 286,
+    "en": "articulate",
+    "zh": "善於表達的；清楚表達"
+  },
+  {
+    "id": 287,
+    "en": "reciprocal",
+    "zh": "互相的"
+  },
+  {
+    "id": 288,
+    "en": "adhere to",
+    "zh": "遵守"
+  },
+  {
+    "id": 289,
+    "en": "tardy",
+    "zh": "遲到的"
+  },
+  {
+    "id": 290,
+    "en": "breakthrough",
+    "zh": "突破、重大進展"
+  },
+  {
+    "id": 291,
+    "en": "bring up",
+    "zh": "提到"
+  },
+  {
+    "id": 292,
+    "en": "summit",
+    "zh": "高峰會議"
+  },
+  {
+    "id": 293,
+    "en": "bureaucracy",
+    "zh": "官僚"
+  },
+  {
+    "id": 294,
+    "en": "relinquish",
+    "zh": "捨棄"
+  },
+  {
+    "id": 295,
+    "en": "deliberation",
+    "zh": "商討、深思熟慮"
+  },
+  {
+    "id": 296,
+    "en": "bilateral",
+    "zh": "雙方的"
+  },
+  {
+    "id": 297,
+    "en": "unanimous",
+    "zh": "意見一致的"
+  },
+  {
+    "id": 298,
+    "en": "observe",
+    "zh": "觀察、遵守、看到"
+  },
+  {
+    "id": 299,
+    "en": "in charge of",
+    "zh": "負責"
+  },
+  {
+    "id": 300,
+    "en": "duplicate",
+    "zh": "副本；複製的"
+  },
+  {
+    "id": 301,
+    "en": "interfere",
+    "zh": "干涉"
+  },
+  {
+    "id": 302,
+    "en": "cease",
+    "zh": "停止"
+  },
+  {
+    "id": 303,
+    "en": "disclose",
+    "zh": "公布"
+  },
+  {
+    "id": 304,
+    "en": "compel",
+    "zh": "迫使"
+  },
+  {
+    "id": 305,
+    "en": "staple",
+    "zh": "訂書針；裝訂"
+  },
+  {
+    "id": 306,
+    "en": "instruction",
+    "zh": "指示、教學"
+  },
+  {
+    "id": 307,
+    "en": "carton",
+    "zh": "紙盒"
+  },
+  {
+    "id": 308,
+    "en": "stationery",
+    "zh": "文具"
+  },
+  {
+    "id": 309,
+    "en": "project",
+    "zh": "投影、預計"
+  },
+  {
+    "id": 310,
+    "en": "cartridge",
+    "zh": "墨水匣"
+  },
+  {
+    "id": 311,
+    "en": "trivial",
+    "zh": "瑣碎的"
+  },
+  {
+    "id": 312,
+    "en": "newsletter",
+    "zh": "電子報"
+  },
+  {
+    "id": 313,
+    "en": "across the board",
+    "zh": "徹底的"
+  },
+  {
+    "id": 314,
+    "en": "timesheet",
+    "zh": "出勤紀錄表"
+  },
+  {
+    "id": 315,
+    "en": "malfunction",
+    "zh": "故障"
+  },
+  {
+    "id": 316,
+    "en": "sophisticated",
+    "zh": "複雜的、精密的"
+  },
+  {
+    "id": 317,
+    "en": "cutting-edge",
+    "zh": "尖端的、最新的"
+  },
+  {
+    "id": 318,
+    "en": "initiative",
+    "zh": "主動"
+  },
+  {
+    "id": 319,
+    "en": "engage",
+    "zh": "聘用、(機器)接合"
+  },
+  {
+    "id": 320,
+    "en": "outlet",
+    "zh": "插座、排放孔、銷售據點"
+  },
+  {
+    "id": 321,
+    "en": "recur",
+    "zh": "復發"
+  },
+  {
+    "id": 322,
+    "en": "shred",
+    "zh": "切絲"
+  },
+  {
+    "id": 323,
+    "en": "obsolete",
+    "zh": "過時的"
+  },
+  {
+    "id": 324,
+    "en": "archive",
+    "zh": "檔案庫；存檔"
+  },
+  {
+    "id": 325,
+    "en": "telecommute",
+    "zh": "遠程辦公"
+  },
+  {
+    "id": 326,
+    "en": "manipulate",
+    "zh": "操縱"
+  },
+  {
+    "id": 327,
+    "en": "insulation",
+    "zh": "隔絕"
+  },
+  {
+    "id": 328,
+    "en": "compatible",
+    "zh": "相容的"
+  },
+  {
+    "id": 329,
+    "en": "access",
+    "zh": "權利、管道"
+  },
+  {
+    "id": 330,
+    "en": "indicate",
+    "zh": "表示"
+  },
+  {
+    "id": 331,
+    "en": "implement",
+    "zh": "實施；器具"
+  },
+  {
+    "id": 332,
+    "en": "intercept",
+    "zh": "攔截"
+  },
+  {
+    "id": 333,
+    "en": "spacious",
+    "zh": "寬敞的"
+  },
+  {
+    "id": 334,
+    "en": "storage",
+    "zh": "儲存"
+  },
+  {
+    "id": 335,
+    "en": "clearance",
+    "zh": "清除、清倉拍賣"
+  },
+  {
+    "id": 336,
+    "en": "precise",
+    "zh": "精確的"
+  },
+  {
+    "id": 337,
+    "en": "depletion",
+    "zh": "消耗、用盡"
+  },
+  {
+    "id": 338,
+    "en": "surplus",
+    "zh": "剩餘；剩餘的"
+  },
+  {
+    "id": 339,
+    "en": "discrepancy",
+    "zh": "差異"
+  },
+  {
+    "id": 340,
+    "en": "replenish",
+    "zh": "補充"
+  },
+  {
+    "id": 341,
+    "en": "insufficient",
+    "zh": "不足的"
+  },
+  {
+    "id": 342,
+    "en": "crucial",
+    "zh": "至關重要的"
+  },
+  {
+    "id": 343,
+    "en": "liability",
+    "zh": "責任"
+  },
+  {
+    "id": 344,
+    "en": "diminish",
+    "zh": "減少、降低"
+  },
+  {
+    "id": 345,
+    "en": "tedious",
+    "zh": "枯燥乏味的"
+  },
+  {
+    "id": 346,
+    "en": "brochure",
+    "zh": "手冊"
+  },
+  {
+    "id": 347,
+    "en": "designate",
+    "zh": "指定"
+  },
+  {
+    "id": 348,
+    "en": "complement",
+    "zh": "補充"
+  },
+  {
+    "id": 349,
+    "en": "installment",
+    "zh": "分期付款"
+  },
+  {
+    "id": 350,
+    "en": "spare",
+    "zh": "備用的、多餘的"
+  },
+  {
+    "id": 351,
+    "en": "essential",
+    "zh": "重要的"
+  },
+  {
+    "id": 352,
+    "en": "diversify",
+    "zh": "使多樣化"
+  },
+  {
+    "id": 353,
+    "en": "deficient",
+    "zh": "缺乏的"
+  },
+  {
+    "id": 354,
+    "en": "bulk",
+    "zh": "大量"
+  },
+  {
+    "id": 355,
+    "en": "reasonable",
+    "zh": "合理的"
+  },
+  {
+    "id": 356,
+    "en": "anticipate",
+    "zh": "預期"
+  },
+  {
+    "id": 357,
+    "en": "redeem",
+    "zh": "兌換、折抵"
+  },
+  {
+    "id": 358,
+    "en": "burdensome",
+    "zh": "麻煩的"
+  },
+  {
+    "id": 359,
+    "en": "retail",
+    "zh": "零售"
+  },
+  {
+    "id": 360,
+    "en": "quote",
+    "zh": "報價"
+  },
+  {
+    "id": 361,
+    "en": "surcharge",
+    "zh": "附加費用"
+  },
+  {
+    "id": 362,
+    "en": "reimburse",
+    "zh": "償還、補貼"
+  },
+  {
+    "id": 363,
+    "en": "rebate",
+    "zh": "部分退款、部分折價"
+  },
+  {
+    "id": 364,
+    "en": "compile",
+    "zh": "匯集"
+  },
+  {
+    "id": 365,
+    "en": "rectify",
+    "zh": "修正"
+  },
+  {
+    "id": 366,
+    "en": "expedite",
+    "zh": "加快"
+  },
+  {
+    "id": 367,
+    "en": "inventory",
+    "zh": "庫存"
+  },
+  {
+    "id": 368,
+    "en": "crate",
+    "zh": "貨箱"
+  },
+  {
+    "id": 369,
+    "en": "insure",
+    "zh": "幫...投保"
+  },
+  {
+    "id": 370,
+    "en": "cargo",
+    "zh": "貨物"
+  },
+  {
+    "id": 371,
+    "en": "numerous",
+    "zh": "大量的"
+  },
+  {
+    "id": 372,
+    "en": "Instant",
+    "zh": "立刻的"
+  },
+  {
+    "id": 373,
+    "en": "expiration",
+    "zh": "到期"
+  },
+  {
+    "id": 374,
+    "en": "warranty",
+    "zh": "保固"
+  },
+  {
+    "id": 375,
+    "en": "permanent",
+    "zh": "永久的"
+  },
+  {
+    "id": 376,
+    "en": "required",
+    "zh": "必須的"
+  },
+  {
+    "id": 377,
+    "en": "combustible",
+    "zh": "可燃的"
+  },
+  {
+    "id": 378,
+    "en": "alteration",
+    "zh": "改變"
+  },
+  {
+    "id": 379,
+    "en": "dismantle",
+    "zh": "拆卸"
+  },
+  {
+    "id": 380,
+    "en": "attribute",
+    "zh": "將a歸因於b"
+  },
+  {
+    "id": 381,
+    "en": "further",
+    "zh": "更進一步的"
+  },
+  {
+    "id": 382,
+    "en": "wear and tear",
+    "zh": "磨損"
+  },
+  {
+    "id": 383,
+    "en": "equivalent",
+    "zh": "相等的"
+  },
+  {
+    "id": 384,
+    "en": "obligation",
+    "zh": "責任"
+  },
+  {
+    "id": 385,
+    "en": "guarantee",
+    "zh": "保固、保證"
+  },
+  {
+    "id": 386,
+    "en": "arise",
+    "zh": "出現、產生"
+  },
+  {
+    "id": 387,
+    "en": "issue",
+    "zh": "發行"
+  },
+  {
+    "id": 388,
+    "en": "mutual",
+    "zh": "互相的"
+  },
+  {
+    "id": 389,
+    "en": "notice",
+    "zh": "公告；注意到"
+  },
+  {
+    "id": 390,
+    "en": "brisk",
+    "zh": "興旺的"
+  },
+  {
+    "id": 391,
+    "en": "liable",
+    "zh": "承擔責任的"
+  },
+  {
+    "id": 392,
+    "en": "questionnaire",
+    "zh": "問卷"
+  },
+  {
+    "id": 393,
+    "en": "considerate",
+    "zh": "體貼的"
+  },
+  {
+    "id": 394,
+    "en": "acknowledge",
+    "zh": "感謝、承認"
+  },
+  {
+    "id": 395,
+    "en": "distrust",
+    "zh": "不信任"
+  },
+  {
+    "id": 396,
+    "en": "gratitude",
+    "zh": "感激"
+  },
+  {
+    "id": 397,
+    "en": "commend",
+    "zh": "讚揚"
+  },
+  {
+    "id": 398,
+    "en": "brand new",
+    "zh": "全新的"
+  },
+  {
+    "id": 399,
+    "en": "tolerance",
+    "zh": "寬容"
+  },
+  {
+    "id": 400,
+    "en": "complain",
+    "zh": "抱怨、申訴"
+  },
+  {
+    "id": 401,
+    "en": "appropriate",
+    "zh": "適當的"
+  },
+  {
+    "id": 402,
+    "en": "clarify",
+    "zh": "澄清"
+  },
+  {
+    "id": 403,
+    "en": "restriction",
+    "zh": "限制"
+  },
+  {
+    "id": 404,
+    "en": "terminate",
+    "zh": "終止"
+  },
+  {
+    "id": 405,
+    "en": "revise",
+    "zh": "修改"
+  },
+  {
+    "id": 406,
+    "en": "abide by",
+    "zh": "遵守"
+  },
+  {
+    "id": 407,
+    "en": "forfeit",
+    "zh": "被沒收"
+  },
+  {
+    "id": 408,
+    "en": "term",
+    "zh": "條款、術語、期間"
+  },
+  {
+    "id": 409,
+    "en": "obligate",
+    "zh": "強制"
+  },
+  {
+    "id": 410,
+    "en": "renew",
+    "zh": "更新、續訂"
+  },
+  {
+    "id": 411,
+    "en": "default",
+    "zh": "違約、拖欠"
+  },
+  {
+    "id": 412,
+    "en": "unconditional",
+    "zh": "無條件的"
+  },
+  {
+    "id": 413,
+    "en": "case",
+    "zh": "案件、盒"
+  },
+  {
+    "id": 414,
+    "en": "agreement",
+    "zh": "同意、合約"
+  },
+  {
+    "id": 415,
+    "en": "subcontract",
+    "zh": "分包；分包合約"
+  },
+  {
+    "id": 416,
+    "en": "party",
+    "zh": "(契約)一方、政黨、舞會"
+  },
+  {
+    "id": 417,
+    "en": "annotate",
+    "zh": "註解"
+  },
+  {
+    "id": 418,
+    "en": "definite",
+    "zh": "明確的"
+  },
+  {
+    "id": 419,
+    "en": "specific",
+    "zh": "特定的"
+  },
+  {
+    "id": 420,
+    "en": "provision",
+    "zh": "規定、提供"
+  },
+  {
+    "id": 421,
+    "en": "appendix",
+    "zh": "附錄"
+  },
+  {
+    "id": 422,
+    "en": "contingency",
+    "zh": "突發事件"
+  },
+  {
+    "id": 423,
+    "en": "primarily",
+    "zh": "主要地"
+  },
+  {
+    "id": 424,
+    "en": "substitute",
+    "zh": "取代；代替品"
+  },
+  {
+    "id": 425,
+    "en": "economize",
+    "zh": "節約"
+  },
+  {
+    "id": 426,
+    "en": "quota",
+    "zh": "配額"
+  },
+  {
+    "id": 427,
+    "en": "feasible",
+    "zh": "可行的"
+  },
+  {
+    "id": 428,
+    "en": "defer",
+    "zh": "推遲"
+  },
+  {
+    "id": 429,
+    "en": "boom",
+    "zh": "增長"
+  },
+  {
+    "id": 430,
+    "en": "progress",
+    "zh": "進步、進度"
+  },
+  {
+    "id": 431,
+    "en": "inadequate",
+    "zh": "不夠的"
+  },
+  {
+    "id": 432,
+    "en": "soar",
+    "zh": "暴漲"
+  },
+  {
+    "id": 433,
+    "en": "pursue",
+    "zh": "追求"
+  },
+  {
+    "id": 434,
+    "en": "impractical",
+    "zh": "不切實際的、不實用的"
+  },
+  {
+    "id": 435,
+    "en": "desperate",
+    "zh": "孤注一擲的"
+  },
+  {
+    "id": 436,
+    "en": "simultaneously",
+    "zh": "同步"
+  },
+  {
+    "id": 437,
+    "en": "develop",
+    "zh": "發展、沖洗(相片)"
+  },
+  {
+    "id": 438,
+    "en": "consequence",
+    "zh": "結果"
+  },
+  {
+    "id": 439,
+    "en": "contractor",
+    "zh": "承包商"
+  },
+  {
+    "id": 440,
+    "en": "accelerate",
+    "zh": "加速"
+  },
+  {
+    "id": 441,
+    "en": "expand",
+    "zh": "擴大"
+  },
+  {
+    "id": 442,
+    "en": "goal",
+    "zh": "目標"
+  },
+  {
+    "id": 443,
+    "en": "off-season",
+    "zh": "淡季"
+  },
+  {
+    "id": 444,
+    "en": "franchise",
+    "zh": "加盟"
+  },
+  {
+    "id": 445,
+    "en": "curtail",
+    "zh": "縮減"
+  },
+  {
+    "id": 446,
+    "en": "pace",
+    "zh": "步調"
+  },
+  {
+    "id": 447,
+    "en": "market share",
+    "zh": "市佔率"
+  },
+  {
+    "id": 448,
+    "en": "exclusive",
+    "zh": "排除的、專有的"
+  },
+  {
+    "id": 449,
+    "en": "desirable",
+    "zh": "令人嚮往的"
+  },
+  {
+    "id": 450,
+    "en": "prospect",
+    "zh": "可能性、前景"
+  },
+  {
+    "id": 451,
+    "en": "break even",
+    "zh": "不賺不賠"
+  },
+  {
+    "id": 452,
+    "en": "monopoly",
+    "zh": "壟斷、獨佔"
+  },
+  {
+    "id": 453,
+    "en": "thrive",
+    "zh": "興旺"
+  },
+  {
+    "id": 454,
+    "en": "rule out",
+    "zh": "排除"
+  },
+  {
+    "id": 455,
+    "en": "prosperity",
+    "zh": "(經濟上)繁榮"
+  },
+  {
+    "id": 456,
+    "en": "peak season",
+    "zh": "旺季"
+  },
+  {
+    "id": 457,
+    "en": "enhance",
+    "zh": "提高"
+  },
+  {
+    "id": 458,
+    "en": "merchandise",
+    "zh": "商品"
+  },
+  {
+    "id": 459,
+    "en": "pop up",
+    "zh": "突然出現、彈出"
+  },
+  {
+    "id": 460,
+    "en": "tentative",
+    "zh": "嘗試性的"
+  },
+  {
+    "id": 461,
+    "en": "commodity",
+    "zh": "商品"
+  },
+  {
+    "id": 462,
+    "en": "market",
+    "zh": "市場；行銷"
+  },
+  {
+    "id": 463,
+    "en": "clientele",
+    "zh": "客群"
+  },
+  {
+    "id": 464,
+    "en": "tactic",
+    "zh": "策略"
+  },
+  {
+    "id": 465,
+    "en": "timely",
+    "zh": "及時的"
+  },
+  {
+    "id": 466,
+    "en": "commonplace",
+    "zh": "常見的"
+  },
+  {
+    "id": 467,
+    "en": "trademark",
+    "zh": "商標"
+  },
+  {
+    "id": 468,
+    "en": "fad",
+    "zh": "短暫的流行"
+  },
+  {
+    "id": 469,
+    "en": "target",
+    "zh": "目標；以...目標"
+  },
+  {
+    "id": 470,
+    "en": "convince",
+    "zh": "說服、使相信"
+  },
+  {
+    "id": 471,
+    "en": "consignment",
+    "zh": "寄賣"
+  },
+  {
+    "id": 472,
+    "en": "demonstrate",
+    "zh": "示範"
+  },
+  {
+    "id": 473,
+    "en": "broaden",
+    "zh": "使變寬"
+  },
+  {
+    "id": 474,
+    "en": "suspend",
+    "zh": "暫緩"
+  },
+  {
+    "id": 475,
+    "en": "supervisor",
+    "zh": "上司"
+  },
+  {
+    "id": 476,
+    "en": "judgment",
+    "zh": "判斷、意見"
+  },
+  {
+    "id": 477,
+    "en": "patent",
+    "zh": "專利權"
+  },
+  {
+    "id": 478,
+    "en": "ascertain",
+    "zh": "查明"
+  },
+  {
+    "id": 479,
+    "en": "variety",
+    "zh": "種類、變化"
+  },
+  {
+    "id": 480,
+    "en": "drawback",
+    "zh": "缺點"
+  },
+  {
+    "id": 481,
+    "en": "decade",
+    "zh": "十年"
+  },
+  {
+    "id": 482,
+    "en": "extraordinary",
+    "zh": "特別的"
+  },
+  {
+    "id": 483,
+    "en": "long-lasting",
+    "zh": "持久的"
+  },
+  {
+    "id": 484,
+    "en": "entry",
+    "zh": "進入、項目"
+  },
+  {
+    "id": 485,
+    "en": "customize",
+    "zh": "訂做"
+  },
+  {
+    "id": 486,
+    "en": "assemble",
+    "zh": "組裝、集合"
+  },
+  {
+    "id": 487,
+    "en": "synthetic",
+    "zh": "合成的"
+  },
+  {
+    "id": 488,
+    "en": "industrial",
+    "zh": "工業的"
+  },
+  {
+    "id": 489,
+    "en": "crude",
+    "zh": "未經加工的"
+  },
+  {
+    "id": 490,
+    "en": "apparatus",
+    "zh": "器材"
+  },
+  {
+    "id": 491,
+    "en": "yield",
+    "zh": "產量；產出"
+  },
+  {
+    "id": 492,
+    "en": "flawed",
+    "zh": "有瑕疵的"
+  },
+  {
+    "id": 493,
+    "en": "conform",
+    "zh": "遵照"
+  },
+  {
+    "id": 494,
+    "en": "repel",
+    "zh": "抵禦"
+  },
+  {
+    "id": 495,
+    "en": "wrap",
+    "zh": "包裹物；包起"
+  },
+  {
+    "id": 496,
+    "en": "constitute",
+    "zh": "構成"
+  },
+  {
+    "id": 497,
+    "en": "sturdy",
+    "zh": "結實的"
+  },
+  {
+    "id": 498,
+    "en": "refine",
+    "zh": "精煉"
+  },
+  {
+    "id": 499,
+    "en": "phase in",
+    "zh": "逐步採用"
+  },
+  {
+    "id": 500,
+    "en": "fragile",
+    "zh": "脆弱的"
+  },
+  {
+    "id": 501,
+    "en": "spotless",
+    "zh": "毫無瑕疵的"
+  },
+  {
+    "id": 502,
+    "en": "defective",
+    "zh": "有瑕疵的"
+  },
+  {
+    "id": 503,
+    "en": "stain",
+    "zh": "污漬；沾汙"
+  },
+  {
+    "id": 504,
+    "en": "precaution",
+    "zh": "預防措施"
+  },
+  {
+    "id": 505,
+    "en": "gauge",
+    "zh": "測量；測量儀器"
+  },
+  {
+    "id": 506,
+    "en": "fault",
+    "zh": "缺陷、過失"
+  },
+  {
+    "id": 507,
+    "en": "overhaul",
+    "zh": "徹底檢修"
+  },
+  {
+    "id": 508,
+    "en": "miscellaneous",
+    "zh": "混雜的"
+  },
+  {
+    "id": 509,
+    "en": "sensor",
+    "zh": "感應器"
+  },
+  {
+    "id": 510,
+    "en": "monitor",
+    "zh": "螢幕；監控"
+  },
+  {
+    "id": 511,
+    "en": "detach",
+    "zh": "拆卸"
+  },
+  {
+    "id": 512,
+    "en": "variable",
+    "zh": "多變的"
+  },
+  {
+    "id": 513,
+    "en": "facilitate",
+    "zh": "促進"
+  },
+  {
+    "id": 514,
+    "en": "downgrade",
+    "zh": "降低；使降級"
+  },
+  {
+    "id": 515,
+    "en": "immediate",
+    "zh": "立刻的"
+  },
+  {
+    "id": 516,
+    "en": "audiovisual",
+    "zh": "視聽的"
+  },
+  {
+    "id": 517,
+    "en": "technical",
+    "zh": "技術的"
+  },
+  {
+    "id": 518,
+    "en": "irreversible",
+    "zh": "不可逆轉的"
+  },
+  {
+    "id": 519,
+    "en": "enable",
+    "zh": "使能夠"
+  },
+  {
+    "id": 520,
+    "en": "complicated",
+    "zh": "複雜的"
+  },
+  {
+    "id": 521,
+    "en": "virtual",
+    "zh": "虛擬的"
+  },
+  {
+    "id": 522,
+    "en": "inaccessible",
+    "zh": "難達到的、得不到的"
+  },
+  {
+    "id": 523,
+    "en": "insert",
+    "zh": "插入"
+  },
+  {
+    "id": 524,
+    "en": "supplementary",
+    "zh": "補充的"
+  },
+  {
+    "id": 525,
+    "en": "boost",
+    "zh": "增強"
+  },
+  {
+    "id": 526,
+    "en": "retrieve",
+    "zh": "找回、檢索"
+  },
+  {
+    "id": 527,
+    "en": "built-in",
+    "zh": "內建的"
+  },
+  {
+    "id": 528,
+    "en": "innovative",
+    "zh": "創新的"
+  },
+  {
+    "id": 529,
+    "en": "state-of-the-art",
+    "zh": "最新的"
+  },
+  {
+    "id": 530,
+    "en": "resolution",
+    "zh": "解析度、決心"
+  },
+  {
+    "id": 531,
+    "en": "devise",
+    "zh": "發明家"
+  },
+  {
+    "id": 532,
+    "en": "versatile",
+    "zh": "多用途的"
+  },
+  {
+    "id": 533,
+    "en": "gadget",
+    "zh": "小裝置"
+  },
+  {
+    "id": 534,
+    "en": "entire",
+    "zh": "全部的"
+  },
+  {
+    "id": 535,
+    "en": "investigate",
+    "zh": "調查"
+  },
+  {
+    "id": 536,
+    "en": "stimulate",
+    "zh": "激發"
+  },
+  {
+    "id": 537,
+    "en": "stay tuned",
+    "zh": "別轉台"
+  },
+  {
+    "id": 538,
+    "en": "misleading",
+    "zh": "誤導的"
+  },
+  {
+    "id": 539,
+    "en": "comprehensive",
+    "zh": "全面的"
+  },
+  {
+    "id": 540,
+    "en": "intuitive",
+    "zh": "直覺的"
+  },
+  {
+    "id": 541,
+    "en": "capture",
+    "zh": "捕捉"
+  },
+  {
+    "id": 542,
+    "en": "stern",
+    "zh": "嚴厲的"
+  },
+  {
+    "id": 543,
+    "en": "confine",
+    "zh": "限制"
+  },
+  {
+    "id": 544,
+    "en": "thorough",
+    "zh": "徹底的"
+  },
+  {
+    "id": 545,
+    "en": "in-depth",
+    "zh": "深入詳盡的"
+  },
+  {
+    "id": 546,
+    "en": "spread",
+    "zh": "擴散"
+  },
+  {
+    "id": 547,
+    "en": "impact",
+    "zh": "衝擊；影響"
+  },
+  {
+    "id": 548,
+    "en": "elicit",
+    "zh": "引起"
+  },
+  {
+    "id": 549,
+    "en": "disseminate",
+    "zh": "宣導"
+  },
+  {
+    "id": 550,
+    "en": "comprehensible",
+    "zh": "可理解的"
+  },
+  {
+    "id": 551,
+    "en": "abbreviate",
+    "zh": "縮寫"
+  },
+  {
+    "id": 552,
+    "en": "character",
+    "zh": "角色、特質"
+  },
+  {
+    "id": 553,
+    "en": "illustrate",
+    "zh": "說明、給...加上插圖"
+  },
+  {
+    "id": 554,
+    "en": "periodical",
+    "zh": "期刊；定期的"
+  },
+  {
+    "id": 555,
+    "en": "coherent",
+    "zh": "前後連貫的"
+  },
+  {
+    "id": 556,
+    "en": "excerpt",
+    "zh": "摘錄"
+  },
+  {
+    "id": 557,
+    "en": "best-seller",
+    "zh": "暢銷商品"
+  },
+  {
+    "id": 558,
+    "en": "citation",
+    "zh": "引文"
+  },
+  {
+    "id": 559,
+    "en": "fictitious",
+    "zh": "虛構的"
+  },
+  {
+    "id": 560,
+    "en": "profound",
+    "zh": "深刻的"
+  },
+  {
+    "id": 561,
+    "en": "absorbing",
+    "zh": "吸引人的"
+  },
+  {
+    "id": 562,
+    "en": "depict",
+    "zh": "描繪"
+  },
+  {
+    "id": 563,
+    "en": "abridgment",
+    "zh": "刪節本"
+  },
+  {
+    "id": 564,
+    "en": "prominent",
+    "zh": "著名的、顯眼的"
+  },
+  {
+    "id": 565,
+    "en": "decline",
+    "zh": "下降、衰落；婉拒"
+  },
+  {
+    "id": 566,
+    "en": "inevitable",
+    "zh": "不可避免的"
+  },
+  {
+    "id": 567,
+    "en": "newsstand",
+    "zh": "書報攤"
+  },
+  {
+    "id": 568,
+    "en": "press conference",
+    "zh": "記者會"
+  },
+  {
+    "id": 569,
+    "en": "charity",
+    "zh": "慈善活動、慈善組織"
+  },
+  {
+    "id": 570,
+    "en": "eliminate",
+    "zh": "排除"
+  },
+  {
+    "id": 571,
+    "en": "correspondent",
+    "zh": "特派記者"
+  },
+  {
+    "id": 572,
+    "en": "legitimate",
+    "zh": "合法的"
+  },
+  {
+    "id": 573,
+    "en": "spokesperson",
+    "zh": "發言人"
+  },
+  {
+    "id": 574,
+    "en": "royalty",
+    "zh": "版稅"
+  },
+  {
+    "id": 575,
+    "en": "controversial",
+    "zh": "有爭議的"
+  },
+  {
+    "id": 576,
+    "en": "exaggerate",
+    "zh": "誇張"
+  },
+  {
+    "id": 577,
+    "en": "central",
+    "zh": "中央的"
+  },
+  {
+    "id": 578,
+    "en": "revoke",
+    "zh": "撤銷"
+  },
+  {
+    "id": 579,
+    "en": "casualty",
+    "zh": "(事故)傷亡"
+  },
+  {
+    "id": 580,
+    "en": "evidence",
+    "zh": "證據"
+  },
+  {
+    "id": 581,
+    "en": "coincide",
+    "zh": "同時發生、吻合"
+  },
+  {
+    "id": 582,
+    "en": "retreat",
+    "zh": "撤退；靜修活動"
+  }
+]

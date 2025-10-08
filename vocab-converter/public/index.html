@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocabulary Trainer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Vocabulary Trainer</h1>
+        <p class="subtitle">從 RVOCA.ini 快速進行單字測驗與管理</p>
+        <p class="mode-indicator" id="mode-indicator"></p>
+      </header>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="card" id="card">
+        <div class="card-header">
+          <span class="badge" id="question-counter">-- / --</span>
+          <button type="button" class="ghost" id="speak" aria-label="朗讀單字">
+            🔈 朗讀
+          </button>
+        </div>
+        <p class="english" id="english">請按「開始測驗」</p>
+        <p class="translation hidden" id="translation"></p>
+        <button type="button" class="primary" id="reveal">顯示中文</button>
+      </section>
+
+      <section class="actions">
+        <button type="button" class="secondary" id="start">開始測驗</button>
+        <button type="button" class="primary" id="keep" disabled>保留</button>
+        <button type="button" class="danger" id="delete" disabled>刪除並從測驗中移除</button>
+      </section>
+
+      <section class="footer">
+        <button type="button" class="ghost" id="reset">重新載入 / 重設回合</button>
+      </section>
+
+      <p class="message" id="message"></p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
