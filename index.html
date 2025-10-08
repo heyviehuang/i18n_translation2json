@@ -10,7 +10,7 @@
                 --bg: #0f1115;
                 --fg: #e8e8ea;
                 --muted: #9aa0a6;
-                --accent: #6aa9ff;
+                --accent: #6aa9ff
             }
 
             html,
@@ -19,20 +19,20 @@
                 margin: 0;
                 background: var(--bg);
                 color: var(--fg);
-                font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+                font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif
             }
 
             .wrap {
-                max-width: 680px;
+                max-width: 720px;
                 margin: 0 auto;
-                padding: 24px;
+                padding: 24px
             }
 
             h1 {
                 margin: 0 0 12px;
                 font-size: 20px;
                 color: var(--muted);
-                font-weight: 600;
+                font-weight: 600
             }
 
             .panel {
@@ -40,15 +40,16 @@
                 border: 1px solid #1d2330;
                 border-radius: 16px;
                 padding: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, .35)
             }
 
             .stats {
                 display: flex;
                 gap: 12px;
+                flex-wrap: wrap;
                 font-size: 14px;
                 color: var(--muted);
-                margin-bottom: 16px;
+                margin-bottom: 16px
             }
 
             .word {
@@ -58,7 +59,7 @@
                 font-weight: 800;
                 letter-spacing: .5px;
                 margin: 32px 0 8px;
-                cursor: pointer;
+                cursor: pointer
             }
 
             .zh {
@@ -66,7 +67,7 @@
                 font-size: 22px;
                 color: #cfd3da;
                 min-height: 32px;
-                opacity: .95;
+                opacity: .95
             }
 
             .controls {
@@ -74,7 +75,7 @@
                 gap: 12px;
                 justify-content: center;
                 margin-top: 24px;
-                flex-wrap: wrap;
+                flex-wrap: wrap
             }
 
             button {
@@ -85,25 +86,20 @@
                 padding: 12px 16px;
                 font-size: 16px;
                 cursor: pointer;
-                transition: transform .06s ease, background .2s ease, border .2s ease;
+                transition: transform .06s ease, background .2s ease, border .2s ease
             }
 
             button:hover {
-                transform: translateY(-1px);
-            }
-
-            button.primary {
-                background: #22406b;
-                border-color: #2f5f9f;
+                transform: translateY(-1px)
             }
 
             button.destructive {
                 background: #3a2025;
-                border-color: #5a2a33;
+                border-color: #5a2a33
             }
 
             .muted {
-                color: var(--muted);
+                color: var(--muted)
             }
 
             .progress {
@@ -112,14 +108,14 @@
                 border-radius: 999px;
                 overflow: hidden;
                 margin-top: 8px;
-                border: 1px solid #242c3e;
+                border: 1px solid #242c3e
             }
 
             .progress>i {
                 display: block;
                 height: 100%;
                 width: 0%;
-                background: linear-gradient(90deg, #5fa8ff, #9b7bff);
+                background: linear-gradient(90deg, #5fa8ff, #9b7bff)
             }
 
             .foot {
@@ -130,15 +126,11 @@
                 justify-content: space-between;
                 align-items: center;
                 gap: 8px;
-                flex-wrap: wrap;
-            }
-
-            .hidden {
-                display: none;
+                flex-wrap: wrap
             }
 
             .small {
-                font-size: 12px;
+                font-size: 12px
             }
         </style>
     </head>
@@ -151,7 +143,7 @@
                 <div class="stats">
                     <div>本回合：<span id="roundPos">0</span>/<span id="roundTotal">15</span></div>
                     <div>剩餘總字數：<span id="remaining">—</span></div>
-                    <div class="small">（點英文→顯示中文；切下一題時自動朗讀英文）</div>
+                    <div class="small">（點英文顯示中文；切下一題自動朗讀）</div>
                 </div>
 
                 <div class="progress"><i id="bar"></i></div>
@@ -167,34 +159,30 @@
                 </div>
 
                 <div class="foot">
-                    <div>
-                        語音：<select id="voiceSelect"></select>
-                    </div>
-                    <div class="muted small">若瀏覽器未出聲，請點任一按鈕啟動音訊權限。</div>
+                    <div>語音：<select id="voiceSelect"></select></div>
+                    <div class="muted small">若未出聲，先點一個按鈕啟動音訊權限。</div>
                 </div>
             </div>
         </div>
 
         <script>
-            /* ===== 你只要改這兩個常數 ===== */
+            /* === 依你環境修改這兩個常數 === */
             const API_BASE = 'https://script.google.com/macros/s/AKfycbyZ83PSWFhIEljAScXy3jTOsS2t1FYwK9V6UlNIwNHRs4j7TjfiBwMyk9f5-ir_tjww/exec';
             const TOKEN = 'rvo-2025-chiuchiou';
 
-            /* ===== 狀態 ===== */
+            /* === 狀態 === */
             const ROUND_SIZE = 15;
-            let batch = [];       // 本回合題目
-            let ix = -1;          // 目前索引
-            let revealed = false; // 中文是否顯示
+            let batch = [];
+            let ix = -1;
+            let revealed = false;
             let remainingTotal = 0;
 
             // 語音
-            let voices = [];
-            let chosenVoice = null;
+            let voices = [], chosenVoice = null;
             function loadVoices() {
                 voices = window.speechSynthesis.getVoices();
                 const sel = document.getElementById('voiceSelect');
                 sel.innerHTML = '';
-                // 優先英文語音
                 const preferred = voices.sort((a, b) => {
                     const as = /en/i.test(a.lang) ? 0 : 1;
                     const bs = /en/i.test(b.lang) ? 0 : 1;
@@ -211,29 +199,29 @@
             }
             if ('speechSynthesis' in window) {
                 speechSynthesis.onvoiceschanged = loadVoices;
-                // 某些瀏覽器不觸發，手動試一次
                 setTimeout(loadVoices, 400);
             }
 
-            /* ===== API 小工具 ===== */
+            /* === API 小幫手 === */
             async function apiGet(params) {
                 const qs = new URLSearchParams({ token: TOKEN, ...params });
                 const r = await fetch(`${API_BASE}?${qs.toString()}`, { method: 'GET' });
                 return r.json();
             }
             async function apiPost(payload) {
+                // 使用 text/plain 避免 CORS 預檢
                 const r = await fetch(API_BASE + `?token=${encodeURIComponent(TOKEN)}`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
                 return r.json();
             }
 
-            /* ===== 主流程 ===== */
+            /* === 主流程 === */
             async function startRound() {
                 const res = await apiGet({ action: 'nextBatch', count: ROUND_SIZE });
-                if (!res.ok) { return showError(res.error || 'API 失敗'); }
+                if (!res.ok) return showError(res.error || 'API 失敗');
                 batch = res.items || [];
                 remainingTotal = res.remaining ?? 0;
                 ix = -1;
@@ -254,6 +242,8 @@
                 if (ix < 0 || ix >= batch.length) {
                     wordEl.textContent = '本回合完成 🎉';
                     zhEl.textContent = '';
+                    bar.style.width = '100%';
+                    document.getElementById('roundPos').textContent = String(batch.length);
                     return;
                 }
                 const item = batch[ix];
@@ -263,7 +253,7 @@
 
                 document.getElementById('roundPos').textContent = String(ix + 1);
                 document.getElementById('remaining').textContent = String(remainingTotal);
-                bar.style.width = ((ix) / Math.max(1, batch.length)) * 100 + '%';
+                bar.style.width = (ix / Math.max(1, batch.length)) * 100 + '%';
             }
 
             function speak(text) {
@@ -272,55 +262,35 @@
                 const u = new SpeechSynthesisUtterance(text);
                 if (chosenVoice) u.voice = chosenVoice;
                 u.lang = (chosenVoice && chosenVoice.lang) || 'en-US';
-                u.rate = 1.0;
-                u.pitch = 1.0;
+                u.rate = 1.0; u.pitch = 1.0;
                 speechSynthesis.speak(u);
             }
 
             function next(autoSpeak = true) {
-                ix++;
-                revealed = false;
-                if (ix >= batch.length) {
-                    render();
-                    return;
-                }
+                ix++; revealed = false;
                 render();
-                if (autoSpeak) speak(batch[ix].word);
+                if (ix >= 0 && ix < batch.length && autoSpeak) speak(batch[ix].word);
             }
 
-            /* ===== 事件 ===== */
-            document.getElementById('word').addEventListener('click', () => {
-                revealed = !revealed;
-                render();
-            });
-            document.getElementById('btnReveal').addEventListener('click', () => {
-                revealed = !revealed;
-                render();
-            });
-            document.getElementById('btnSpeak').addEventListener('click', () => {
-                if (ix >= 0 && ix < batch.length) speak(batch[ix].word);
-            });
+            /* === 事件 === */
+            document.getElementById('word').addEventListener('click', () => { revealed = !revealed; render(); });
+            document.getElementById('btnReveal').addEventListener('click', () => { revealed = !revealed; render(); });
+            document.getElementById('btnSpeak').addEventListener('click', () => { if (ix >= 0 && ix < batch.length) speak(batch[ix].word); });
             document.getElementById('btnWrong').addEventListener('click', async () => {
                 if (ix < 0 || ix >= batch.length) return;
-                // 告知後端：不熟 +1
                 const cur = batch[ix];
-                apiPost({ action: 'markWrong', id: cur.id }).catch(() => { });
+                apiPost({ action: 'markwrong', id: cur.id }).catch(() => { });
                 next(true);
             });
             document.getElementById('btnKnown').addEventListener('click', async () => {
                 if (ix < 0 || ix >= batch.length) return;
                 const cur = batch[ix];
-                // 後端標記 deleted
-                const res = await apiPost({ action: 'markKnown', ids: [cur.id] });
-                if (res && res.ok) {
-                    remainingTotal = res.remaining ?? remainingTotal - 1;
-                } else {
-                    console.warn('markKnown failed', res);
-                }
+                const res = await apiPost({ action: 'markknown', ids: [cur.id] });
+                if (res && res.ok && typeof res.remaining === 'number') remainingTotal = res.remaining;
                 next(true);
             });
 
-            // 啟動
+            /* 起跑 */
             startRound();
         </script>
     </body>
