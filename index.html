@@ -6,166 +6,297 @@
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>RVOCA :: CLI Mode</title>
         <style>
-            body {
-                margin: 0;
-                background: #111;
-                color: #eee;
-                font-family: 'Fira Code', Consolas, 'Courier New', monospace;
-                font-size: 15px;
-                line-height: 1.5;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                min-height: 100vh;
-                padding: 2rem;
+            :root {
+                --bg: #0d0f12;
+                --fg: #e6edf3;
+                --dim: #8b949e;
+                --kw: #c9d1d9;
+                --str: #a5d6ff;
+                --op: #ff7b72;
+                --num: #79c0ff;
+                --cm: #6bc46d;
+                --var: #d2a8ff;
+                --prop: #e3b341;
             }
 
-            #app {
-                width: 600px;
-                max-width: 90vw;
-                background: #111;
-                border: 1px solid #333;
-                padding: 1rem 1.5rem;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                background: var(--bg);
+                color: var(--fg);
+                font-family: "Fira Code", Consolas, "Courier New", monospace;
+                font-size: 15px;
+                line-height: 1.6
+            }
+
+            .wrap {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 28px
+            }
+
+            pre {
+                margin: 0;
+                white-space: pre-wrap;
+                word-break: break-word
+            }
+
+            .gutter {
+                color: #2f343d;
+                user-select: none;
+                margin-right: 12px
+            }
+
+            .cm {
+                color: var(--cm)
+            }
+
+            .kw {
+                color: var(--kw);
+                font-weight: 600
+            }
+
+            .str {
+                color: var(--str)
+            }
+
+            .num {
+                color: var(--num)
+            }
+
+            .op {
+                color: var(--op)
+            }
+
+            .var {
+                color: var(--var)
+            }
+
+            .prop {
+                color: var(--prop)
             }
 
             .muted {
-                color: #666;
+                color: var(--dim)
             }
 
-            .zh {
-                color: #9f9;
-                margin-top: .3rem;
+            .status {
+                margin-top: 14px;
+                color: var(--dim)
             }
 
-            .prompt::before {
-                content: "> ";
-                color: #0f0;
+            .cursor {
+                display: inline-block;
+                width: 7px;
+                background: #2f81f7;
+                animation: blink 1s steps(1) infinite;
+                vertical-align: baseline
             }
 
-            .word {
-                color: #fff;
-                font-weight: 600;
-                cursor: pointer;
-            }
-
-            button {
-                background: none;
-                border: 1px solid #444;
-                color: #ccc;
-                font-family: inherit;
-                font-size: 13px;
-                padding: .3rem .8rem;
-                margin-right: .4rem;
-                cursor: pointer;
-            }
-
-            button:hover {
-                background: #222;
-                color: #0f0;
-            }
-
-            .divider {
-                border-top: 1px solid #333;
-                margin: 1rem 0;
+            @keyframes blink {
+                50% {
+                    opacity: 0
+                }
             }
         </style>
     </head>
 
     <body>
-        <div id="app">
-            <div class="prompt">RVOCA CLI initialized.</div>
-            <div class="prompt">Loading next batch...</div>
-            <div class="divider"></div>
-            <div class="prompt"><span id="word" class="word">--</span></div>
-            <div class="prompt"><span id="zh" class="zh muted">(click to reveal translation)</span></div>
-            <div class="divider"></div>
-            <div>
-                <button id="btnReveal">reveal</button>
-                <button id="btnSpeak">speak</button>
-                <button id="btnWrong">wrong</button>
-                <button id="btnKnown">known</button>
-            </div>
-            <div class="prompt muted" id="status"></div>
+        <div class="wrap">
+            <pre id="code" aria-live="polite"></pre>
+            <div class="status" id="status">Space/Enter:reveal → next | K=known（delete），X=wrong（+1）。</div>
         </div>
 
-
         <script>
-            /* === 改成你的部署資訊 === */
+            /* === your GAS endpoint === */
             const API_BASE = "https://script.google.com/macros/s/AKfycbyOv4GDW2Ns8pYfUDm1bKEPoTbYxPTS3VC8HdwLTLF8KyOpDEgqhS-XgIZ_ppDJGKo/exec";
             const TOKEN = "rvo-2025-chiuchiou";
+
+            /* config */
             const ROUND_SIZE = 15;
 
-            let batch = [];
-            let index = -1;
-            let showingZh = false;
+            let batch = [], ix = -1, revealed = false, remaining = 0, roundId = 0, templateIdx = 0;
 
-            // --- 語音朗讀 ---
-            function speak(text) {
-                if (!('speechSynthesis' in window)) return;
-                const utter = new SpeechSynthesisUtterance(text);
-                utter.lang = 'en-US';
-                utter.rate = 0.9;
-                window.speechSynthesis.cancel(); // 避免重疊
-                window.speechSynthesis.speak(utter);
-            }
-
-            // --- JSONP 取資料 ---
+            /* JSONP */
             function jsonp(params) {
                 return new Promise((resolve, reject) => {
                     const cb = "cb_" + Math.random().toString(36).slice(2);
                     const qs = new URLSearchParams({ token: TOKEN, callback: cb, ...params });
                     const s = document.createElement("script");
                     s.src = API_BASE + "?" + qs.toString();
-                    s.onerror = () => reject(new Error("JSONP load error"));
+                    s.onerror = () => reject(new Error("JSONP error"));
                     window[cb] = (data) => { resolve(data); s.remove(); delete window[cb]; };
                     document.body.appendChild(s);
-                    setTimeout(() => reject(new Error("timeout")), 10000);
+                    setTimeout(() => reject(new Error("timeout")), 15000);
                 });
             }
 
-            // --- 顯示單字 ---
+            /* speech */
+            function speak(t) {
+                if (!("speechSynthesis" in window)) return;
+                speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(t);
+                u.lang = "en-US"; u.rate = 0.95;
+                speechSynthesis.speak(u);
+            }
+
+            /* html escape */
+            const esc = s => String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+
+            /* ---------- Code templates (rotates every round) ---------- */
+            /* 每個模板需回傳一個「行陣列」，我會自動加上行號 */
+            const TEMPLATES = [
+                // 0) Node/TS 風格
+                ({ word, zh, showZh, q, total, remain, seed }) => [
+                    `<span class="cm">// rvoca@${seed} – runtime bootstrap</span>`,
+                    `<span class="kw">import</span> <span class="var">{ jsonp, speak }</span> <span class="kw">from</span> <span class="str">'rvoca/runtime'</span>`,
+                    `<span class="kw">const</span> <span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${ROUND_SIZE}</span>`,
+                    `<span class="kw">let</span> <span class="var">batch</span><span class="op">:</span><span class="var">any[]</span> <span class="op">=</span> []<span class="op">,</span> <span class="var">ix</span><span class="op">=</span><span class="num">0</span>`,
+                    ``,
+                    `<span class="kw">async function</span> <span class="var">main</span>(){`,
+                    `  <span class="kw">const</span> <span class="var">res</span> <span class="op">=</span> <span class="kw">await</span> <span class="var">jsonp</span>({ <span class="prop">action</span><span class="op">:</span> <span class="str">"nextBatch"</span>, <span class="prop">count</span><span class="op">:</span> <span class="var">ROUND_SIZE</span> })`,
+                    `  <span class="var">batch</span> <span class="op">=</span> <span class="var">res</span>.<span class="prop">items</span> <span class="op">||</span> []`,
+                    `  <span class="kw">const</span> <span class="var">progress</span> <span class="op">=</span> <span class="str">"${q}/${total}"</span> <span class="cm">// progress</span>`,
+                    `  <span class="var">document</span>.<span class="prop">title</span> <span class="op">=</span> <span class="str">"rvoca@${seed}"</span>`,
+                    ``,
+                    `  <span class="var">document</span>.<span class="prop">getElementById</span>(<span class="str">"total"</span>) <span class="op">??=</span> <span class="kw">null</span>`,
+                    // 這一行埋單字（中文只在 reveal 時出現）
+                    `  <span class="var">document</span>.<span class="prop">body</span>.<span class="prop">dataset</span>.<span class="prop">w</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm">// '${esc(zh)}'</span>` : ``}`,
+                    `  <span class="var">console</span>.<span class="prop">debug</span>(<span class="str">"remaining"</span><span class="op">,</span> <span class="num">${remain}</span>)`,
+                    ``,
+                    `  <span class="kw">try</span> {`,
+                    `    <span class="var">speak</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
+                    `  } <span class="kw">catch</span> (<span class="var">e</span>) {`,
+                    `    <span class="var">console</span>.<span class="prop">warn</span>(<span class="str">"tts failed"</span>)`,
+                    `  }`,
+                    `}`,
+                    ``,
+                    `<span class="var">main</span>()`,
+                    `<span class="cm">// remain:</span> <span class="num">${remain}</span> <span class="cm">// progress:</span> <span class="num">${q}</span><span class="op">/</span><span class="num">${total}</span>`,
+                    `<span class="cm">// press Space to reveal, then next</span><span class="cursor"></span>`
+                ],
+
+                // 1) Python 風格（偽）
+                ({ word, zh, showZh, q, total, remain, seed }) => [
+                    `<span class="cm"># rvoca/${seed} – inference session</span>`,
+                    `<span class="kw">from</span> rvoca <span class="kw">import</span> jsonp, tts`,
+                    `<span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${ROUND_SIZE}</span>`,
+                    ``,
+                    `<span class="kw">def</span> <span class="var">load</span>():`,
+                    `    <span class="var">res</span> <span class="op">=</span> <span class="var">jsonp</span>({<span class="str">'action'</span><span class="op">:</span><span class="str">'nextBatch'</span>, <span class="str">'count'</span><span class="op">:</span><span class="var">ROUND_SIZE</span>})`,
+                    `    <span class="kw">return</span> <span class="var">res</span>.<span class="prop">items</span> <span class="kw">or</span> []`,
+                    ``,
+                    `<span class="var">batch</span> <span class="op">=</span> <span class="var">load</span>()`,
+                    `<span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
+                    `<span class="cm"># embed word in a bogus assignment</span>`,
+                    `<span class="var">token</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ``}`,
+                    ``,
+                    `<span class="kw">try</span>:`,
+                    `    <span class="var">tts</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
+                    `<span class="kw">except</span> <span class="var">Exception</span> <span class="kw">as</span> <span class="var">e</span>:`,
+                    `    <span class="kw">pass</span>`,
+                    ``,
+                    `<span class="cm"># remaining</span> <span class="num">${remain}</span>`,
+                    `<span class="cm"># progress ${q}/${total}</span><span class="cursor"></span>`,
+                    ``,
+                    `<span class="cm"># EOF</span>`
+                ],
+
+                // 2) Shell/配置檔 風格
+                ({ word, zh, showZh, q, total, remain, seed }) => [
+                    `<span class="cm"># rvoca build ${seed}</span>`,
+                    `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${ROUND_SIZE}</span>`,
+                    `set -e`,
+                    ``,
+                    `res=$(<span class="var">jsonp</span> <span class="str">action=nextBatch</span> <span class="str">count=${ROUND_SIZE}</span>)`,
+                    `items=$(echo $res | jq <span class="str">'.items'</span>)`,
+                    ``,
+                    `export WORD=<span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ``}`,
+                    `echo <span class="str">"remaining ${remain}"</span>`,
+                    ``,
+                    `ix=0`,
+                    `speak $(jq -r <span class="str">'.[0].word'</span> <<< $items)`,
+                    ``,
+                    `<span class="cm"># progress ${q}/${total}</span><span class="cursor"></span>`,
+                    `exit 0`
+                ]
+            ];
+
+            /* 產生一段長度 2x 的「偽程式碼」字串 */
+            function buildCode(word, zh, showZh, q, total, remain) {
+                const seed = (++roundId).toString(36).slice(-4); // 假 seed
+                const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed });
+                // 行號起點帶點隨機，讓每輪更真
+                const start = Math.floor(Math.random() * 20) + 1;
+                const L = n => String(n).padStart(2, ' ');
+                return lines.map((t, i) => `<span class="gutter">${L(start + i)}</span>${t}`).join('\n');
+            }
+
+            /* UI */
             function render() {
-                if (index >= batch.length) {
-                    document.getElementById("word").textContent = "本回合結束 ✔";
-                    document.getElementById("zh").style.display = "none";
+                const code = document.getElementById('code');
+                if (ix < 0 || ix >= batch.length) {
+                    code.innerHTML = buildCode("RVOCA.reload()", "新回合", false, 0, ROUND_SIZE, remaining);
                     return;
                 }
-                const w = batch[index];
-                document.getElementById("word").textContent = w.word;
-                document.getElementById("zh").textContent = w.zh;
-                document.getElementById("zh").style.display = showingZh ? "block" : "none";
+                const q = ix + 1;
+                const { word, zh } = batch[ix];
+                code.innerHTML = buildCode(word, zh || "（未填中文）", revealed, q, ROUND_SIZE, remaining);
             }
 
-            // --- 下一題 ---
-            function nextWord() {
-                if (!showingZh) {
-                    showingZh = true;
-                    document.getElementById("zh").style.display = "block";
-                } else {
-                    index++;
-                    showingZh = false;
+            /* flow */
+            async function startRound() {
+                // 換模板：每回合輪替
+                templateIdx = (templateIdx + 1) % TEMPLATES.length;
+
+                const res = await jsonp({ action: "nextBatch", count: ROUND_SIZE });
+                batch = res.items || [];
+                remaining = typeof res.remaining === 'number' ? res.remaining : 0;
+                ix = 0; revealed = false;
+                render();
+                if (batch.length) speak(batch[ix].word);
+            }
+
+            function advance() {
+                if (!batch.length) { startRound(); return; }
+                if (!revealed) {
+                    revealed = true;            // 第一下 → 顯示中文註解
                     render();
-                    if (index < batch.length) speak(batch[index].word); // 自動朗讀
+                } else {
+                    ix++; revealed = false;     // 第二下 → 下一題並朗讀
+                    if (ix >= batch.length) {
+                        // 本回合結束 → 開新的一輪（也會切換模板）
+                        startRound();
+                        return;
+                    }
+                    render();
+                    speak(batch[ix].word);
                 }
             }
 
-            // --- 初始化 ---
-            (async () => {
-                const res = await jsonp({ action: "nextBatch", count: ROUND_SIZE });
-                batch = res.items || [];
-                index = 0;
-                render();
-                speak(batch[index].word); // 第一題自動朗讀
-            })();
+            /* hidden shortcuts */
+            async function markKnown() {
+                if (ix < 0 || ix >= batch.length) return;
+                await jsonp({ action: 'markKnown', id: batch[ix].id });
+                remaining = Math.max(0, remaining - 1);
+            }
+            async function markWrong() {
+                if (ix < 0 || ix >= batch.length) return;
+                await jsonp({ action: 'markWrong', id: batch[ix].id });
+            }
 
-            // 點擊任意地方 / 按空白鍵 跳下一題
-            document.body.addEventListener("click", nextWord);
-            document.addEventListener("keydown", e => {
-                if (e.code === "Space" || e.code === "Enter") nextWord();
+            /* events */
+            document.addEventListener('keydown', e => {
+                if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); advance(); }
+                else if (e.key === 'k' || e.key === 'K') { markKnown().then(() => advance()); }
+                else if (e.key === 'x' || e.key === 'X') { markWrong(); advance(); }
             });
-        </script>
+            document.body.addEventListener('click', advance);
 
+            /* kick off */
+            startRound();
+        </script>
     </body>
 
 </html>
