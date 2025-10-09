@@ -162,7 +162,6 @@
         <!-- mobile admin buttons -->
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known ✓</button>
-            <button class="wrong" id="btnWrong">Wrong ✗</button>
         </div>
         <div class="badge" id="adminBadge">ADMIN</div>
 
@@ -367,25 +366,16 @@
                 if (res && res.ok) { remaining = (typeof res.remaining === 'number') ? res.remaining : Math.max(0, remaining - 1); }
                 advance();
             }
-            async function markWrong() {
-                if (!adminMode) return;
-                if (ix < 0 || ix >= batch.length) return;
-                const key = getAdminKey();
-                await jsonp({ action: 'markWrong', id: batch[ix].id, adminKey: key });
-                advance();
-            }
 
             /* events */
             document.addEventListener('keydown', e => {
                 if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); advance(); }
                 else if (e.key === 'k' || e.key === 'K') { markKnown(); }
-                else if (e.key === 'x' || e.key === 'X') { markWrong(); }
             });
             document.body.addEventListener('click', advance);
 
             /* mobile fab buttons */
             document.getElementById('btnKnown').addEventListener('click', markKnown);
-            document.getElementById('btnWrong').addEventListener('click', markWrong);
 
             /* kick off */
             startRound();
@@ -438,21 +428,6 @@
                     remaining = (typeof res.remaining === 'number') ? res.remaining : Math.max(0, remaining - 1);
                     advance();
                 }
-            }
-
-            async function markWrong() {
-                if (ix < 0 || ix >= batch.length) return;
-                // 若你的後端 markWrong 不需要 admin，這裡可以不帶 adminKey
-                const key = getAdminKey();
-                const res = await jsonp({ action: 'markWrong', id: batch[ix].id, adminKey: key });
-
-                if (!res?.ok && /permission/i.test(res?.error || '')) {
-                    resetAdmin(true);
-                    alert('Admin PIN 驗證失敗，請重新輸入');
-                    if (ensureAdmin()) return markWrong();
-                    return;
-                }
-                advance();
             }
 
             // ✅ 提供一個鍵盤重置（桌面按 R 可清掉 adminKey）
