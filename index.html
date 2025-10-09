@@ -4,6 +4,18 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E
+<rect x='4' y='10' width='56' height='44' rx='4' ry='4' fill='%23101010' stroke='%232a2a2a' stroke-width='2'/>
+<rect x='4' y='10' width='56' height='12' rx='2' ry='2' fill='%23262626'/>
+<rect x='10' y='24' width='44' height='20' rx='2' ry='2' fill='%23242424' stroke='%23353535' stroke-width='1'/>
+<rect x='12' y='26' width='40' height='16' rx='1' ry='1' fill='%239f9'/>
+<text x='14' y='38' font-size='10' fill='%23101010' font-family='monospace'>RVOCA</text>
+<circle cx='52' cy='14' r='2' fill='%230f0'/>
+<rect x='18' y='46' width='28' height='4' rx='1' ry='1' fill='%23333333'/>
+<!-- 啾啾小鳥 -->
+<path d='M44 40 q2 -2 4 0 q-2 2 -4 0 z M46 42 q3 -1 4 2 q-3 1 -4 -2 z' fill='%23fff'/>
+%3C/svg%3E">
+
         <title>RVOCA :: CLI Mode</title>
         <style>
             :root {
@@ -36,6 +48,10 @@
                 max-width: 960px;
                 margin: 0 auto;
                 padding: 28px
+            }
+
+            #boot {
+                transition: opacity 1s ease;
             }
 
             pre {
@@ -154,9 +170,22 @@
     </head>
 
     <body>
+        <!-- 開機畫面 -->
+        <div id="boot" style="
+  position:fixed; inset:0;
+  background:#000; color:#0f0;
+  font-family:'Fira Code',Consolas,monospace;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  font-size:14px; letter-spacing:1px;
+  z-index:9999;
+">
+            <div id="bootText" style="white-space:pre-line; text-align:left;"></div>
+        </div>
+
         <div class="wrap">
             <pre id="code" aria-live="polite"></pre>
-            <div class="status" id="status">Space/Enter:reveal → next | K=known（delete），X=wrong（+1）。</div>
+            <div class="status" id="status">Space/Enter:reveal → next | K=known（delete）</div>
         </div>
 
         <!-- mobile admin buttons -->
@@ -166,6 +195,26 @@
         <div class="badge" id="adminBadge">ADMIN</div>
 
         <script>
+            // === 開機動畫 ===
+            async function bootSequence() {
+                const lines = [
+                    "> SYSTEM BOOTING...",
+                    "> Loading vocab cartridges [■■■■■■■■■■■■]",
+                    "> Initializing audio modules...",
+                    "> Syncing data with RVOCA cloud...",
+                    "> RVOCA READY."
+                ];
+                const el = document.getElementById("bootText");
+                for (let i = 0; i < lines.length; i++) {
+                    el.textContent += (lines[i] + "\n");
+                    await new Promise(r => setTimeout(r, 600 + Math.random() * 400));
+                }
+                await new Promise(r => setTimeout(r, 400));
+                document.getElementById("boot").style.opacity = "0";
+                document.getElementById("boot").style.transition = "opacity 1s ease";
+                setTimeout(() => document.getElementById("boot").remove(), 1000);
+            }
+
             /* === your GAS endpoint === */
             const API_BASE = "https://script.google.com/macros/s/AKfycbyOv4GDW2Ns8pYfUDm1bKEPoTbYxPTS3VC8HdwLTLF8KyOpDEgqhS-XgIZ_ppDJGKo/exec";
             const TOKEN = "rvo-2025-chiuchiou";
@@ -326,28 +375,6 @@
                 }
             }
 
-            /* ---- Admin Mode ---- */
-            function getAdminKey() {
-                return localStorage.getItem(ADMIN_KEY_NAME) || '';
-            }
-            function ensureAdmin() {
-                let k = getAdminKey();
-                if (!k) {
-                    k = prompt('輸入管理 PIN：'); // 與後端 ADMIN_KEY 一致
-                    if (!k) return false;
-                    localStorage.setItem(ADMIN_KEY_NAME, k);
-                }
-                adminMode = true;
-                document.getElementById('fab').classList.add('show');
-                document.getElementById('adminBadge').classList.add('show');
-                return true;
-            }
-            function disableAdmin() {
-                adminMode = false;
-                document.getElementById('fab').classList.remove('show');
-                document.getElementById('adminBadge').classList.remove('show');
-            }
-
             /* mobile: long-press to enable admin */
             let pressTimer = null;
             document.addEventListener('touchstart', () => { pressTimer = setTimeout(() => { ensureAdmin(); }, LONGPRESS_MS); }, { passive: true });
@@ -356,16 +383,6 @@
                 pressTimer = setTimeout(() => { ensureAdmin(); }, LONGPRESS_MS);
             });
             document.addEventListener('mouseup', () => { clearTimeout(pressTimer); });
-
-            /* hidden shortcuts (desktop) */
-            async function markKnown() {
-                if (!adminMode) return;
-                if (ix < 0 || ix >= batch.length) return;
-                const key = getAdminKey();
-                const res = await jsonp({ action: 'markKnown', id: batch[ix].id, adminKey: key });
-                if (res && res.ok) { remaining = (typeof res.remaining === 'number') ? res.remaining : Math.max(0, remaining - 1); }
-                advance();
-            }
 
             /* events */
             document.addEventListener('keydown', e => {
@@ -378,7 +395,11 @@
             document.getElementById('btnKnown').addEventListener('click', markKnown);
 
             /* kick off */
-            startRound();
+            (async () => {
+                await bootSequence();   // 先跑開機動畫
+                await startRound();     // 再載入第一輪題目
+            })();
+
 
             // 取得/清除 Admin Key
             function getAdminKey() { return localStorage.getItem(ADMIN_KEY_NAME) || ''; }
