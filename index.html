@@ -17,6 +17,8 @@
                 --cm: #6bc46d;
                 --var: #d2a8ff;
                 --prop: #e3b341;
+                --accent: #2ea043;
+                --danger: #f85149;
             }
 
             html,
@@ -99,6 +101,55 @@
                     opacity: 0
                 }
             }
+
+            /* mobile admin buttons (only visible in admin mode) */
+            .fab {
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fab button {
+                border: 1px solid rgba(255, 255, 255, .12);
+                background: #161b22;
+                color: #ddd;
+                padding: 10px 14px;
+                border-radius: 10px;
+                font-family: inherit;
+                font-size: 14px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+                backdrop-filter: blur(4px);
+            }
+
+            .fab .known {
+                border-color: rgba(46, 160, 67, .5);
+                color: #cfead6
+            }
+
+            .fab .wrong {
+                border-color: rgba(248, 81, 73, .5);
+                color: #ffd4d1
+            }
+
+            .fab.show {
+                display: flex;
+            }
+
+            .badge {
+                display: none;
+                position: fixed;
+                top: 10px;
+                right: 12px;
+                color: #8cffb7;
+                font-size: 12px
+            }
+
+            .badge.show {
+                display: block;
+            }
         </style>
     </head>
 
@@ -108,6 +159,13 @@
             <div class="status" id="status">Space/Enter:reveal → next | K=known（delete），X=wrong（+1）。</div>
         </div>
 
+        <!-- mobile admin buttons -->
+        <div class="fab" id="fab">
+            <button class="known" id="btnKnown">Known ✓</button>
+            <button class="wrong" id="btnWrong">Wrong ✗</button>
+        </div>
+        <div class="badge" id="adminBadge">ADMIN</div>
+
         <script>
             /* === your GAS endpoint === */
             const API_BASE = "https://script.google.com/macros/s/AKfycbyOv4GDW2Ns8pYfUDm1bKEPoTbYxPTS3VC8HdwLTLF8KyOpDEgqhS-XgIZ_ppDJGKo/exec";
@@ -115,8 +173,11 @@
 
             /* config */
             const ROUND_SIZE = 15;
+            const LONGPRESS_MS = 800; // 長按 0.8s 啟用 Admin Mode
+            const ADMIN_KEY_NAME = 'rvoca_adminKey'; // localStorage key
 
             let batch = [], ix = -1, revealed = false, remaining = 0, roundId = 0, templateIdx = 0;
+            let adminMode = false;
 
             /* JSONP */
             function jsonp(params) {
@@ -144,10 +205,8 @@
             /* html escape */
             const esc = s => String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
 
-            /* ---------- Code templates (rotates every round) ---------- */
-            /* 每個模板需回傳一個「行陣列」，我會自動加上行號 */
+            /* ---------- Code templates (rotate every round) ---------- */
             const TEMPLATES = [
-                // 0) Node/TS 風格
                 ({ word, zh, showZh, q, total, remain, seed }) => [
                     `<span class="cm">// rvoca@${seed} – runtime bootstrap</span>`,
                     `<span class="kw">import</span> <span class="var">{ jsonp, speak }</span> <span class="kw">from</span> <span class="str">'rvoca/runtime'</span>`,
@@ -161,7 +220,6 @@
                     `  <span class="var">document</span>.<span class="prop">title</span> <span class="op">=</span> <span class="str">"rvoca@${seed}"</span>`,
                     ``,
                     `  <span class="var">document</span>.<span class="prop">getElementById</span>(<span class="str">"total"</span>) <span class="op">??=</span> <span class="kw">null</span>`,
-                    // 這一行埋單字（中文只在 reveal 時出現）
                     `  <span class="var">document</span>.<span class="prop">body</span>.<span class="prop">dataset</span>.<span class="prop">w</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm">// '${esc(zh)}'</span>` : ``}`,
                     `  <span class="var">console</span>.<span class="prop">debug</span>(<span class="str">"remaining"</span><span class="op">,</span> <span class="num">${remain}</span>)`,
                     ``,
@@ -176,8 +234,6 @@
                     `<span class="cm">// remain:</span> <span class="num">${remain}</span> <span class="cm">// progress:</span> <span class="num">${q}</span><span class="op">/</span><span class="num">${total}</span>`,
                     `<span class="cm">// press Space to reveal, then next</span><span class="cursor"></span>`
                 ],
-
-                // 1) Python 風格（偽）
                 ({ word, zh, showZh, q, total, remain, seed }) => [
                     `<span class="cm"># rvoca/${seed} – inference session</span>`,
                     `<span class="kw">from</span> rvoca <span class="kw">import</span> jsonp, tts`,
@@ -202,8 +258,6 @@
                     ``,
                     `<span class="cm"># EOF</span>`
                 ],
-
-                // 2) Shell/配置檔 風格
                 ({ word, zh, showZh, q, total, remain, seed }) => [
                     `<span class="cm"># rvoca build ${seed}</span>`,
                     `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${ROUND_SIZE}</span>`,
@@ -223,11 +277,10 @@
                 ]
             ];
 
-            /* 產生一段長度 2x 的「偽程式碼」字串 */
+            /* build code lines with line numbers */
             function buildCode(word, zh, showZh, q, total, remain) {
-                const seed = (++roundId).toString(36).slice(-4); // 假 seed
+                const seed = (++roundId).toString(36).slice(-4);
                 const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed });
-                // 行號起點帶點隨機，讓每輪更真
                 const start = Math.floor(Math.random() * 20) + 1;
                 const L = n => String(n).padStart(2, ' ');
                 return lines.map((t, i) => `<span class="gutter">${L(start + i)}</span>${t}`).join('\n');
@@ -247,7 +300,7 @@
 
             /* flow */
             async function startRound() {
-                // 換模板：每回合輪替
+                // 每回合切換模板
                 templateIdx = (templateIdx + 1) % TEMPLATES.length;
 
                 const res = await jsonp({ action: "nextBatch", count: ROUND_SIZE });
@@ -261,12 +314,11 @@
             function advance() {
                 if (!batch.length) { startRound(); return; }
                 if (!revealed) {
-                    revealed = true;            // 第一下 → 顯示中文註解
+                    revealed = true; // 第一下 → 顯示中文註解
                     render();
                 } else {
-                    ix++; revealed = false;     // 第二下 → 下一題並朗讀
+                    ix++; revealed = false; // 第二下 → 下一題並朗讀
                     if (ix >= batch.length) {
-                        // 本回合結束 → 開新的一輪（也會切換模板）
                         startRound();
                         return;
                     }
@@ -275,24 +327,65 @@
                 }
             }
 
-            /* hidden shortcuts */
+            /* ---- Admin Mode ---- */
+            function getAdminKey() {
+                return localStorage.getItem(ADMIN_KEY_NAME) || '';
+            }
+            function ensureAdmin() {
+                let k = getAdminKey();
+                if (!k) {
+                    k = prompt('輸入管理 PIN：'); // 與後端 ADMIN_KEY 一致
+                    if (!k) return false;
+                    localStorage.setItem(ADMIN_KEY_NAME, k);
+                }
+                adminMode = true;
+                document.getElementById('fab').classList.add('show');
+                document.getElementById('adminBadge').classList.add('show');
+                return true;
+            }
+            function disableAdmin() {
+                adminMode = false;
+                document.getElementById('fab').classList.remove('show');
+                document.getElementById('adminBadge').classList.remove('show');
+            }
+
+            /* mobile: long-press to enable admin */
+            let pressTimer = null;
+            document.addEventListener('touchstart', () => { pressTimer = setTimeout(() => { ensureAdmin(); }, LONGPRESS_MS); }, { passive: true });
+            document.addEventListener('touchend', () => { clearTimeout(pressTimer); });
+            document.addEventListener('mousedown', (e) => { // 桌面也可長按
+                pressTimer = setTimeout(() => { ensureAdmin(); }, LONGPRESS_MS);
+            });
+            document.addEventListener('mouseup', () => { clearTimeout(pressTimer); });
+
+            /* hidden shortcuts (desktop) */
             async function markKnown() {
+                if (!adminMode) return;
                 if (ix < 0 || ix >= batch.length) return;
-                await jsonp({ action: 'markKnown', id: batch[ix].id });
-                remaining = Math.max(0, remaining - 1);
+                const key = getAdminKey();
+                const res = await jsonp({ action: 'markKnown', id: batch[ix].id, adminKey: key });
+                if (res && res.ok) { remaining = (typeof res.remaining === 'number') ? res.remaining : Math.max(0, remaining - 1); }
+                advance();
             }
             async function markWrong() {
+                if (!adminMode) return;
                 if (ix < 0 || ix >= batch.length) return;
-                await jsonp({ action: 'markWrong', id: batch[ix].id });
+                const key = getAdminKey();
+                await jsonp({ action: 'markWrong', id: batch[ix].id, adminKey: key });
+                advance();
             }
 
             /* events */
             document.addEventListener('keydown', e => {
                 if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); advance(); }
-                else if (e.key === 'k' || e.key === 'K') { markKnown().then(() => advance()); }
-                else if (e.key === 'x' || e.key === 'X') { markWrong(); advance(); }
+                else if (e.key === 'k' || e.key === 'K') { markKnown(); }
+                else if (e.key === 'x' || e.key === 'X') { markWrong(); }
             });
             document.body.addEventListener('click', advance);
+
+            /* mobile fab buttons */
+            document.getElementById('btnKnown').addEventListener('click', markKnown);
+            document.getElementById('btnWrong').addEventListener('click', markWrong);
 
             /* kick off */
             startRound();
