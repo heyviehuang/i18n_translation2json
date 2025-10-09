@@ -389,6 +389,78 @@
 
             /* kick off */
             startRound();
+
+            // 取得/清除 Admin Key
+            function getAdminKey() { return localStorage.getItem(ADMIN_KEY_NAME) || ''; }
+            function resetAdmin(silent = false) {
+                localStorage.removeItem(ADMIN_KEY_NAME);
+                disableAdmin();
+                if (!silent) alert('Admin PIN 已清除，請重新輸入');
+            }
+
+            // 啟用 Admin（長按觸發時呼叫）
+            function ensureAdmin() {
+                let k = getAdminKey();
+                if (!k) {
+                    k = prompt('輸入管理 PIN：'); // 要與 GAS 的 ADMIN_KEY 一致
+                    if (!k) return false;
+                    localStorage.setItem(ADMIN_KEY_NAME, k);
+                }
+                adminMode = true;
+                document.getElementById('fab')?.classList.add('show');
+                document.getElementById('adminBadge')?.classList.add('show');
+                return true;
+            }
+
+            function disableAdmin() {
+                adminMode = false;
+                document.getElementById('fab')?.classList.remove('show');
+                document.getElementById('adminBadge')?.classList.remove('show');
+            }
+
+            // ✅ 改良版：遇到 No permission 自動重驗證
+            async function markKnown() {
+                if (ix < 0 || ix >= batch.length) return;
+                if (!adminMode && !ensureAdmin()) return;
+
+                const key = getAdminKey();
+                const res = await jsonp({ action: 'markKnown', id: batch[ix].id, adminKey: key });
+
+                if (!res?.ok && /permission/i.test(res?.error || '')) {
+                    // key 錯誤：清除 → 提示 → 重新輸入 → 再試一次（若成功）
+                    resetAdmin(true);
+                    alert('Admin PIN 驗證失敗，請重新輸入');
+                    if (ensureAdmin()) return markKnown();
+                    return;
+                }
+
+                if (res?.ok) {
+                    remaining = (typeof res.remaining === 'number') ? res.remaining : Math.max(0, remaining - 1);
+                    advance();
+                }
+            }
+
+            async function markWrong() {
+                if (ix < 0 || ix >= batch.length) return;
+                // 若你的後端 markWrong 不需要 admin，這裡可以不帶 adminKey
+                const key = getAdminKey();
+                const res = await jsonp({ action: 'markWrong', id: batch[ix].id, adminKey: key });
+
+                if (!res?.ok && /permission/i.test(res?.error || '')) {
+                    resetAdmin(true);
+                    alert('Admin PIN 驗證失敗，請重新輸入');
+                    if (ensureAdmin()) return markWrong();
+                    return;
+                }
+                advance();
+            }
+
+            // ✅ 提供一個鍵盤重置（桌面按 R 可清掉 adminKey）
+            document.addEventListener('keydown', e => {
+                if (e.key === 'r' || e.key === 'R') {
+                    resetAdmin();
+                }
+            });
         </script>
     </body>
 
