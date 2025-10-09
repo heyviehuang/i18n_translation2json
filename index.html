@@ -157,6 +157,45 @@
             .badge.show {
                 display: block;
             }
+
+            .copybar {
+                display: flex;
+                gap: 8px;
+                opacity: .85
+            }
+
+            .copybar button {
+                background: #161b22;
+                border: 1px solid #333;
+                color: #ddd;
+                padding: 6px 10px;
+                border-radius: 8px;
+                font-family: inherit;
+                font-size: 13px;
+            }
+
+            .copybar button:hover {
+                border-color: #2ea043;
+                color: #9f9
+            }
+
+            .toast {
+                position: fixed;
+                left: 50%;
+                bottom: 22px;
+                transform: translateX(-50%);
+                background: #111;
+                border: 1px solid #333;
+                color: #9f9;
+                padding: 6px 10px;
+                border-radius: 8px;
+                opacity: 0;
+                transition: opacity .2s
+            }
+
+            .toast.show {
+                opacity: 1
+            }
         </style>
     </head>
 
@@ -182,6 +221,10 @@
         <!-- mobile admin buttons -->
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known ✓</button>
+            <div class="copybar no-advance">
+                <button id="copyEn">Copy EN</button>
+                <button id="copyZh">Copy ZH</button>
+            </div>
         </div>
         <div class="badge" id="adminBadge">ADMIN</div>
 
@@ -365,6 +408,27 @@
                     speak(batch[ix].word);
                 }
             }
+
+            /*複製函式 + 綁定按鈕*/
+            function toast(msg) {
+                const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+                document.body.appendChild(t); requestAnimationFrame(() => t.classList.add('show'));
+                setTimeout(() => { t.classList.remove('show'); t.remove(); }, 1200);
+            }
+            function copyText(txt) {
+                if (!txt) return;
+                if (navigator.clipboard?.writeText) navigator.clipboard.writeText(txt).then(() => toast('copied'));
+                else {
+                    const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta);
+                    ta.select(); document.execCommand('copy'); ta.remove(); toast('copied');
+                }
+            }
+            function copyCurrentEN() { if (ix >= 0 && ix < batch.length) copyText(batch[ix].word); }
+            function copyCurrentZH() { if (ix >= 0 && ix < batch.length) copyText(batch[ix].zh || ''); }
+
+            // 綁定按鈕（記得這兩個元素存在）
+            document.getElementById('copyEn').addEventListener('click', (e) => { e.stopPropagation(); copyCurrentEN(); });
+            document.getElementById('copyZh').addEventListener('click', (e) => { e.stopPropagation(); copyCurrentZH(); });
 
             /* mobile: long-press to enable admin */
             let pressTimer = null;
