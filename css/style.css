@@ -1,0 +1,187 @@
+            :root {
+                --bg: #0d0f12;
+                --fg: #e6edf3;
+                --dim: #8b949e;
+                --kw: #c9d1d9;
+                --str: #a5d6ff;
+                --op: #ff7b72;
+                --num: #79c0ff;
+                --cm: #6bc46d;
+                --var: #d2a8ff;
+                --prop: #e3b341;
+                --accent: #2ea043;
+                --danger: #f85149;
+            }
+
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                background: var(--bg);
+                color: var(--fg);
+                font-family: "Fira Code", Consolas, "Courier New", monospace;
+                font-size: 15px;
+                line-height: 1.6
+            }
+
+            .wrap {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 28px
+            }
+
+            #boot {
+                transition: opacity 1s ease;
+            }
+
+            pre {
+                margin: 0;
+                white-space: pre-wrap;
+                word-break: break-word
+            }
+
+            .gutter {
+                color: #2f343d;
+                user-select: none;
+                margin-right: 12px
+            }
+
+            .cm {
+                color: var(--cm)
+            }
+
+            .kw {
+                color: var(--kw);
+                font-weight: 600
+            }
+
+            .str {
+                color: var(--str)
+            }
+
+            .num {
+                color: var(--num)
+            }
+
+            .op {
+                color: var(--op)
+            }
+
+            .var {
+                color: var(--var)
+            }
+
+            .prop {
+                color: var(--prop)
+            }
+
+            .muted {
+                color: var(--dim)
+            }
+
+            .status {
+                margin-top: 14px;
+                color: var(--dim)
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 7px;
+                background: #2f81f7;
+                animation: blink 1s steps(1) infinite;
+                vertical-align: baseline
+            }
+
+            @keyframes blink {
+                50% {
+                    opacity: 0
+                }
+            }
+
+            /* mobile admin buttons (only visible in admin mode) */
+            .fab {
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fab button {
+                border: 1px solid rgba(255, 255, 255, .12);
+                background: #161b22;
+                color: #ddd;
+                padding: 10px 14px;
+                border-radius: 10px;
+                font-family: inherit;
+                font-size: 14px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+                backdrop-filter: blur(4px);
+            }
+
+            .fab .known {
+                border-color: rgba(46, 160, 67, .5);
+                color: #cfead6
+            }
+
+            .fab .wrong {
+                border-color: rgba(248, 81, 73, .5);
+                color: #ffd4d1
+            }
+
+            .fab.show {
+                display: flex;
+            }
+
+            .badge {
+                display: none;
+                position: fixed;
+                top: 10px;
+                right: 12px;
+                color: #8cffb7;
+                font-size: 12px
+            }
+
+            .badge.show {
+                display: block;
+            }
+
+            .copybar {
+                display: flex;
+                gap: 8px;
+                opacity: .85
+            }
+
+            .copybar button {
+                background: #161b22;
+                border: 1px solid #333;
+                color: #ddd;
+                padding: 6px 10px;
+                border-radius: 8px;
+                font-family: inherit;
+                font-size: 13px;
+            }
+
+            .copybar button:hover {
+                border-color: #2ea043;
+                color: #9f9
+            }
+
+            .toast {
+                position: fixed;
+                left: 50%;
+                bottom: 22px;
+                transform: translateX(-50%);
+                background: #111;
+                border: 1px solid #333;
+                color: #9f9;
+                padding: 6px 10px;
+                border-radius: 8px;
+                opacity: 0;
+                transition: opacity .2s
+            }
+
+            .toast.show {
+                opacity: 1
+            }
