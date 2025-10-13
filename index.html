@@ -1,46 +1,39 @@
-<!doctype html>
-<html lang="zh-Hant">
+﻿<!doctype html>
+<html lang="en">
 
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>RVOCA :: CLI Mode</title>
+        <title>RVOCA :: CLI</title>
         <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
         <link rel="apple-touch-icon" href="rvoca-cartB.ico">
         <link rel="stylesheet" href="css/style.css">
     </head>
 
-    <body>
-        <!-- 開機畫面 -->
-        <div id="boot" style="
-  position:fixed; inset:0;
-  background:#000; color:#0f0;
-  font-family:'Fira Code',Consolas,monospace;
-  display:flex; flex-direction:column;
-  justify-content:center; align-items:center;
-  font-size:14px; letter-spacing:1px;
-  z-index:9999;
-">
-            <div id="bootText" style="white-space:pre-line; text-align:left;"></div>
-        </div>
-
-        <div class="wrap">
-            <pre id="code" aria-live="polite"></pre>
-            <div class="status" id="status">Space/Enter:reveal → next | K=known（delete）</div>
-        </div>
-
-        <!-- mobile admin buttons -->
-        <div class="fab" id="fab">
-            <button class="known" id="btnKnown">Known ✓</button>
-            <div class="copybar no-advance">
-                <button id="copyEn">Copy EN</button>
-                <button id="copyZh">Copy ZH</button>
+    <body class="landing">
+        <div class="menu">
+            <div class="menu-card">
+                <header>
+                    <h1>RVOCA Menu</h1>
+                    <p>Choose a module to explore.</p>
+                </header>
+                <div class="menu-terminal">
+                    <div><span>#</span> available modules</div>
+                    <div>[1] Voc</div>
+                    <div>[2] Lis</div>
+                </div>
+                <div class="menu-buttons">
+                    <a class="menu-btn" href="vb.html">
+                        <span>Voc</span>
+                        <code>enter</code>
+                    </a>
+                    <a class="menu-btn" href="ls.html">
+                        <span>Lis</span>
+                        <code>enter</code>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="badge" id="adminBadge">ADMIN</div>
-
-        <script src="js/common.js"></script>
-        <script src="js/vb.js"></script>
     </body>
 
 </html>
