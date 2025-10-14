@@ -30,8 +30,25 @@
                 padding: 28px
             }
 
-            #boot {
+            .boot-screen {
+                position: fixed;
+                inset: 0;
+                background: #000;
+                color: #0f0;
+                font-family: "Fira Code", Consolas, monospace;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                letter-spacing: 1px;
+                z-index: 9999;
                 transition: opacity 1s ease;
+            }
+
+            .boot-screen__text {
+                white-space: pre-line;
+                text-align: left;
             }
 
             pre {
@@ -275,4 +292,48 @@
             .menu-btn code {
                 color: #6bc46d;
                 font-size: 13px;
+            }
+
+            .mode-switch {
+                position: fixed;
+                bottom: 18px;
+                left: 18px;
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                z-index: 1100;
+                max-width: calc(100vw - 140px);
+            }
+
+            .mode-switch__btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: #11151d;
+                color: inherit;
+                text-decoration: none;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+            }
+
+            .mode-switch__btn:hover {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+            }
+
+            .mode-switch__btn code {
+                color: #6bc46d;
+                font-size: 0.85em;
+            }
+
+            @media (max-width: 640px) {
+                .mode-switch {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                    max-width: calc(100vw - 120px);
+                }
             }

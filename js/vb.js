@@ -5,28 +5,7 @@ import { copyText } from "./utils/clipboard.js";
 import { escapeHtml as esc } from "./utils/html.js";
 import { showToast } from "./ui/toast.js";
 import { createRoundSession } from "./core/session.js";
-
-async function bootSequence() {
-    const lines = [
-        "> SYSTEM BOOTING...",
-        "> Loading vocab cartridges [########]",
-        "> Initializing audio modules...",
-        "> Syncing data with RVOCA cloud...",
-        "> RVOCA READY."
-    ];
-
-    const bootEl = document.getElementById("bootText");
-    for (const line of lines) {
-        bootEl.textContent += `${line}\n`;
-        await new Promise((resolve) => setTimeout(resolve, 600 + Math.random() * 400));
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const boot = document.getElementById("boot");
-    boot.style.opacity = "0";
-    boot.style.transition = "opacity 1s ease";
-    setTimeout(() => boot.remove(), 1000);
-}
+import { runBootSequence } from "./boot-screen.js";
 
 const TEMPLATES = [
     ({ word, zh, showZh, q, total, remain, seed }) => [
@@ -250,7 +229,7 @@ document.getElementById("copyZh").addEventListener("click", (event) => {
 });
 
 (async () => {
-    await bootSequence();
+    await runBootSequence();
     try {
         await session.startRound();
     } catch (error) {

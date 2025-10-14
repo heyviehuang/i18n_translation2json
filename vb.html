@@ -1,45 +1,42 @@
 <!doctype html>
 <html lang="zh-Hant">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>RVOCA :: Vocabulary Mode</title>
-    <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
-    <link rel="apple-touch-icon" href="rvoca-cartB.ico">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>RVOCA :: VOC Mode</title>
+        <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
+        <link rel="apple-touch-icon" href="rvoca-cartB.ico">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
 
-<body>
-    <!-- 啟動畫面 -->
-    <div id="boot" style="
-  position:fixed; inset:0;
-  background:#000; color:#0f0;
-  font-family:'Fira Code',Consolas,monospace;
-  display:flex; flex-direction:column;
-  justify-content:center; align-items:center;
-  font-size:14px; letter-spacing:1px;
-  z-index:9999;
-">
-        <div id="bootText" style="white-space:pre-line; text-align:left;"></div>
-    </div>
+    <body>
+        <nav class="mode-switch" aria-label="Mode switch">
+            <a class="mode-switch__btn" href="index.html">
+                <span>Back to</span>
+                <code>Menu</code>
+            </a>
+            <a class="mode-switch__btn" href="ls.html">
+                <span>Switch to</span>
+                <code>LIS</code>
+            </a>
+        </nav>
 
-    <div class="wrap">
-        <pre id="code" aria-live="polite"></pre>
-        <div class="status" id="status">Space/Enter: reveal → next | K = mark known</div>
-    </div>
-
-    <!-- mobile admin buttons -->
-    <div class="fab" id="fab">
-        <button class="known" id="btnKnown">Known</button>
-        <div class="copybar no-advance">
-            <button id="copyEn">Copy EN</button>
-            <button id="copyZh">Copy ZH</button>
+        <div class="wrap">
+            <pre id="code" aria-live="polite"></pre>
+            <div class="status" id="status">Space/Enter: reveal/next | K = mark known</div>
         </div>
-    </div>
-    <div class="badge" id="adminBadge">ADMIN</div>
 
-    <script type="module" src="js/vb.js"></script>
-</body>
+        <div class="fab" id="fab">
+            <button class="known" id="btnKnown">Known</button>
+            <div class="copybar no-advance">
+                <button id="copyEn">Copy EN</button>
+                <button id="copyZh">Copy ZH</button>
+            </div>
+        </div>
+        <div class="badge" id="adminBadge">ADMIN</div>
+
+        <script type="module" src="js/vb.js"></script>
+    </body>
 
 </html>

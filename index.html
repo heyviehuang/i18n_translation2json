@@ -11,6 +11,9 @@
     </head>
 
     <body class="landing">
+        <div id="boot" class="boot-screen">
+            <div id="bootText" class="boot-screen__text" aria-live="polite"></div>
+        </div>
         <div class="menu">
             <div class="menu-card">
                 <header>
@@ -19,21 +22,25 @@
                 </header>
                 <div class="menu-terminal">
                     <div><span>#</span> available modules</div>
-                    <div>[1] Voc</div>
-                    <div>[2] Lis</div>
+                    <div>[1] VOC</div>
+                    <div>[2] LIS</div>
                 </div>
                 <div class="menu-buttons">
                     <a class="menu-btn" href="vb.html">
-                        <span>Voc</span>
+                        <span>VOC</span>
                         <code>enter</code>
                     </a>
                     <a class="menu-btn" href="ls.html">
-                        <span>Lis</span>
+                        <span>LIS</span>
                         <code>enter</code>
                     </a>
                 </div>
             </div>
         </div>
+        <script type="module">
+            import { runBootSequence } from "./js/boot-screen.js";
+            runBootSequence();
+        </script>
     </body>
 
 </html>
