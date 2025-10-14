@@ -98,7 +98,8 @@
 
             .status {
                 margin-top: 14px;
-                color: var(--dim)
+                color: var(--dim);
+                white-space: pre-line;
             }
 
             .cursor {
@@ -336,4 +337,8 @@
                     gap: 8px;
                     max-width: calc(100vw - 120px);
                 }
+            }
+
+            .listen-en-line {
+                cursor: pointer;
             }
