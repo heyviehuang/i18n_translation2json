@@ -1,4 +1,4 @@
-import { VOCAB_API_BASE, LISTENING_API_BASE, TOKEN, ROUND_SIZE } from "../config.js";
+import { VOCAB_API_BASE, LISTENING_API_BASE, UNIT_VOCAB_API_BASE, TOKEN, ROUND_SIZE } from "../config.js";
 
 export function jsonp(params, { base = VOCAB_API_BASE } = {}) {
     return new Promise((resolve, reject) => {
@@ -42,6 +42,18 @@ export function fetchVocabBatch(count = ROUND_SIZE) {
     return jsonp({ action: "nextBatch", count }, { base: VOCAB_API_BASE });
 }
 
+export function fetchUnitVocabBatch({ count = ROUND_SIZE, unit = null } = {}) {
+    const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
+    const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
+    const base = hasDedicatedUnitBase ? configuredUnitBase : VOCAB_API_BASE;
+    if (!hasDedicatedUnitBase) {
+        console.warn("UNIT_VOCAB_API_BASE is not configured; falling back to VOCAB_API_BASE");
+    }
+    const params = { action: "nextBatch", count };
+    if (unit) params.unit = unit;
+    return jsonp(params, { base });
+}
+
 export async function fetchListeningBatch({ count = ROUND_SIZE, series = null } = {}) {
     const params = { action: "nextbatch", count };
     if (series) params.series = series;
@@ -72,6 +84,18 @@ export function fetchSentenceBatch({ count = ROUND_SIZE, level = null } = {}) {
 
 export function markKnown(id, adminKey) {
     return jsonp({ action: "markKnown", id, adminKey }, { base: VOCAB_API_BASE });
+}
+
+export function markUnitVocabKnown(id, adminKey, { unit = null } = {}) {
+    const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
+    const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
+    const base = hasDedicatedUnitBase ? configuredUnitBase : VOCAB_API_BASE;
+    if (!hasDedicatedUnitBase) {
+        console.warn("UNIT_VOCAB_API_BASE is not configured; falling back to VOCAB_API_BASE for markKnown");
+    }
+    const params = { action: "markKnown", id, adminKey };
+    if (unit) params.unit = unit;
+    return jsonp(params, { base });
 }
 
 export function markListeningKnown(id, adminKey) {

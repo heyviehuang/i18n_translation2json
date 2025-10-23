@@ -8,9 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "say": "^0.16.0",
     "xlsx": "^0.18.5"
-  }
+  },
+  "description": "",
+  "type": "module"
 }

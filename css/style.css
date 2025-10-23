@@ -30,6 +30,34 @@
                 padding: 28px
             }
 
+            .unit-picker {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 16px;
+            }
+
+            .unit-picker__btn {
+                padding: 6px 12px;
+                border-radius: 6px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                background: #11151d;
+                color: inherit;
+                font: inherit;
+                cursor: pointer;
+                transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+            }
+
+            .unit-picker__btn:hover {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+            }
+
+            .unit-picker__btn.active {
+                border-color: #2ea043;
+                background: rgba(46, 160, 67, 0.12);
+            }
+
             .boot-screen {
                 position: fixed;
                 inset: 0;
