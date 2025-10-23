@@ -14,12 +14,12 @@ const knownBtn = document.getElementById("btnKnown");
 const adminBadge = document.getElementById("adminBadge");
 const copyEnBtn = document.getElementById("copyEn");
 const copyZhBtn = document.getElementById("copyZh");
-const unitPickerEl = document.getElementById("unitPicker");
-const unitButtons = unitPickerEl ? Array.from(unitPickerEl.querySelectorAll(".unit-picker__btn")) : [];
-
-let selectedUnit = unitButtons.find((btn) => btn.classList.contains("active"))?.dataset.unit
-    || unitButtons[0]?.dataset.unit
-    || "1";
+const unitSelect = document.getElementById("unitSelect");
+const unitSelectWrapper = document.querySelector(".unit-select");
+let selectedUnit = unitSelect?.value || "1";
+if (unitSelect && unitSelect.value !== selectedUnit) {
+    unitSelect.value = selectedUnit;
+}
 
 document.body.dataset.unit = selectedUnit;
 
@@ -242,15 +242,15 @@ async function handleCopy(getText) {
     }
 }
 
-function handleUnitSelection(button) {
-    if (!button) return;
-    const unit = button.dataset.unit;
+function handleUnitChange(unit) {
     if (!unit || unit === selectedUnit) return;
 
     selectedUnit = unit;
+    if (unitSelect && unitSelect.value !== selectedUnit) {
+        unitSelect.value = selectedUnit;
+    }
     document.body.dataset.unit = selectedUnit;
     setStatus({ phase: "loading", progress: "0/0", remaining: "--", revealed: false });
-    unitButtons.forEach((btn) => btn.classList.toggle("active", btn === button));
 
     session.startRound({ unit: selectedUnit }).catch((error) => {
         console.error("Failed to load unit batch", error);
@@ -258,11 +258,33 @@ function handleUnitSelection(button) {
     });
 }
 
-if (unitButtons.length) {
-    unitButtons.forEach((button) => {
-        button.addEventListener("click", () => handleUnitSelection(button));
-    });
-}
+unitSelect?.addEventListener("change", () => {
+    handleUnitChange(unitSelect.value);
+});
+
+unitSelect?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+unitSelect?.addEventListener("mousedown", (event) => {
+    event.stopPropagation();
+});
+
+unitSelect?.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+}, { passive: true });
+
+unitSelectWrapper?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+unitSelectWrapper?.addEventListener("mousedown", (event) => {
+    event.stopPropagation();
+});
+
+unitSelectWrapper?.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+}, { passive: true });
 
 let pressTimer = null;
 

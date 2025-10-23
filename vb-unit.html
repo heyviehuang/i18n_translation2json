@@ -27,14 +27,17 @@
         </nav>
 
         <div class="wrap">
-            <div class="unit-picker" id="unitPicker" role="group" aria-label="Select unit">
-                <button type="button" class="unit-picker__btn active" data-unit="1">Unit 1</button>
-                <button type="button" class="unit-picker__btn" data-unit="2">Unit 2</button>
-                <button type="button" class="unit-picker__btn" data-unit="3">Unit 3</button>
-                <button type="button" class="unit-picker__btn" data-unit="4">Unit 4</button>
-                <button type="button" class="unit-picker__btn" data-unit="5">Unit 5</button>
-                <button type="button" class="unit-picker__btn" data-unit="6">Unit 6</button>
-            </div>
+            <label class="unit-select" for="unitSelect">
+                <span class="unit-select__label">Unit</span>
+                <select id="unitSelect" class="unit-select__control" aria-label="Select unit">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </label>
             <pre id="code" aria-live="polite"></pre>
             <div class="status" id="status">Space/Enter: reveal/next | K = mark known</div>
         </div>
