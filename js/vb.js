@@ -77,6 +77,17 @@ const TEMPLATES = [
 let templateIdx = 0;
 let roundId = 0;
 let adminMode = false;
+const statusEl = document.getElementById("status");
+
+function setStatus({ phase, progress, remaining, action }) {
+    if (!statusEl) return;
+    statusEl.textContent = [
+        `phase :: ${phase}`,
+        `progress ${progress}`,
+        `remaining ${remaining}`,
+        `Space/Enter: ${action} | K = mark known`
+    ].join("\n");
+}
 
 function buildCode(word, zh, showZh, q, total, remain) {
     const seed = (++roundId).toString(36).slice(-4);
@@ -90,23 +101,42 @@ function render(state) {
     const code = document.getElementById("code");
     if (!code) return;
 
-    const { batch, index, revealed, remaining } = state;
+    const { batch, index, revealed, remaining, revealPhase = 0 } = state;
+    const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     if (index < 0 || index >= batch.length) {
-        code.innerHTML = buildCode("RVOCA.reload()", "撠頛", false, 0, ROUND_SIZE, remaining);
+        code.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, ROUND_SIZE, remainingDisplay);
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
+        setStatus({
+            phase: "loading",
+            progress: "0/0",
+            remaining: remainingDisplay,
+            action: "reload"
+        });
         return;
     }
 
     const current = batch[index];
     const q = index + 1;
     const total = batch.length || ROUND_SIZE;
-    code.innerHTML = buildCode(current.word, current.zh || "嚗憛思葉??", revealed, q, total, remaining);
+    const showEnglish = revealPhase >= 1;
+    const showZh = revealPhase >= 2 && revealed;
+    const wordForDisplay = showEnglish ? current.word : "";
+    code.innerHTML = buildCode(wordForDisplay, current.zh || "[missing zh]", showZh, q, total, remainingDisplay);
 
-    document.body.dataset.w = current.word || "";
-    if (revealed && current.zh) document.body.dataset.zh = current.zh;
+    document.body.dataset.w = showEnglish ? (current.word || "") : "";
+    if (showZh && current.zh) document.body.dataset.zh = current.zh;
     else delete document.body.dataset.zh;
+
+    const phaseLabel = showZh ? "translation" : showEnglish ? "english" : "hidden";
+    const actionHint = showZh ? "next" : showEnglish ? "show zh" : "show en";
+    setStatus({
+        phase: phaseLabel,
+        progress: `${q}/${total}`,
+        remaining: remainingDisplay,
+        action: actionHint
+    });
 }
 
 const session = createRoundSession({

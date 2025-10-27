@@ -1,3 +1,9 @@
+const REVEAL_PHASE = {
+    HIDDEN: 0,
+    ENGLISH: 1,
+    TRANSLATION: 2
+};
+
 export function createRoundSession({
     fetchBatch,
     render,
@@ -9,13 +15,19 @@ export function createRoundSession({
         batch: [],
         index: -1,
         revealed: false,
-        remaining: 0
+        remaining: 0,
+        revealPhase: REVEAL_PHASE.HIDDEN
     };
 
     let lastFetchArgs = [];
     let loading = false;
     let prefetchedPromise = null;
     let prefetchedKey = null;
+
+    const setRevealPhase = (phase) => {
+        state.revealPhase = phase;
+        state.revealed = phase >= REVEAL_PHASE.TRANSLATION;
+    };
 
     const serializeArgs = (args) => JSON.stringify(args ?? []);
 
@@ -61,7 +73,7 @@ export function createRoundSession({
             state.batch = response?.items ?? [];
             state.remaining = typeof response?.remaining === "number" ? response.remaining : state.remaining;
             state.index = state.batch.length ? 0 : -1;
-            state.revealed = false;
+            setRevealPhase(REVEAL_PHASE.HIDDEN);
             render(state);
             if (state.batch.length && speakItem) speakItem(state.batch[state.index], state);
             schedulePrefetch(...args);
@@ -78,28 +90,45 @@ export function createRoundSession({
             return;
         }
 
-        if (!state.revealed) {
-            state.revealed = true;
+        if (state.revealPhase === REVEAL_PHASE.HIDDEN) {
+            setRevealPhase(REVEAL_PHASE.ENGLISH);
+            render(state);
+            if (speakItem) speakItem(state.batch[state.index], state);
+            return;
+        }
+
+        if (state.revealPhase === REVEAL_PHASE.ENGLISH) {
+            setRevealPhase(REVEAL_PHASE.TRANSLATION);
             render(state);
             return;
         }
 
         state.index += 1;
-        state.revealed = false;
 
         if (state.index >= state.batch.length) {
             await startRound(...lastFetchArgs);
             return;
         }
 
+        setRevealPhase(REVEAL_PHASE.HIDDEN);
         render(state);
         if (speakItem) speakItem(state.batch[state.index], state);
     }
 
     function reveal() {
-        if (!state.batch.length || state.revealed) return;
-        state.revealed = true;
-        render(state);
+        if (!state.batch.length) return;
+        if (state.revealPhase === REVEAL_PHASE.TRANSLATION) return;
+
+        if (state.revealPhase === REVEAL_PHASE.HIDDEN) {
+            setRevealPhase(REVEAL_PHASE.ENGLISH);
+            render(state);
+            return;
+        }
+
+        if (state.revealPhase === REVEAL_PHASE.ENGLISH) {
+            setRevealPhase(REVEAL_PHASE.TRANSLATION);
+            render(state);
+        }
     }
 
     function setRemaining(value, { reRender = false } = {}) {

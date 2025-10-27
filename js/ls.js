@@ -19,16 +19,23 @@ const englishSelector = "[data-role=\"sentence\"]";
 let adminMode = false;
 let pressTimer = null;
 
-function setStatus(message) {
-    if (statusEl) statusEl.textContent = message;
+function setStatus({ phase, progress, remaining, action }) {
+    if (!statusEl) return;
+    statusEl.textContent = [
+        `# translation :: ${phase}`,
+        `# progress ${progress}`,
+        `# remaining ${remaining}`,
+        `# Space/Enter: ${action}`
+    ].join("\n");
 }
 
-function buildCode(en, zh, q, total, remaining, revealed) {
+function buildCode(en, zh, q, total, remaining, { showEnglish, showZh }) {
     const start = 10;
     const pad = (n) => String(n).padStart(2, " ");
     const G = (n) => `<span class="gutter">${pad(n)}</span>`;
-    const EN = `<span class="str listen-en-line${revealed ? "" : " revealable"}" data-role="sentence">"${esc(en)}"</span>`;
-    const ZH = revealed && zh ? `<br><span class="cm"># '${esc(zh)}'</span>` : "";
+    const enDisplay = showEnglish ? esc(en) : "";
+    const EN = `<span class="str listen-en-line${showEnglish ? "" : " revealable"}" data-role="sentence">"${enDisplay}"</span>`;
+    const ZH = showZh && zh ? `<br><span class="cm"># '${esc(zh)}'</span>` : "";
 
     const lines = [
         `${G(start + 0)}<span class="cm"># rvoca build</span>`,
@@ -56,11 +63,12 @@ function buildCode(en, zh, q, total, remaining, revealed) {
 function render(state) {
     if (!codeEl) return;
 
-    const { batch, index, revealed, remaining } = state;
+    const { batch, index, revealed, remaining, revealPhase = 0 } = state;
+    const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     if (index < 0 || index >= batch.length) {
-        codeEl.innerHTML = buildCode("RVOCA.reload()", "", 0, ROUND_SIZE, remaining, false);
-        setStatus(`# awaiting batch\n# Space/Enter->reload`);
+        codeEl.innerHTML = buildCode("RVOCA.reload()", "", 0, ROUND_SIZE, remainingDisplay, { showEnglish: false, showZh: false });
+        setStatus({ phase: "awaiting batch", progress: "0/0", remaining: remainingDisplay, action: "reload" });
         return;
     }
 
@@ -70,10 +78,17 @@ function render(state) {
     const q = index + 1;
     const total = batch.length || ROUND_SIZE;
 
-    codeEl.innerHTML = buildCode(en, zh, q, total, remaining, revealed);
-
-    const headline = revealed ? "# translation :: revealed" : "# translation :: hidden";
-    setStatus(`# translation :: hidden\n# progress ${q}/${total}\n# remaining ${remaining}`);
+    const showEnglish = revealPhase >= 1;
+    const showZh = revealPhase >= 2 && revealed;
+    codeEl.innerHTML = buildCode(en, zh, q, total, remainingDisplay, { showEnglish, showZh });
+    const phaseLabel = showZh ? "revealed" : showEnglish ? "english" : "hidden";
+    const actionHint = showZh ? "next" : showEnglish ? "show zh" : "show en";
+    setStatus({
+        phase: phaseLabel,
+        progress: `${q}/${total}`,
+        remaining: remainingDisplay,
+        action: actionHint
+    });
 }
 
 const session = createRoundSession({
@@ -235,9 +250,6 @@ document.addEventListener("mouseup", () => {
 
 session.startRound().catch((error) => {
     console.error("Failed to load listening batch", error);
-    setStatus(`# load failed\n# retry shortly`);
+    setStatus({ phase: "load failed", progress: "0/0", remaining: "--", action: "retry" });
     showToast("Failed to load data");
 });
-
-
-

@@ -27,7 +27,7 @@ if (statusEl) {
     statusEl.textContent = [
         `Unit ${selectedUnit} :: loading`,
         `remaining --`,
-        `Space/Enter: reveal/next | K = mark known`
+        `Space/Enter: en->zh->next | K = mark known`
     ].join("\n");
 }
 
@@ -110,21 +110,20 @@ function buildCode(word, zh, showZh, q, total, remain) {
     return lines.map((line, index) => `<span class="gutter">${lineNo(start + index)}</span>${line}`).join("\n");
 }
 
-function setStatus({ phase, progress, remaining, revealed }) {
+function setStatus({ phase, progress, remaining, action }) {
     if (!statusEl) return;
-    const actionHint = revealed ? "next" : "reveal";
     statusEl.textContent = [
         `Unit ${selectedUnit} :: ${phase}`,
         `progress ${progress}`,
         `remaining ${remaining}`,
-        `Space/Enter: ${actionHint} | K = mark known`
+        `Space/Enter: ${action} | K = mark known`
     ].join("\n");
 }
 
 function render(state) {
     if (!codeEl) return;
 
-    const { batch, index, revealed, remaining } = state;
+    const { batch, index, revealed, remaining, revealPhase = 0 } = state;
     const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     document.body.dataset.unit = selectedUnit;
@@ -133,26 +132,30 @@ function render(state) {
         codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, ROUND_SIZE, remaining);
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
-        setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, revealed: false });
+        setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, action: "reload" });
         return;
     }
 
     const current = batch[index] || {};
-    const word = current.word || "";
+    const rawWord = current.word || "";
     const zh = current.zh || "";
     const q = index + 1;
     const total = batch.length || ROUND_SIZE;
+    const showEnglish = revealPhase >= 1;
+    const showZh = revealPhase >= 2 && revealed;
 
-    codeEl.innerHTML = buildCode(word, zh, revealed, q, total, remaining);
+    codeEl.innerHTML = buildCode(showEnglish ? rawWord : "", zh, showZh, q, total, remaining);
 
-    document.body.dataset.w = word;
-    if (revealed && zh) {
+    document.body.dataset.w = showEnglish ? rawWord : "";
+    if (showZh && zh) {
         document.body.dataset.zh = zh;
     } else {
         delete document.body.dataset.zh;
     }
 
-    setStatus({ phase: revealed ? "revealed" : "hidden", progress: `${q}/${total}`, remaining: remainingDisplay, revealed });
+    const phaseLabel = showZh ? "translation" : showEnglish ? "english" : "hidden";
+    const actionHint = showZh ? "next" : showEnglish ? "show zh" : "show en";
+    setStatus({ phase: phaseLabel, progress: `${q}/${total}`, remaining: remainingDisplay, action: actionHint });
 }
 
 const session = createRoundSession({
