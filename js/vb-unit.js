@@ -1,10 +1,11 @@
-import { ROUND_SIZE, LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
+import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
 import { fetchUnitVocabBatch, markUnitVocabKnown } from "./services/api.js";
 import { speak } from "./utils/speech.js";
 import { copyText } from "./utils/clipboard.js";
 import { escapeHtml as esc } from "./utils/html.js";
 import { showToast } from "./ui/toast.js";
 import { createRoundSession } from "./core/session.js";
+import { getRoundSize, setRoundSize, resetRoundSize, ROUND_SIZE_LIMITS, DEFAULT_ROUND_SIZE } from "./core/round-size.js";
 import { runBootSequence } from "./boot-screen.js";
 
 const codeEl = document.getElementById("code");
@@ -14,6 +15,7 @@ const knownBtn = document.getElementById("btnKnown");
 const adminBadge = document.getElementById("adminBadge");
 const copyEnBtn = document.getElementById("copyEn");
 const copyZhBtn = document.getElementById("copyZh");
+const roundSizeButton = document.getElementById("btnRoundSize");
 const unitSelect = document.getElementById("unitSelect");
 const unitSelectWrapper = document.querySelector(".unit-select");
 let selectedUnit = unitSelect?.value || "1";
@@ -31,11 +33,28 @@ if (statusEl) {
     ].join("\n");
 }
 
+const MODE_KEY = "vb-unit";
+let roundSize = getRoundSize(MODE_KEY);
+
+function updateRoundSizeButton() {
+    if (!roundSizeButton) return;
+    roundSizeButton.textContent = `Round ${roundSize}`;
+}
+
+function applyRoundSize(value) {
+    roundSize = value;
+    updateRoundSizeButton();
+    if (typeof document !== "undefined" && document.body) {
+        document.body.dataset.roundSize = String(roundSize);
+    }
+}
+
+applyRoundSize(roundSize);
 const TEMPLATES = [
-    ({ word, zh, showZh, q, total, remain, seed }) => [
+    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
         `<span class="cm">// rvoca@${seed} :: runtime bootstrap</span>`,
         `<span class="kw">import</span> <span class="var">{ jsonp, speak }</span> <span class="kw">from</span> <span class="str">'rvoca/runtime'</span>`,
-        `<span class="kw">const</span> <span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${ROUND_SIZE}</span>`,
+        `<span class="kw">const</span> <span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
         `<span class="kw">let</span> <span class="var">batch</span><span class="op">:</span><span class="var">any[]</span> <span class="op">=</span> []<span class="op">,</span> <span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
         ``,
         `<span class="kw">async function</span> <span class="var">main</span>() {`,
@@ -55,10 +74,10 @@ const TEMPLATES = [
         `<span class="cm">// remain:</span> <span class="num">${remain}</span> <span class="cm">// progress:</span> <span class="num">${q}</span>/<span class="num">${total}</span>`,
         `<span class="cm">// press Space to reveal, then next</span><span class="cursor"></span>`
     ],
-    ({ word, zh, showZh, q, total, remain, seed }) => [
+    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
         `<span class="cm"># rvoca/${seed} :: inference session</span>`,
         `<span class="kw">from</span> rvoca <span class="kw">import</span> jsonp, tts`,
-        `<span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${ROUND_SIZE}</span>`,
+        `<span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
         ``,
         `<span class="kw">def</span> <span class="var">load</span>():`,
         `    <span class="var">res</span> <span class="op">=</span> <span class="var">jsonp</span>({<span class="str">'action'</span><span class="op">:</span><span class="str">'nextBatch'</span>, <span class="str">'count'</span><span class="op">:</span><span class="var">ROUND_SIZE</span>})`,
@@ -79,12 +98,12 @@ const TEMPLATES = [
         ``,
         `<span class="cm"># EOF</span>`
     ],
-    ({ word, zh, showZh, q, total, remain, seed }) => [
+    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
         `<span class="cm"># rvoca build ${seed}</span>`,
-        `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${ROUND_SIZE}</span>`,
+        `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${roundSize}</span>`,
         `set -e`,
         ``,
-        `res=$(jsonp <span class="str">action=nextBatch</span> <span class="str">count=${ROUND_SIZE}</span>)`,
+        `res=$(jsonp <span class="str">action=nextBatch</span> <span class="str">count=${roundSize}</span>)`,
         `items=$(echo $res | jq <span class="str">'.items'</span>)`,
         ``,
         `export WORD=<span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ""}`,
@@ -102,9 +121,9 @@ let templateIdx = 0;
 let roundId = 0;
 let adminMode = false;
 
-function buildCode(word, zh, showZh, q, total, remain) {
+function buildCode(word, zh, showZh, q, total, remain, currentRoundSize) {
     const seed = (++roundId).toString(36).slice(-4);
-    const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed });
+    const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed, roundSize: currentRoundSize });
     const start = Math.floor(Math.random() * 20) + 1;
     const lineNo = (n) => String(n).padStart(2, " ");
     return lines.map((line, index) => `<span class="gutter">${lineNo(start + index)}</span>${line}`).join("\n");
@@ -127,41 +146,82 @@ function render(state) {
     const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     document.body.dataset.unit = selectedUnit;
+    document.body.dataset.roundSize = String(roundSize);
 
     if (index < 0 || index >= batch.length) {
-        codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, ROUND_SIZE, remaining);
+        codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, roundSize, remainingDisplay, roundSize);
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
-        setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, action: "reload" });
+        setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, revealed: false, action: "reload" });
         return;
     }
 
     const current = batch[index] || {};
-    const rawWord = current.word || "";
+    const word = current.word || "";
     const zh = current.zh || "";
     const q = index + 1;
-    const total = batch.length || ROUND_SIZE;
+    const total = batch.length || roundSize;
     const showEnglish = revealPhase >= 1;
     const showZh = revealPhase >= 2 && revealed;
 
-    codeEl.innerHTML = buildCode(showEnglish ? rawWord : "", zh, showZh, q, total, remaining);
+    codeEl.innerHTML = buildCode(showEnglish ? word : "", zh, showZh, q, total, remainingDisplay, roundSize);
 
-    document.body.dataset.w = showEnglish ? rawWord : "";
+    document.body.dataset.w = showEnglish ? word : "";
     if (showZh && zh) {
         document.body.dataset.zh = zh;
     } else {
         delete document.body.dataset.zh;
     }
 
-    const phaseLabel = showZh ? "translation" : showEnglish ? "english" : "hidden";
-    const actionHint = showZh ? "next" : showEnglish ? "show zh" : "show en";
-    setStatus({ phase: phaseLabel, progress: `${q}/${total}`, remaining: remainingDisplay, action: actionHint });
+    setStatus({
+        phase: showZh ? "translation" : showEnglish ? "english" : "hidden",
+        progress: q + "/" + total,
+        remaining: remainingDisplay,
+        revealed: showZh,
+        action: showZh ? "next" : showEnglish ? "show zh" : "show en"
+    });
 }
 
 const session = createRoundSession({
     fetchBatch: (options = {}) => {
-        const { unit = selectedUnit, count = ROUND_SIZE } = options || {};
-        return fetchUnitVocabBatch({ count, unit });
+        const { unit = selectedUnit, count } = options || {};
+        const targetCount = typeof count === "number" ? count : roundSize;
+        return fetchUnitVocabBatch({ count: targetCount, unit });
+
+roundSizeButton?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (!adminMode && !ensureAdmin()) return;
+
+    const { MIN, MAX } = ROUND_SIZE_LIMITS;
+    const message = "Set round size (" + MIN + "-" + MAX + ").\nCurrent: " + roundSize + ".\nLeave blank to reset (" + DEFAULT_ROUND_SIZE + ").";
+    const input = prompt(message, String(roundSize));
+
+    if (input === null) return;
+
+    const trimmed = input.trim();
+    let nextValue;
+
+    if (trimmed === "") {
+        nextValue = resetRoundSize(MODE_KEY);
+    } else {
+        const parsed = Number.parseInt(trimmed, 10);
+        if (!Number.isFinite(parsed)) {
+            showToast("Please enter a number");
+            return;
+        }
+        nextValue = setRoundSize(MODE_KEY, parsed);
+        if (nextValue == null) {
+            showToast("Use " + MIN + "-" + MAX);
+            return;
+        }
+    }
+
+    applyRoundSize(nextValue ?? DEFAULT_ROUND_SIZE);
+    showToast("Round size set to " + roundSize);
+    session.startRound({ unit: selectedUnit, count: roundSize });
+});
+
     },
     render,
     speakItem: (item) => speak(item.word || ""),
@@ -255,9 +315,9 @@ function handleUnitChange(unit) {
         unitSelect.value = selectedUnit;
     }
     document.body.dataset.unit = selectedUnit;
-    setStatus({ phase: "loading", progress: "0/0", remaining: "--", revealed: false });
+    setStatus({ phase: "loading", progress: "0/0", remaining: "--", revealed: false, action: "reload" });
 
-    session.startRound({ unit: selectedUnit }).catch((error) => {
+    session.startRound({ unit: selectedUnit, count: roundSize }).catch((error) => {
         console.error("Failed to load unit batch", error);
         showToast("Failed to load data");
     });
@@ -354,10 +414,28 @@ copyZhBtn?.addEventListener("click", (event) => {
 (async () => {
     await runBootSequence();
     try {
-        await session.startRound({ unit: selectedUnit });
+        await session.startRound({ unit: selectedUnit, count: roundSize });
     } catch (error) {
         console.error("Failed to load vocab batch", error);
         showToast("Failed to load data");
     }
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
