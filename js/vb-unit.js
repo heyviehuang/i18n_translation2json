@@ -162,8 +162,10 @@ const session = createRoundSession({
     },
     render,
     speakItem: (item) => speak(item.word || ""),
+    enablePrefetch: true,
     onRoundWillStart: () => {
         templateIdx = (templateIdx + 1) % TEMPLATES.length;
+        document.body.dataset.unit = selectedUnit;
     }
 });
 

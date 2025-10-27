@@ -115,7 +115,8 @@ const session = createRoundSession({
     speakItem: (item) => speak(item.word),
     onRoundWillStart: () => {
         templateIdx = (templateIdx + 1) % TEMPLATES.length;
-    }
+    },
+    enablePrefetch: true
 });
 
 function getAdminKey() {

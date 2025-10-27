@@ -82,7 +82,8 @@ const session = createRoundSession({
         return fetchListeningBatch({ count, series });
     },
     render,
-    speakItem: (item) => speak(item.en ?? item.word ?? "")
+    speakItem: (item) => speak(item.en ?? item.word ?? ""),
+    enablePrefetch: true
 });
 
 function getAdminKey() {
@@ -237,7 +238,6 @@ session.startRound().catch((error) => {
     setStatus(`# load failed\n# retry shortly`);
     showToast("Failed to load data");
 });
-
 
 
 
