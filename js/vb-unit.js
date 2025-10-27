@@ -187,6 +187,16 @@ const session = createRoundSession({
         const { unit = selectedUnit, count } = options || {};
         const targetCount = typeof count === "number" ? count : roundSize;
         return fetchUnitVocabBatch({ count: targetCount, unit });
+    },
+    render,
+    speakItem: (item) => speak(item.word || ""),
+    enablePrefetch: true,
+    onRoundWillStart: () => {
+        templateIdx = (templateIdx + 1) % TEMPLATES.length;
+        document.body.dataset.unit = selectedUnit;
+        document.body.dataset.roundSize = String(roundSize);
+    }
+});
 
 roundSizeButton?.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -222,15 +232,6 @@ roundSizeButton?.addEventListener("click", (event) => {
     session.startRound({ unit: selectedUnit, count: roundSize });
 });
 
-    },
-    render,
-    speakItem: (item) => speak(item.word || ""),
-    enablePrefetch: true,
-    onRoundWillStart: () => {
-        templateIdx = (templateIdx + 1) % TEMPLATES.length;
-        document.body.dataset.unit = selectedUnit;
-    }
-});
 
 function getAdminKey() {
     return localStorage.getItem(ADMIN_KEY_NAME) || "";
