@@ -37,40 +37,39 @@
         <div class="notes-overlay" id="notesOverlay" aria-hidden="true"></div>
         <aside class="notes-panel" id="notesPanel" aria-hidden="true" aria-label="Listening notes">
             <header class="notes-panel__header">
-                <h2>筆記</h2>
                 <button type="button" id="btnCloseNotes" class="notes-panel__close" aria-label="Close notes">
                     &times;
                 </button>
             </header>
             <form id="noteForm" class="notes-form">
                 <fieldset class="notes-fieldset">
-                    <legend>分類</legend>
+                    <legend>Type</legend>
                     <label class="notes-radio">
                         <input type="radio" name="noteType" value="word" checked>
-                        單字
+                        W
                     </label>
                     <label class="notes-radio">
                         <input type="radio" name="noteType" value="phrase">
-                        片語
+                        P
                     </label>
                 </fieldset>
                 <label class="notes-field">
-                    <span>原文 (EN)</span>
+                    <span>EN</span>
                     <input type="text" id="noteEn" name="noteEn" autocomplete="off" placeholder="curator">
                 </label>
                 <label class="notes-field">
-                    <span>翻譯 (ZH)</span>
+                    <span>ZH</span>
                     <input type="text" id="noteZh" name="noteZh" autocomplete="off" placeholder="館長">
                 </label>
                 <div class="notes-form__actions">
-                    <button type="button" id="noteUseCurrent">帶入目前題目</button>
-                    <button type="submit">新增筆記</button>
+                    <button type="button" id="noteUseCurrent">Insert</button>
+                    <button type="submit">Add</button>
                 </div>
             </form>
             <div class="notes-filters" role="tablist" aria-label="Note filters">
-                <button type="button" data-note-filter="all" class="active" role="tab" aria-selected="true">全部</button>
-                <button type="button" data-note-filter="word" role="tab" aria-selected="false">單字</button>
-                <button type="button" data-note-filter="phrase" role="tab" aria-selected="false">片語</button>
+                <button type="button" data-note-filter="all" class="active" role="tab" aria-selected="true">All</button>
+                <button type="button" data-note-filter="word" role="tab" aria-selected="false">W</button>
+                <button type="button" data-note-filter="phrase" role="tab" aria-selected="false">P</button>
             </div>
             <ul class="notes-list" id="notesList" aria-live="polite"></ul>
         </aside>
@@ -89,5 +88,3 @@
     </body>
 
 </html>
-
-
