@@ -34,6 +34,7 @@ const NOTE_TYPE_LABELS = {
     [NOTE_TYPES.WORD]: "WORD",
     [NOTE_TYPES.PHRASE]: "PHRASE"
 };
+const NOTES_SYNC_TTL_MS = 60_000;
 
 let adminMode = false;
 let pressTimer = null;
@@ -41,6 +42,7 @@ let notesCache = [];
 let noteFilter = NOTE_FILTER_ALL;
 let notesLoading = false;
 let notesError = null;
+let lastNotesSyncAt = 0;
 
 const MODE_KEY = "ls";
 let roundSize = getRoundSize(MODE_KEY);
@@ -102,14 +104,30 @@ function updateFilterButtons() {
     });
 }
 
+function sortNotes(entries) {
+    const seen = new Set();
+    return entries
+        .filter((note) => note && typeof note.id === "string" && !seen.has(note.id) && seen.add(note.id))
+        .sort((a, b) => Date.parse(b?.createdAt || 0) - Date.parse(a?.createdAt || 0));
+}
+
+function applyNotesCache(nextEntries, { forceRender = false, updateTimestamp = false } = {}) {
+    notesCache = sortNotes(nextEntries ?? []);
+    notesError = null;
+    if (updateTimestamp) lastNotesSyncAt = Date.now();
+    updateNoteToggleLabel();
+    const shouldRender = (forceRender || isNotesPanelOpen()) && !notesLoading;
+    if (shouldRender) renderNotesList();
+}
+
 function renderNotesList() {
     if (!notesListEl) return;
     if (notesLoading) {
-        notesListEl.innerHTML = `<li class="notes-empty">筆記載入中...</li>`;
+        notesListEl.innerHTML = `<li class="notes-empty">Loading notes...</li>`;
         return;
     }
     if (notesError) {
-        notesListEl.innerHTML = `<li class="notes-empty">無法載入筆記，請稍後再試。</li>`;
+        notesListEl.innerHTML = `<li class="notes-empty">Unable to load notes. Please try again later.</li>`;
         return;
     }
     const source = noteFilter === NOTE_FILTER_ALL
@@ -117,7 +135,7 @@ function renderNotesList() {
         : notesCache.filter((note) => note?.type === noteFilter);
 
     if (!source.length) {
-        notesListEl.innerHTML = `<li class="notes-empty">目前沒有筆記</li>`;
+        notesListEl.innerHTML = `<li class="notes-empty">No notes yet</li>`;
         return;
     }
 
@@ -138,8 +156,8 @@ function renderNotesList() {
         ${zhBlock}
     </div>
     <div class="notes-item__actions">
-        <button type="button" data-action="copy">複製</button>
-        <button type="button" data-action="delete">刪除</button>
+        <button type="button" data-action="copy">Copy</button>
+        <button type="button" data-action="delete">delete</button>
     </div>
 </li>`;
     });
@@ -154,12 +172,10 @@ async function syncNotes({ reRender = false, silent = false } = {}) {
 
     try {
         const notes = await listNotes();
-        notesCache = notes;
+        applyNotesCache(notes, { updateTimestamp: true, forceRender: reRender });
     } catch (error) {
         notesError = error;
-        if (!silent) {
-            showToast(error?.message || "筆記載入失敗");
-        }
+        if (!silent) showToast(error?.message || "Failed to load notes");
     } finally {
         notesLoading = false;
         updateNoteToggleLabel();
@@ -202,6 +218,13 @@ function populateCurrentToForm({ force = false } = {}) {
     }
 }
 
+function shouldRefreshNotes() {
+    if (notesLoading) return false;
+    if (notesError) return true;
+    if (!notesCache.length) return true;
+    return Date.now() - lastNotesSyncAt > NOTES_SYNC_TTL_MS;
+}
+
 function openNotesPanel() {
     updateFilterButtons();
     populateCurrentToForm({ force: false });
@@ -210,10 +233,14 @@ function openNotesPanel() {
     notesOverlay?.classList.add("show");
     notesOverlay?.setAttribute("aria-hidden", "false");
     noteToggleBtn?.setAttribute("aria-expanded", "true");
+    noteToggleBtn?.classList.add("is-hidden");
+    renderNotesList();
     window.setTimeout(() => noteEnInput?.focus(), 80);
-    void syncNotes({ reRender: true }).catch((error) => {
-        console.error("Failed to load notes", error);
-    });
+    if (shouldRefreshNotes()) {
+        void syncNotes({ reRender: true }).catch((error) => {
+            console.error("Failed to load notes", error);
+        });
+    }
 }
 
 function closeNotesPanel({ focusToggle = false } = {}) {
@@ -222,6 +249,7 @@ function closeNotesPanel({ focusToggle = false } = {}) {
     notesOverlay?.classList.remove("show");
     notesOverlay?.setAttribute("aria-hidden", "true");
     noteToggleBtn?.setAttribute("aria-expanded", "false");
+    noteToggleBtn?.classList.remove("is-hidden");
     if (focusToggle) noteToggleBtn?.focus();
 }
 
@@ -369,28 +397,24 @@ noteForm?.addEventListener("submit", async (event) => {
     const enValue = (noteEnInput?.value ?? "").trim();
     const zhValue = (noteZhInput?.value ?? "").trim();
     if (!enValue) {
-        showToast("請先輸入原文");
+        showToast("Please enter the English text first");
         noteEnInput?.focus();
         return;
     }
     const submitButton = noteForm.querySelector('button[type="submit"]');
     submitButton?.setAttribute("disabled", "true");
     try {
-        await createNote({ type, en: enValue, zh: zhValue });
-        await syncNotes({ reRender: true });
-        updateFilterButtons();
-        if (noteEnInput) {
-            noteEnInput.value = "";
-        }
-        if (noteZhInput) {
-            noteZhInput.value = "";
-        }
+        const created = await createNote({ type, en: enValue, zh: zhValue });
+        const nextCache = [created, ...notesCache.filter((note) => note.id !== created.id)];
+        applyNotesCache(nextCache, { forceRender: true, updateTimestamp: true });
+        if (noteEnInput) noteEnInput.value = "";
+        if (noteZhInput) noteZhInput.value = "";
         populateCurrentToForm({ force: false });
         noteEnInput?.focus();
-        showToast("筆記已新增");
+        showToast("Note added");
     } catch (error) {
         console.error("Failed to add note", error);
-        showToast(error?.message || "新增失敗");
+        showToast(error?.message || "Failed to add note");
     } finally {
         submitButton?.removeAttribute("disabled");
     }
@@ -418,14 +442,17 @@ notesListEl?.addEventListener("click", async (event) => {
     if (action === "delete") {
         if (!noteId) return;
         target.setAttribute("disabled", "true");
+        const previousCache = [...notesCache];
+        const nextCache = notesCache.filter((entry) => entry.id !== noteId);
+        applyNotesCache(nextCache, { forceRender: true });
         try {
             await removeNote(noteId);
-            await syncNotes({ reRender: true });
-            updateFilterButtons();
-            showToast("筆記已刪除");
+            lastNotesSyncAt = Date.now();
+            showToast("Note deleted");
         } catch (error) {
             console.error("Failed to delete note", error);
-            showToast(error?.message || "刪除失敗");
+            applyNotesCache(previousCache, { forceRender: true });
+            showToast(error?.message || "Failed to delete note");
         } finally {
             target.removeAttribute("disabled");
         }
@@ -439,10 +466,10 @@ notesListEl?.addEventListener("click", async (event) => {
         const payload = note.zh ? `${note.en} ${note.zh}` : note.en;
         try {
             const success = await copyText(payload);
-            showToast(success ? "已複製" : "複製失敗");
+            showToast(success ? "Copied" : "Copy failed");
         } catch (error) {
             console.error("Failed to copy note", error);
-            showToast("複製失敗");
+            showToast("Copy failed");
         }
     }
 });
@@ -656,16 +683,6 @@ session.startRound({ count: roundSize }).catch((error) => {
     setStatus({ phase: "load failed", progress: "0/0", remaining: "--", action: "retry" });
     showToast("Failed to load data");
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
