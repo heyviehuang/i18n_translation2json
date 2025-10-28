@@ -31,6 +31,50 @@
             <div class="status" id="status"># translation :: hidden&#10;# Space/Enter: en-&gt;zh-&gt;next</div>
         </div>
 
+        <button class="notes-toggle" id="btnNotes" type="button" aria-haspopup="true" aria-expanded="false">
+            Notes
+        </button>
+        <div class="notes-overlay" id="notesOverlay" aria-hidden="true"></div>
+        <aside class="notes-panel" id="notesPanel" aria-hidden="true" aria-label="Listening notes">
+            <header class="notes-panel__header">
+                <h2>筆記</h2>
+                <button type="button" id="btnCloseNotes" class="notes-panel__close" aria-label="Close notes">
+                    &times;
+                </button>
+            </header>
+            <form id="noteForm" class="notes-form">
+                <fieldset class="notes-fieldset">
+                    <legend>分類</legend>
+                    <label class="notes-radio">
+                        <input type="radio" name="noteType" value="word" checked>
+                        單字
+                    </label>
+                    <label class="notes-radio">
+                        <input type="radio" name="noteType" value="phrase">
+                        片語
+                    </label>
+                </fieldset>
+                <label class="notes-field">
+                    <span>原文 (EN)</span>
+                    <input type="text" id="noteEn" name="noteEn" autocomplete="off" placeholder="curator">
+                </label>
+                <label class="notes-field">
+                    <span>翻譯 (ZH)</span>
+                    <input type="text" id="noteZh" name="noteZh" autocomplete="off" placeholder="館長">
+                </label>
+                <div class="notes-form__actions">
+                    <button type="button" id="noteUseCurrent">帶入目前題目</button>
+                    <button type="submit">新增筆記</button>
+                </div>
+            </form>
+            <div class="notes-filters" role="tablist" aria-label="Note filters">
+                <button type="button" data-note-filter="all" class="active" role="tab" aria-selected="true">全部</button>
+                <button type="button" data-note-filter="word" role="tab" aria-selected="false">單字</button>
+                <button type="button" data-note-filter="phrase" role="tab" aria-selected="false">片語</button>
+            </div>
+            <ul class="notes-list" id="notesList" aria-live="polite"></ul>
+        </aside>
+
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known</button>
             <button class="no-advance" id="btnRoundSize">Round 15</button>

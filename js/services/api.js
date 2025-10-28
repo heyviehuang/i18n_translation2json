@@ -107,3 +107,30 @@ export function markListeningKnown(id, adminKey) {
     }
     return jsonp({ action: "markKnown", id, adminKey }, { base });
 }
+
+function resolveListeningBase() {
+    const configuredListeningBase = typeof LISTENING_API_BASE === "string" ? LISTENING_API_BASE.trim() : "";
+    const hasDedicatedListening = configuredListeningBase && !configuredListeningBase.includes("REPLACE_WITH");
+    if (!hasDedicatedListening) {
+        console.warn("LISTENING_API_BASE is not configured; falling back to VOCAB_API_BASE for listening notes");
+    }
+    return hasDedicatedListening ? configuredListeningBase : VOCAB_API_BASE;
+}
+
+export async function fetchListeningNotes({ filter = null } = {}) {
+    const params = { action: "listNotes" };
+    if (filter) params.type = filter;
+    const base = resolveListeningBase();
+    return jsonp(params, { base });
+}
+
+export function addListeningNote({ type, en, zh }) {
+    const base = resolveListeningBase();
+    const params = { action: "addNote", type, en, zh };
+    return jsonp(params, { base });
+}
+
+export function deleteListeningNote(id) {
+    const base = resolveListeningBase();
+    return jsonp({ action: "deleteNote", id }, { base });
+}

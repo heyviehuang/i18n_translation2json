@@ -1,5 +1,6 @@
 import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
 import { fetchListeningBatch, markListeningKnown } from "./services/api.js";
+import { listNotes, createNote, removeNote, NOTE_TYPES } from "./services/notes.js";
 import { speak } from "./utils/speech.js";
 import { copyText } from "./utils/clipboard.js";
 import { escapeHtml as esc } from "./utils/html.js";
@@ -15,11 +16,31 @@ const adminBadge = document.getElementById("adminBadge");
 const copyEnBtn = document.getElementById("copyEn");
 const copyZhBtn = document.getElementById("copyZh");
 const roundSizeButton = document.getElementById("btnRoundSize");
+const noteToggleBtn = document.getElementById("btnNotes");
+const notesOverlay = document.getElementById("notesOverlay");
+const notesPanel = document.getElementById("notesPanel");
+const noteForm = document.getElementById("noteForm");
+const noteEnInput = document.getElementById("noteEn");
+const noteZhInput = document.getElementById("noteZh");
+const noteUseCurrentBtn = document.getElementById("noteUseCurrent");
+const noteCloseBtn = document.getElementById("btnCloseNotes");
+const notesListEl = document.getElementById("notesList");
+const noteFilterButtons = document.querySelectorAll("[data-note-filter]");
 
 const englishSelector = "[data-role=\"sentence\"]";
 
+const NOTE_FILTER_ALL = "all";
+const NOTE_TYPE_LABELS = {
+    [NOTE_TYPES.WORD]: "WORD",
+    [NOTE_TYPES.PHRASE]: "PHRASE"
+};
+
 let adminMode = false;
 let pressTimer = null;
+let notesCache = [];
+let noteFilter = NOTE_FILTER_ALL;
+let notesLoading = false;
+let notesError = null;
 
 const MODE_KEY = "ls";
 let roundSize = getRoundSize(MODE_KEY);
@@ -38,6 +59,183 @@ function applyRoundSize(value) {
 }
 
 applyRoundSize(roundSize);
+
+function formatNoteDate(isoString) {
+    if (!isoString) return "";
+    try {
+        return new Intl.DateTimeFormat(undefined, {
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        }).format(new Date(isoString));
+    } catch (error) {
+        console.warn("Failed to format note timestamp", error);
+        return "";
+    }
+}
+
+function isNotesPanelOpen() {
+    return notesPanel?.classList.contains("show") ?? false;
+}
+
+function updateNoteToggleLabel() {
+    if (!noteToggleBtn) return;
+    if (notesLoading) {
+        noteToggleBtn.textContent = "Notes...";
+        return;
+    }
+    if (notesError) {
+        noteToggleBtn.textContent = "Notes (!)";
+        return;
+    }
+    const count = notesCache.length;
+    noteToggleBtn.textContent = count > 0 ? `Notes (${count})` : "Notes";
+}
+
+function updateFilterButtons() {
+    noteFilterButtons.forEach((button) => {
+        const targetFilter = button.dataset.noteFilter || NOTE_FILTER_ALL;
+        const isActive = targetFilter === noteFilter;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+    });
+}
+
+function renderNotesList() {
+    if (!notesListEl) return;
+    if (notesLoading) {
+        notesListEl.innerHTML = `<li class="notes-empty">筆記載入中...</li>`;
+        return;
+    }
+    if (notesError) {
+        notesListEl.innerHTML = `<li class="notes-empty">無法載入筆記，請稍後再試。</li>`;
+        return;
+    }
+    const source = noteFilter === NOTE_FILTER_ALL
+        ? notesCache
+        : notesCache.filter((note) => note?.type === noteFilter);
+
+    if (!source.length) {
+        notesListEl.innerHTML = `<li class="notes-empty">目前沒有筆記</li>`;
+        return;
+    }
+
+    const items = source.map((note) => {
+        const typeLabel = NOTE_TYPE_LABELS[note?.type] ?? "NOTE";
+        const zhBlock = note?.zh ? `<div class="notes-item__zh">${esc(note.zh)}</div>` : "";
+        const timestamp = formatNoteDate(note?.createdAt);
+        const timeMarkup = timestamp
+            ? `<time datetime="${esc(note.createdAt || "")}">${esc(timestamp)}</time>`
+            : "";
+        return `<li class="notes-item" data-note-id="${esc(note.id)}">
+    <div class="notes-item__meta">
+        <span class="notes-item__type">${esc(typeLabel)}</span>
+        ${timeMarkup}
+    </div>
+    <div class="notes-item__main">
+        <div class="notes-item__en">${esc(note.en)}</div>
+        ${zhBlock}
+    </div>
+    <div class="notes-item__actions">
+        <button type="button" data-action="copy">複製</button>
+        <button type="button" data-action="delete">刪除</button>
+    </div>
+</li>`;
+    });
+    notesListEl.innerHTML = items.join("\n");
+}
+
+async function syncNotes({ reRender = false, silent = false } = {}) {
+    notesLoading = true;
+    notesError = null;
+    if (reRender || isNotesPanelOpen()) renderNotesList();
+    updateNoteToggleLabel();
+
+    try {
+        const notes = await listNotes();
+        notesCache = notes;
+    } catch (error) {
+        notesError = error;
+        if (!silent) {
+            showToast(error?.message || "筆記載入失敗");
+        }
+    } finally {
+        notesLoading = false;
+        updateNoteToggleLabel();
+        if (reRender || isNotesPanelOpen()) renderNotesList();
+    }
+}
+
+function setNoteFilter(value) {
+    const nextFilter = value && value !== NOTE_FILTER_ALL ? value : NOTE_FILTER_ALL;
+    if (noteFilter === nextFilter) return;
+    noteFilter = nextFilter;
+    updateFilterButtons();
+    renderNotesList();
+}
+
+function getSelectedNoteType() {
+    if (!noteForm) return NOTE_TYPES.WORD;
+    const formData = new FormData(noteForm);
+    const value = formData.get("noteType");
+    if (typeof value === "string" && Object.values(NOTE_TYPES).includes(value)) {
+        return value;
+    }
+    return NOTE_TYPES.WORD;
+}
+
+function populateCurrentToForm({ force = false } = {}) {
+    const current = session.getCurrentItem();
+    if (!current) return;
+
+    if (noteEnInput) {
+        if (force || !noteEnInput.value.trim()) {
+            noteEnInput.value = current.en ?? current.word ?? "";
+        }
+    }
+
+    if (noteZhInput) {
+        if (force || !noteZhInput.value.trim()) {
+            noteZhInput.value = current.zh ?? "";
+        }
+    }
+}
+
+function openNotesPanel() {
+    updateFilterButtons();
+    populateCurrentToForm({ force: false });
+    notesPanel?.classList.add("show");
+    notesPanel?.setAttribute("aria-hidden", "false");
+    notesOverlay?.classList.add("show");
+    notesOverlay?.setAttribute("aria-hidden", "false");
+    noteToggleBtn?.setAttribute("aria-expanded", "true");
+    window.setTimeout(() => noteEnInput?.focus(), 80);
+    void syncNotes({ reRender: true }).catch((error) => {
+        console.error("Failed to load notes", error);
+    });
+}
+
+function closeNotesPanel({ focusToggle = false } = {}) {
+    notesPanel?.classList.remove("show");
+    notesPanel?.setAttribute("aria-hidden", "true");
+    notesOverlay?.classList.remove("show");
+    notesOverlay?.setAttribute("aria-hidden", "true");
+    noteToggleBtn?.setAttribute("aria-expanded", "false");
+    if (focusToggle) noteToggleBtn?.focus();
+}
+
+function shouldIgnoreHotkeys(target) {
+    if (!(target instanceof Element)) return false;
+    if (target.closest(".notes-panel")) return true;
+    if (target.isContentEditable) return true;
+    const tagName = target.tagName;
+    return tagName === "INPUT"
+        || tagName === "TEXTAREA"
+        || tagName === "SELECT"
+        || tagName === "BUTTON"
+        || tagName === "A";
+}
 
 function setStatus({ phase, progress, remaining, action }) {
     if (!statusEl) return;
@@ -122,6 +320,131 @@ const session = createRoundSession({
     render,
     speakItem: (item) => speak(item.en ?? item.word ?? ""),
     enablePrefetch: true
+});
+
+updateFilterButtons();
+updateNoteToggleLabel();
+void syncNotes({ silent: true }).catch((error) => {
+    console.error("Failed to preload notes", error);
+});
+
+noteToggleBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (isNotesPanelOpen()) {
+        closeNotesPanel();
+    } else {
+        openNotesPanel();
+    }
+});
+
+noteCloseBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeNotesPanel();
+});
+
+notesOverlay?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeNotesPanel({ focusToggle: true });
+});
+
+notesPanel?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+noteUseCurrentBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    populateCurrentToForm({ force: true });
+    noteEnInput?.focus();
+    noteEnInput?.select();
+});
+
+noteForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const type = getSelectedNoteType();
+    const enValue = (noteEnInput?.value ?? "").trim();
+    const zhValue = (noteZhInput?.value ?? "").trim();
+    if (!enValue) {
+        showToast("請先輸入原文");
+        noteEnInput?.focus();
+        return;
+    }
+    const submitButton = noteForm.querySelector('button[type="submit"]');
+    submitButton?.setAttribute("disabled", "true");
+    try {
+        await createNote({ type, en: enValue, zh: zhValue });
+        await syncNotes({ reRender: true });
+        updateFilterButtons();
+        if (noteEnInput) {
+            noteEnInput.value = "";
+        }
+        if (noteZhInput) {
+            noteZhInput.value = "";
+        }
+        populateCurrentToForm({ force: false });
+        noteEnInput?.focus();
+        showToast("筆記已新增");
+    } catch (error) {
+        console.error("Failed to add note", error);
+        showToast(error?.message || "新增失敗");
+    } finally {
+        submitButton?.removeAttribute("disabled");
+    }
+});
+
+noteFilterButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const value = button.dataset.noteFilter || NOTE_FILTER_ALL;
+        setNoteFilter(value);
+    });
+});
+
+notesListEl?.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const action = target.dataset.action;
+    if (!action) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const itemEl = target.closest(".notes-item");
+    const noteId = itemEl?.getAttribute("data-note-id");
+
+    if (action === "delete") {
+        if (!noteId) return;
+        target.setAttribute("disabled", "true");
+        try {
+            await removeNote(noteId);
+            await syncNotes({ reRender: true });
+            updateFilterButtons();
+            showToast("筆記已刪除");
+        } catch (error) {
+            console.error("Failed to delete note", error);
+            showToast(error?.message || "刪除失敗");
+        } finally {
+            target.removeAttribute("disabled");
+        }
+        return;
+    }
+
+    if (action === "copy") {
+        if (!noteId) return;
+        const note = notesCache.find((entry) => entry.id === noteId);
+        if (!note) return;
+        const payload = note.zh ? `${note.en} ${note.zh}` : note.en;
+        try {
+            const success = await copyText(payload);
+            showToast(success ? "已複製" : "複製失敗");
+        } catch (error) {
+            console.error("Failed to copy note", error);
+            showToast("複製失敗");
+        }
+    }
 });
 roundSizeButton?.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -268,6 +591,17 @@ copyZhBtn?.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && isNotesPanelOpen()) {
+        event.preventDefault();
+        closeNotesPanel({ focusToggle: true });
+        return;
+    }
+
+    const target = event.target instanceof Element ? event.target : null;
+    if (shouldIgnoreHotkeys(target)) return;
+
+    if (isNotesPanelOpen()) return;
+
     if (event.code === "Space" || event.code === "Enter") {
         event.preventDefault();
         session.advance().catch((error) => console.error("Failed to advance session", error));
@@ -280,7 +614,18 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-document.body.addEventListener("click", () => {
+document.body.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (target && noteToggleBtn?.contains(target)) return;
+
+    if (isNotesPanelOpen()) {
+        if (target && (notesPanel?.contains(target) || notesOverlay?.contains(target))) {
+            return;
+        }
+        closeNotesPanel();
+        return;
+    }
+
     session.advance().catch((error) => console.error("Failed to advance session", error));
 });
 

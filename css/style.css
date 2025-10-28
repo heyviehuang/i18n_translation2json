@@ -181,6 +181,17 @@
                 font-size: 14px;
                 box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
                 backdrop-filter: blur(4px);
+                transition: border-color .15s ease, color .15s ease, transform .15s ease;
+            }
+
+            .fab button:hover {
+                border-color: #2ea043;
+                color: #cfead6;
+                cursor: pointer;
+            }
+
+            .fab button:active {
+                transform: translateY(1px);
             }
 
             .fab .known {
@@ -386,4 +397,289 @@
 
             .listen-en-line {
                 cursor: pointer;
+            }
+
+            .notes-toggle {
+                position: fixed;
+                top: 58px;
+                right: 16px;
+                padding: 8px 14px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: #11151d;
+                color: inherit;
+                font: inherit;
+                cursor: pointer;
+                z-index: 1200;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+            }
+
+            .notes-toggle:hover,
+            .notes-toggle:focus {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .notes-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(13, 15, 18, 0.7);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+                z-index: 1180;
+            }
+
+            .notes-overlay.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .notes-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(360px, 90vw);
+                height: 100%;
+                background: #0d1117;
+                border-left: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: -18px 0 36px rgba(0, 0, 0, 0.45);
+                transform: translateX(100%);
+                transition: transform 0.24s ease;
+                z-index: 1190;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                padding: 24px 22px 32px;
+            }
+
+            .notes-panel.show {
+                transform: translateX(0);
+            }
+
+            .notes-panel__header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .notes-panel__header h2 {
+                margin: 0;
+                font-size: 18px;
+                letter-spacing: 0.6px;
+            }
+
+            .notes-panel__close {
+                border: none;
+                background: transparent;
+                color: inherit;
+                font-size: 22px;
+                line-height: 1;
+                cursor: pointer;
+                padding: 4px 8px;
+                border-radius: 6px;
+                transition: background 0.15s ease, color 0.15s ease;
+            }
+
+            .notes-panel__close:hover,
+            .notes-panel__close:focus {
+                background: rgba(255, 255, 255, 0.08);
+                outline: none;
+            }
+
+            .notes-form {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .notes-fieldset {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                padding: 12px 14px;
+                display: flex;
+                gap: 16px;
+                align-items: center;
+            }
+
+            .notes-fieldset legend {
+                padding: 0 6px;
+                font-size: 12px;
+                color: var(--dim);
+            }
+
+            .notes-radio {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+            }
+
+            .notes-field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                font-size: 13px;
+            }
+
+            .notes-field input {
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 8px;
+                background: rgba(15, 19, 26, 0.85);
+                color: inherit;
+                font: inherit;
+                padding: 9px 12px;
+            }
+
+            .notes-field input:focus {
+                outline: none;
+                border-color: #2ea043;
+                background: rgba(26, 33, 45, 0.95);
+            }
+
+            .notes-form__actions {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+
+            .notes-form__actions button {
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: #161b22;
+                color: inherit;
+                font: inherit;
+                padding: 8px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+            }
+
+            .notes-form__actions button:hover,
+            .notes-form__actions button:focus {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .notes-filters {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .notes-filters button {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: transparent;
+                color: inherit;
+                font: inherit;
+                padding: 6px 12px;
+                border-radius: 999px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, background 0.15s ease;
+            }
+
+            .notes-filters button.active,
+            .notes-filters button:hover,
+            .notes-filters button:focus {
+                border-color: #2ea043;
+                background: rgba(46, 160, 67, 0.12);
+                outline: none;
+            }
+
+            .notes-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                overflow-y: auto;
+            }
+
+            .notes-item {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                padding: 12px 14px;
+                background: rgba(17, 21, 29, 0.8);
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .notes-item__meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 8px;
+                font-size: 12px;
+                color: var(--dim);
+            }
+
+            .notes-item__type {
+                text-transform: uppercase;
+                letter-spacing: 0.7px;
+                font-size: 11px;
+                color: #6bc46d;
+            }
+
+            .notes-item__main {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .notes-item__en {
+                font-weight: 600;
+            }
+
+            .notes-item__zh {
+                color: var(--cm);
+            }
+
+            .notes-item__actions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .notes-item__actions button {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: transparent;
+                color: inherit;
+                font: inherit;
+                padding: 6px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, color 0.15s ease;
+            }
+
+            .notes-item__actions button:focus {
+                outline: none;
+            }
+
+            .notes-item__actions button[data-action="copy"]:hover,
+            .notes-item__actions button[data-action="copy"]:focus {
+                border-color: #2ea043;
+                color: #cfead6;
+                outline: none;
+            }
+
+            .notes-item__actions button[data-action="delete"] {
+                border-color: rgba(248, 81, 73, 0.25);
+            }
+
+            .notes-item__actions button[data-action="delete"]:hover,
+            .notes-item__actions button[data-action="delete"]:focus {
+                border-color: #f85149;
+                color: #ffd4d1;
+                outline: none;
+            }
+
+            .notes-empty {
+                color: var(--dim);
+                font-size: 13px;
+                text-align: center;
+                padding: 18px 0;
             }
