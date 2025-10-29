@@ -24,6 +24,11 @@ export function createRoundSession({
     let prefetchedPromise = null;
     let prefetchedKey = null;
 
+    const clearPrefetch = () => {
+        prefetchedPromise = null;
+        prefetchedKey = null;
+    };
+
     const setRevealPhase = (phase) => {
         state.revealPhase = phase;
         state.revealed = phase >= REVEAL_PHASE.TRANSLATION;
@@ -36,13 +41,11 @@ export function createRoundSession({
         if (prefetchedPromise) {
             if (prefetchedKey === key) {
                 const data = await prefetchedPromise;
-                prefetchedPromise = null;
-                prefetchedKey = null;
+                clearPrefetch();
                 return data;
             }
             // discard stale prefetch from other args
-            prefetchedPromise = null;
-            prefetchedKey = null;
+            clearPrefetch();
         }
         return fetchBatch(...args);
     };
@@ -148,6 +151,7 @@ export function createRoundSession({
         advance,
         reveal,
         getCurrentItem,
-        setRemaining
+        setRemaining,
+        invalidatePrefetch: clearPrefetch
     };
 }
