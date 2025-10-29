@@ -267,6 +267,7 @@ async function markCurrentKnown() {
             ? response.remaining
             : Math.max(0, session.state.remaining - 1);
         session.setRemaining(remaining);
+        session.invalidatePrefetch?.();
         await session.advance().catch((error) => console.error("Failed to advance after markKnown", error));
     }
 }
