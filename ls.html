@@ -27,8 +27,19 @@
         </nav>
 
         <div class="wrap">
+            <label class="unit-select" for="unitSelect">
+                <span class="unit-select__label">Unit</span>
+                <select id="unitSelect" class="unit-select__control" aria-label="Select unit">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </label>
             <pre id="code" aria-live="polite"></pre>
-            <div class="status" id="status"># translation :: hidden&#10;# Space/Enter: en-&gt;zh-&gt;next</div>
+            <div class="status" id="status">Unit 1 :: translation :: hidden&#10;progress 0/0&#10;remaining --&#10;Space/Enter: en-&gt;zh-&gt;next | K = mark known</div>
         </div>
 
         <button class="notes-toggle" id="btnNotes" type="button" aria-haspopup="true" aria-expanded="false">

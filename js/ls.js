@@ -26,6 +26,23 @@ const noteUseCurrentBtn = document.getElementById("noteUseCurrent");
 const noteCloseBtn = document.getElementById("btnCloseNotes");
 const notesListEl = document.getElementById("notesList");
 const noteFilterButtons = document.querySelectorAll("[data-note-filter]");
+const unitSelect = document.getElementById("unitSelect");
+const unitSelectWrapper = document.querySelector(".unit-select");
+
+const DEFAULT_LISTENING_UNIT = "1";
+let selectedUnit = unitSelect?.value || DEFAULT_LISTENING_UNIT;
+
+function applySelectedUnit(value) {
+    selectedUnit = value && String(value).trim() ? String(value).trim() : DEFAULT_LISTENING_UNIT;
+    if (unitSelect && unitSelect.value !== selectedUnit) {
+        unitSelect.value = selectedUnit;
+    }
+    if (typeof document !== "undefined" && document.body) {
+        document.body.dataset.unit = selectedUnit;
+    }
+}
+
+applySelectedUnit(selectedUnit);
 
 const englishSelector = "[data-role=\"sentence\"]";
 
@@ -268,10 +285,10 @@ function shouldIgnoreHotkeys(target) {
 function setStatus({ phase, progress, remaining, action }) {
     if (!statusEl) return;
     statusEl.textContent = [
-        `# translation :: ${phase}`,
-        `# progress ${progress}`,
-        `# remaining ${remaining}`,
-        `# Space/Enter: ${action}`
+        `Unit ${selectedUnit} :: ${phase}`,
+        `progress ${progress}`,
+        `remaining ${remaining}`,
+        `Space/Enter: ${action} | K = mark known`
     ].join("\n");
 }
 
@@ -313,6 +330,7 @@ function render(state) {
     const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     document.body.dataset.roundSize = String(roundSize);
+    document.body.dataset.unit = selectedUnit;
 
     if (index < 0 || index >= batch.length) {
         codeEl.innerHTML = buildCode("RVOCA.reload()", "", 0, roundSize, remainingDisplay, { showEnglish: false, showZh: false }, roundSize);
@@ -341,20 +359,70 @@ function render(state) {
 
 const session = createRoundSession({
     fetchBatch: (options = {}) => {
-        const { series = null, count } = options;
+        const { series, count } = options || {};
         const targetCount = typeof count === "number" ? count : roundSize;
-        return fetchListeningBatch({ count: targetCount, series });
+        const targetSeries = typeof series === "string" && series.trim() !== ""
+            ? series.trim()
+            : selectedUnit;
+        return fetchListeningBatch({ count: targetCount, series: targetSeries, unit: targetSeries });
     },
     render,
     speakItem: (item) => speak(item.en ?? item.word ?? ""),
     enablePrefetch: true
 });
 
+function handleUnitChange(unit) {
+    const normalized = unit && String(unit).trim() ? String(unit).trim() : DEFAULT_LISTENING_UNIT;
+    if (normalized === selectedUnit) return;
+    const previousUnit = selectedUnit;
+    applySelectedUnit(normalized);
+    setStatus({ phase: "loading", progress: "0/0", remaining: "--", action: "reload" });
+    session.invalidatePrefetch?.();
+    session.startRound({ count: roundSize, series: selectedUnit, unit: selectedUnit }).catch((error) => {
+        console.error("Failed to load listening batch", error);
+        showToast(error?.message || "Failed to load data");
+        applySelectedUnit(previousUnit);
+        setStatus({ phase: "load failed", progress: "0/0", remaining: "--", action: "retry" });
+        session.startRound({ count: roundSize, series: selectedUnit, unit: selectedUnit }).catch((retryError) => {
+            console.error("Failed to restore previous listening batch", retryError);
+            showToast(retryError?.message || "Failed to reload previous data");
+        });
+    });
+}
+
 updateFilterButtons();
 updateNoteToggleLabel();
 void syncNotes({ silent: true }).catch((error) => {
     console.error("Failed to preload notes", error);
 });
+
+unitSelect?.addEventListener("change", () => {
+    handleUnitChange(unitSelect.value);
+});
+
+unitSelect?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+unitSelect?.addEventListener("mousedown", (event) => {
+    event.stopPropagation();
+});
+
+unitSelect?.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+}, { passive: true });
+
+unitSelectWrapper?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+unitSelectWrapper?.addEventListener("mousedown", (event) => {
+    event.stopPropagation();
+});
+
+unitSelectWrapper?.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+}, { passive: true });
 
 noteToggleBtn?.addEventListener("click", (event) => {
     event.preventDefault();
@@ -506,7 +574,11 @@ roundSizeButton?.addEventListener("click", (event) => {
 
     applyRoundSize(nextValue ?? DEFAULT_ROUND_SIZE);
     showToast(`Round size set to ${roundSize}`);
-    session.startRound({ count: roundSize });
+    session.invalidatePrefetch?.();
+    session.startRound({ count: roundSize, series: selectedUnit, unit: selectedUnit }).catch((error) => {
+        console.error("Failed to reload listening batch", error);
+        showToast(error?.message || "Failed to load data");
+    });
 });
 
 function getAdminKey() {
@@ -679,10 +751,10 @@ document.addEventListener("mouseup", () => {
     }
 });
 
-session.startRound({ count: roundSize }).catch((error) => {
+session.startRound({ count: roundSize, series: selectedUnit, unit: selectedUnit }).catch((error) => {
     console.error("Failed to load listening batch", error);
     setStatus({ phase: "load failed", progress: "0/0", remaining: "--", action: "retry" });
-    showToast("Failed to load data");
+    showToast(error?.message || "Failed to load data");
 });
 
 

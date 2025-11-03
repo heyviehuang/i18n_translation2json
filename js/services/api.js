@@ -54,9 +54,12 @@ export function fetchUnitVocabBatch({ count = ROUND_SIZE, unit = null } = {}) {
     return jsonp(params, { base });
 }
 
-export async function fetchListeningBatch({ count = ROUND_SIZE, series = null } = {}) {
+export async function fetchListeningBatch({ count = ROUND_SIZE, series = null, unit = null } = {}) {
     const params = { action: "nextbatch", count };
-    if (series) params.series = series;
+    const normalizedSeries = typeof series === "string" ? series.trim() : "";
+    const normalizedUnit = typeof unit === "string" ? unit.trim() : "";
+    if (normalizedSeries) params.series = normalizedSeries;
+    if (normalizedUnit) params.unit = normalizedUnit;
     const configuredListeningBase = typeof LISTENING_API_BASE === "string" ? LISTENING_API_BASE.trim() : "";
     const hasDedicatedListening = configuredListeningBase && !configuredListeningBase.includes("REPLACE_WITH");
     const base = hasDedicatedListening ? configuredListeningBase : VOCAB_API_BASE;
@@ -64,6 +67,12 @@ export async function fetchListeningBatch({ count = ROUND_SIZE, series = null } 
         console.warn("LISTENING_API_BASE is not configured; falling back to VOCAB_API_BASE");
     }
     const response = await jsonp(params, { base });
+    if (!response?.ok) {
+        const message = response?.error || "Failed to load listening batch";
+        const error = new Error(message);
+        error.response = response;
+        throw error;
+    }
     const items = Array.isArray(response?.items) ? response.items : [];
     return {
         ...response,
