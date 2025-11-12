@@ -618,7 +618,7 @@ async function markCurrentKnown() {
     const adminKey = getAdminKey();
     let response;
     try {
-        response = await markListeningKnown(current.id, adminKey);
+        response = await markListeningKnown(current.id, adminKey, { series: selectedUnit, unit: selectedUnit });
     } catch (error) {
         console.error("Failed to mark sentence as known", error);
         showToast("Failed to update");

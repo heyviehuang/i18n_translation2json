@@ -107,14 +107,19 @@ export function markUnitVocabKnown(id, adminKey, { unit = null } = {}) {
     return jsonp(params, { base });
 }
 
-export function markListeningKnown(id, adminKey) {
+export function markListeningKnown(id, adminKey, { series = null, unit = null } = {}) {
     const configuredListeningBase = typeof LISTENING_API_BASE === "string" ? LISTENING_API_BASE.trim() : "";
     const hasDedicatedListening = configuredListeningBase && !configuredListeningBase.includes("REPLACE_WITH");
     const base = hasDedicatedListening ? configuredListeningBase : VOCAB_API_BASE;
     if (!hasDedicatedListening) {
         console.warn("LISTENING_API_BASE is not configured; falling back to VOCAB_API_BASE for markKnown");
     }
-    return jsonp({ action: "markKnown", id, adminKey }, { base });
+    const params = { action: "markKnown", id, adminKey };
+    const normalizedSeries = typeof series === "string" ? series.trim() : "";
+    const normalizedUnit = typeof unit === "string" ? unit.trim() : "";
+    if (normalizedSeries) params.series = normalizedSeries;
+    if (normalizedUnit) params.unit = normalizedUnit;
+    return jsonp(params, { base });
 }
 
 function resolveListeningBase() {
