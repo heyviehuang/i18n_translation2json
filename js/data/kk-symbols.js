@@ -1,21 +1,22 @@
 export const KK_SYMBOLS = [
     {
         "id": 1,
-        "symbol": "/?/",
+        "symbol": "/Éª/",
         "spellings": "i",
-        "description": "µoµu­µªº£¸",
+        "description": "ç™¼çŸ­éŸ³çš„ã„§",
         "examples": [
             "it"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/Éª.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 2,
         "symbol": "/i/",
-        "spellings": "ee¡Bea¡Bie¡Bei¡Bey¡Be_e",
-        "description": "µoªø­µªº£¸",
+        "spellings": "eeã€eaã€ieã€eiã€eyã€e_e",
+        "description": "ç™¼é•·éŸ³çš„ã„§",
         "examples": [
             "feed",
             "tea",
@@ -26,27 +27,29 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/i.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 3,
-        "symbol": "/?/",
-        "spellings": "a¡Be¡Bea",
-        "description": "¼L§Î¦V¥ª¥k©Ô¡Aµoµu­µªº£®",
+        "symbol": "/É›/",
+        "spellings": "aã€eã€ea",
+        "description": "å˜´å½¢å‘å·¦å³æ‹‰ï¼Œç™¼çŸ­éŸ³çš„ã„",
         "examples": [
             "many",
             "letter",
             "pleasure"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/É›.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 4,
         "symbol": "/e/",
-        "spellings": "ai¡Bei¡Bay¡Bey¡Bea¡Ba_e",
-        "description": "¼L§Î¦³ 2 ¬qÅÜ¤Æ¡Aµoªø­µªº£°£¸",
+        "spellings": "aiã€eiã€ayã€eyã€eaã€a_e",
+        "description": "å˜´å½¢æœ‰ 2 æ®µè®ŠåŒ–ï¼Œç™¼é•·éŸ³çš„ã„Ÿã„§",
         "examples": [
             "plain",
             "neighbor",
@@ -57,38 +60,41 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/e.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 5,
-        "symbol": "/a/",
+        "symbol": "/Ã¦/",
         "spellings": "a",
-        "description": "¼L§Î©¹¤U±i¤j¡Aµo£®",
+        "description": "å˜´å½¢å¾€ä¸‹å¼µå¤§ï¼Œç™¼ã„",
         "examples": [
             "mad"
         ],
         "audio": {
             "local": "assets/kk-audio/ae.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 6,
-        "symbol": "/?/",
-        "spellings": "a¡Bo",
-        "description": "¼L§Î¤W¤U±i¤j¡Aµoµu­µªº£«",
+        "symbol": "/É‘/",
+        "spellings": "aã€o",
+        "description": "å˜´å½¢ä¸Šä¸‹å¼µå¤§ï¼Œç™¼çŸ­éŸ³çš„ã„š",
         "examples": [
             "wash",
             "stop"
         ],
         "audio": {
             "local": "assets/kk-audio/a.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 7,
-        "symbol": "/?/",
-        "spellings": "al¡Bau¡Baw¡Bou",
-        "description": "¼L§Î§e¶ê§Î¡Aµoµu­µªº£¬",
+        "symbol": "/É”/",
+        "spellings": "alã€auã€awã€ou",
+        "description": "å˜´å½¢å‘ˆåœ“å½¢ï¼Œç™¼çŸ­éŸ³çš„ã„›",
         "examples": [
             "call",
             "author",
@@ -96,14 +102,15 @@ export const KK_SYMBOLS = [
             "bought"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/É”.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 8,
         "symbol": "/o/",
-        "spellings": "oa¡Boe¡Bow¡Bough¡Bo_e",
-        "description": "¼L§Î¦³ 2 ¬qÅÜ¤Æ¡Aµoªø­µªº£²£¹",
+        "spellings": "oaã€oeã€owã€oughã€o_e",
+        "description": "å˜´å½¢æœ‰ 2 æ®µè®ŠåŒ–ï¼Œç™¼é•·éŸ³çš„ã„¡ã„¨",
         "examples": [
             "coat",
             "poet",
@@ -113,27 +120,29 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/o.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 9,
-        "symbol": "/?/",
-        "spellings": "u¡Boo¡Bou",
-        "description": "¼L§Î©ñÃP±i¶}¡A¥ı°µ£­¤f«¬¡A ¦Aµoµu­µªº£¹",
+        "symbol": "/ÊŠ/",
+        "spellings": "uã€ooã€ou",
+        "description": "å˜´å½¢æ”¾é¬†å¼µé–‹ï¼Œå…ˆåšã„œå£å‹ï¼Œ å†ç™¼çŸ­éŸ³çš„ã„¨",
         "examples": [
             "full",
             "book",
             "could"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/ÊŠ.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 10,
         "symbol": "/u/",
-        "spellings": "oo¡Bui¡Bue¡Bou¡Bew¡Bu_e",
-        "description": "¼L§Î¦V«eäş°_¡Aµoªø­µªº£¹",
+        "spellings": "ooã€uiã€ueã€ouã€ewã€u_e",
+        "description": "å˜´å½¢å‘å‰å™˜èµ·ï¼Œç™¼é•·éŸ³çš„ã„¨",
         "examples": [
             "moon",
             "suit",
@@ -144,40 +153,43 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/u.mp3"
-        }
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 11,
-        "symbol": "/?/",
-        "spellings": "u¡Bo",
-        "description": "¼L§Î©ñÃP±i¶}¡Aµoµu­µ£­ ¡]±`¥X²{¦b­«­µ¸`¡^",
+        "symbol": "/ÊŒ/",
+        "spellings": "uã€o",
+        "description": "å˜´å½¢æ”¾é¬†å¼µé–‹ï¼Œç™¼çŸ­éŸ³ã„œ ï¼ˆå¸¸å‡ºç¾åœ¨é‡éŸ³ç¯€ï¼‰",
         "examples": [
             "bug",
             "color"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/ÊŒ.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 12,
-        "symbol": "/?/",
-        "spellings": "a¡Bo¡Be",
-        "description": "®z¤Æ­µ¡Aµoµu­µªº£­ ¡]±`¥X²{¦b»´­µ¸`¡^",
+        "symbol": "/É™/",
+        "spellings": "aã€oã€e",
+        "description": "å¼±åŒ–éŸ³ï¼Œç™¼çŸ­éŸ³çš„ã„œ ï¼ˆå¸¸å‡ºç¾åœ¨è¼•éŸ³ç¯€ï¼‰",
         "examples": [
             "ago",
             "together",
             "calendar"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/É™.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 13,
-        "symbol": "/?/",
-        "spellings": "er¡Bar¡Bor¡Bure",
-        "description": "¦Ş¦y©¹«á¤W¤è±²¡Aµoµu­µªº£·",
+        "symbol": "/Éš/",
+        "spellings": "erã€arã€orã€ure",
+        "description": "èˆŒå°–å¾€å¾Œä¸Šæ–¹æ²ï¼Œç™¼çŸ­éŸ³çš„ã„¦",
         "examples": [
             "better",
             "familiar",
@@ -185,14 +197,15 @@ export const KK_SYMBOLS = [
             "nature"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/Éš.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 14,
-        "symbol": "/?/",
-        "spellings": "ir¡Ber¡Bur¡Bear",
-        "description": "¦Ş¦y©¹«á¤W¤è±²¡Aµoªø­µªº£·",
+        "symbol": "/É/",
+        "spellings": "irã€erã€urã€ear",
+        "description": "èˆŒå°–å¾€å¾Œä¸Šæ–¹æ²ï¼Œç™¼é•·éŸ³çš„ã„¦",
         "examples": [
             "bird",
             "her",
@@ -200,14 +213,15 @@ export const KK_SYMBOLS = [
             "learn"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/É.mp3"
+        },
+        "category": "å–®æ¯éŸ³"
     },
     {
         "id": 15,
-        "symbol": "/a?/",
-        "spellings": "i¡Bie¡Bigh¡Bi_e",
-        "description": "¼L§Î¦³ 2 ¬qÅÜ¤Æ¡A¥ı°µ£«¤f«¬¡A ¦Aµo£¯£¸­µ",
+        "symbol": "/aÉª/",
+        "spellings": "iã€ieã€ighã€i_e",
+        "description": "å˜´å½¢æœ‰ 2 æ®µè®ŠåŒ–ï¼Œå…ˆåšã„šå£å‹ï¼Œ å†ç™¼ã„ã„§éŸ³",
         "examples": [
             "child",
             "tie",
@@ -215,130 +229,140 @@ export const KK_SYMBOLS = [
             "fire"
         ],
         "audio": {
-            "local": "assets/kk-audio/a?.mp3"
-        }
+            "local": "assets/kk-audio/aÉª.mp3"
+        },
+        "category": "é›™æ¯éŸ³"
     },
     {
         "id": 16,
-        "symbol": "/a?/",
-        "spellings": "ou¡Bow",
-        "description": "¼L§Î¦³ 2 ¬qÅÜ¤Æ¡Aµo£«£¹",
+        "symbol": "/aÊŠ/",
+        "spellings": "ouã€ow",
+        "description": "å˜´å½¢æœ‰ 2 æ®µè®ŠåŒ–ï¼Œç™¼ã„šã„¨",
         "examples": [
             "loud",
             "flower"
         ],
         "audio": {
-            "local": "assets/kk-audio/a?.mp3"
-        }
+            "local": "assets/kk-audio/aÊŠ.mp3"
+        },
+        "category": "é›™æ¯éŸ³"
     },
     {
         "id": 17,
-        "symbol": "/??/",
-        "spellings": "oy¡Boi",
-        "description": "¼L§Î¦³ 2 ¬qÅÜ¤Æ¡Aµo£¬£¸",
+        "symbol": "/É”Éª/",
+        "spellings": "oyã€oi",
+        "description": "å˜´å½¢æœ‰ 2 æ®µè®ŠåŒ–ï¼Œç™¼ã„›ã„§",
         "examples": [
             "joy",
             "noise"
         ],
         "audio": {
-            "local": "assets/kk-audio/??.mp3"
-        }
+            "local": "assets/kk-audio/É”Éª.mp3"
+        },
+        "category": "é›™æ¯éŸ³"
     },
     {
         "id": 18,
         "symbol": "/b/",
-        "spellings": "b¡Bbb",
-        "description": "µo£t­µ",
+        "spellings": "bã€bb",
+        "description": "ç™¼ã„…éŸ³",
         "examples": [
             "basic",
             "bubble"
         ],
         "audio": {
             "local": "assets/kk-audio/b.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 19,
         "symbol": "/d/",
-        "spellings": "d¡Bdd",
-        "description": "µoµu­µªº£x",
+        "spellings": "dã€dd",
+        "description": "ç™¼çŸ­éŸ³çš„ã„‰",
         "examples": [
             "dinner",
             "addition"
         ],
         "audio": {
             "local": "assets/kk-audio/d.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 20,
         "symbol": "/g/",
-        "spellings": "g¡Bgg",
-        "description": "µoµu­µªº£|",
+        "spellings": "gã€gg",
+        "description": "ç™¼çŸ­éŸ³çš„ã„",
         "examples": [
             "grammar",
             "luggage"
         ],
         "audio": {
             "local": "assets/kk-audio/g.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 21,
         "symbol": "/v/",
-        "spellings": "v¡Bf",
-        "description": "¤U®B¸I¨ì¤W¾¦¡A§j®ğ¦P®É®¶°ÊÁn±a¡A µo­µÃş¦ü / f /",
+        "spellings": "vã€f",
+        "description": "ä¸‹å”‡ç¢°åˆ°ä¸Šé½’ï¼Œå¹æ°£åŒæ™‚æŒ¯å‹•è²å¸¶ï¼Œ ç™¼éŸ³é¡ä¼¼ / f /",
         "examples": [
             "vegetable",
             "of"
         ],
         "audio": {
             "local": "assets/kk-audio/v.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 22,
         "symbol": "/z/",
-        "spellings": "z¡Bs",
-        "description": "Âù²å·L±Ò¡A¤W¤U¾¦³¬¦X¡A §j®ğ¦P®É®¶°ÊÁn±a",
+        "spellings": "zã€s",
+        "description": "é›™è„£å¾®å•Ÿï¼Œä¸Šä¸‹é½’é–‰åˆï¼Œ å¹æ°£åŒæ™‚æŒ¯å‹•è²å¸¶",
         "examples": [
             "zoo",
             "pause"
         ],
         "audio": {
             "local": "assets/kk-audio/z.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 23,
-        "symbol": "/e/",
+        "symbol": "/Ã°/",
         "spellings": "th",
-        "description": "¤W¤U¾¦»´«r¦Ş¦y¡A§j®ğ¦P®É®¶°ÊÁn±a",
+        "description": "ä¸Šä¸‹é½’è¼•å’¬èˆŒå°–ï¼Œå¹æ°£åŒæ™‚æŒ¯å‹•è²å¸¶",
         "examples": [
             "this"
         ],
         "audio": {
             "local": "assets/kk-audio/d-1.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 24,
-        "symbol": "/?/",
-        "spellings": "sion¡Bsure",
-        "description": "¦Ş­±©¹¤W»´Ä²¤WÃE¡A§j®ğ¦P®É®¶°ÊÁn±a¡A »P / ? / µo­µ¤f«¬¬Û¦P",
+        "symbol": "/Ê’/",
+        "spellings": "sionã€sure",
+        "description": "èˆŒé¢å¾€ä¸Šè¼•è§¸ä¸Šé¡ï¼Œå¹æ°£åŒæ™‚æŒ¯å‹•è²å¸¶ï¼Œ èˆ‡ / Êƒ / ç™¼éŸ³å£å‹ç›¸åŒ",
         "examples": [
             "television",
             "pleasure"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/Ê’.mp3"
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 25,
-        "symbol": "/d?/",
-        "spellings": "j¡Bge¡Bdge¡Bgi¡Bgy",
-        "description": "¦Ş­±©¹¤W³»¦í¤WÃE¡A°ô¦í®ğ¬y¨Ã®¶°ÊÁn±a¡Aµo­µ±µªñ£¤©Î£¡",
+        "symbol": "/dÊ’/",
+        "spellings": "jã€geã€dgeã€giã€gy",
+        "description": "èˆŒé¢å¾€ä¸Šé ‚ä½ä¸Šé¡ï¼Œå µä½æ°£ï§Šä¸¦æŒ¯å‹•è²å¸¶ï¼Œç™¼éŸ³æ¥è¿‘ã„“æˆ–ã„",
         "examples": [
             "enjoy",
             "change",
@@ -347,91 +371,98 @@ export const KK_SYMBOLS = [
             "gym"
         ],
         "audio": {
-            "local": "assets/kk-audio/d?.mp3"
-        }
+            "local": "assets/kk-audio/dÊ’.mp3"
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 26,
         "symbol": "/l/",
-        "spellings": "l¡Bll",
-        "description": "¦Ş¦y³»¦í¤W¾¦Åi«áµoÁn¡Aµo­µ±µªñ£{",
+        "spellings": "lã€ll",
+        "description": "èˆŒå°–é ‚ä½ä¸Šé½’é½¦å¾Œç™¼è²ï¼Œç™¼éŸ³æ¥è¿‘ã„Œ",
         "examples": [
             "lend",
             "fall"
         ],
         "audio": {
             "local": "assets/kk-audio/l.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 27,
         "symbol": "/r/",
-        "spellings": "r¡Brr",
-        "description": "¼L®B·L·Läş°_¡A¦Ş¦y¤W´­¨Ã®¶°ÊÁn±a¡Aµo­µ±µªñ£§¡B£·",
+        "spellings": "rã€rr",
+        "description": "å˜´å”‡å¾®å¾®å™˜èµ·ï¼ŒèˆŒå°–ä¸Šæšä¸¦æŒ¯å‹•è²å¸¶ï¼Œç™¼éŸ³æ¥è¿‘ã„–ã€ã„¦",
         "examples": [
             "romantic",
             "mirror"
         ],
         "audio": {
             "local": "assets/kk-audio/r.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 28,
         "symbol": "/m/",
-        "spellings": "m¡Bmm",
-        "description": "Âù®Bºò³¬¡A¦A±q»óµÄµoÁn¡A µo£v­µ",
+        "spellings": "mã€mm",
+        "description": "é›™å”‡ç·Šé–‰ï¼Œå†å¾é¼»è…”ç™¼è²ï¼Œ ç™¼ã„‡éŸ³",
         "examples": [
             "moon",
             "community"
         ],
         "audio": {
             "local": "assets/kk-audio/m.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 29,
         "symbol": "/n/",
-        "spellings": "n¡Bnn",
-        "description": "¦Ş¦y³»¦í¤W¾¦Åi¡A¦A±q»óµÄµoÁn¡A µo­µ±µªñ£z¡B£´",
+        "spellings": "nã€nn",
+        "description": "èˆŒå°–é ‚ä½ä¸Šé½’é½¦ï¼Œå†å¾é¼»è…”ç™¼è²ï¼Œ ç™¼éŸ³æ¥è¿‘ã„‹ã€ã„£",
         "examples": [
             "clean",
             "tennis"
         ],
         "audio": {
             "local": "assets/kk-audio/n.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 30,
-        "symbol": "/?/",
-        "spellings": "ng¡Bnk",
-        "description": "¦Ş¦y¥­©ñ¡A¦A±q»óµÄµoÁn¡A µo£¶­µ",
+        "symbol": "/Å‹/",
+        "spellings": "ngã€nk",
+        "description": "èˆŒå°–å¹³æ”¾ï¼Œå†å¾é¼»è…”ç™¼è²ï¼Œ ç™¼ã„¥éŸ³",
         "examples": [
             "long",
             "thank"
         ],
         "audio": {
             "local": "assets/kk-audio/n-1.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 31,
         "symbol": "/j/",
         "spellings": "y",
-        "description": "µoµu­µªº£¸£®",
+        "description": "ç™¼çŸ­éŸ³çš„ã„§ã„",
         "examples": [
             "young"
         ],
         "audio": {
             "local": "assets/kk-audio/j.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 32,
         "symbol": "/w/",
-        "spellings": "w¡Bwh¡Bo",
-        "description": "µoµu­µªº£¹",
+        "spellings": "wã€whã€o",
+        "description": "ç™¼çŸ­éŸ³çš„ã„¨",
         "examples": [
             "world",
             "who",
@@ -439,39 +470,42 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/w.mp3"
-        }
+        },
+        "category": "æœ‰è²å­éŸ³"
     },
     {
         "id": 33,
         "symbol": "/p/",
-        "spellings": "p¡Bpp",
-        "description": "µo£u­µ",
+        "spellings": "pã€pp",
+        "description": "ç™¼ã„†éŸ³",
         "examples": [
             "keep",
             "application"
         ],
         "audio": {
             "local": "assets/kk-audio/p.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 34,
         "symbol": "/t/",
-        "spellings": "t¡Btt",
-        "description": "µo£y­µ",
+        "spellings": "tã€tt",
+        "description": "ç™¼ã„ŠéŸ³",
         "examples": [
             "table",
             "letter"
         ],
         "audio": {
             "local": "assets/kk-audio/t.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 35,
         "symbol": "/k/",
-        "spellings": "c¡Bk¡Bck¡Bch",
-        "description": "µo£}­µ",
+        "spellings": "cã€kã€ckã€ch",
+        "description": "ç™¼ã„éŸ³",
         "examples": [
             "accept",
             "king",
@@ -480,26 +514,28 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/k.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 36,
         "symbol": "/h/",
-        "spellings": "h¡Bwh",
-        "description": "µo£~­µ",
+        "spellings": "hã€wh",
+        "description": "ç™¼ã„éŸ³",
         "examples": [
             "heaven",
             "when"
         ],
         "audio": {
             "local": "assets/kk-audio/h.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 37,
         "symbol": "/f/",
-        "spellings": "f¡Bfe¡Bgh¡Bph",
-        "description": "¤U®B¸I¨ì¤W¾¦¡A³z¹L®B¾¦Á_»Ø§j®ğ¡A ±µªñµLÁn",
+        "spellings": "fã€feã€ghã€ph",
+        "description": "ä¸‹å”‡ç¢°åˆ°ä¸Šé½’ï¼Œé€éå”‡é½’ç¸«éš™å¹æ°£ï¼Œ æ¥è¿‘ç„¡è²",
         "examples": [
             "family",
             "life",
@@ -508,13 +544,14 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/f.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 38,
         "symbol": "/s/",
-        "spellings": "s¡Bc¡Bsc",
-        "description": "µo£ª­µ",
+        "spellings": "sã€cã€sc",
+        "description": "ç™¼ã„™éŸ³",
         "examples": [
             "see",
             "city",
@@ -522,25 +559,27 @@ export const KK_SYMBOLS = [
         ],
         "audio": {
             "local": "assets/kk-audio/s.mp3"
-        }
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 39,
-        "symbol": "/£c/",
+        "symbol": "/Î¸/",
         "spellings": "th",
-        "description": "¤W¤U¾¦»´«r¦Ş¦y¡A¤£®¶°ÊÁn±a§j®ğ¡A µo­µ±µªñ£ª",
+        "description": "ä¸Šä¸‹é½’è¼•å’¬èˆŒå°–ï¼Œä¸æŒ¯å‹•è²å¸¶å¹æ°£ï¼Œ ç™¼éŸ³æ¥è¿‘ã„™",
         "examples": [
             "health"
         ],
         "audio": {
-            "local": "assets/kk-audio/£c.mp3"
-        }
+            "local": "assets/kk-audio/Î¸.mp3"
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 40,
-        "symbol": "/?/",
-        "spellings": "c¡Bs¡Bsh¡Btion",
-        "description": "¦Ş­±»´Ä²¤WÃE§j®ğ¡Aµo­µ±µªñ£¦¡B££",
+        "symbol": "/Êƒ/",
+        "spellings": "cã€sã€shã€tion",
+        "description": "èˆŒé¢è¼•è§¸ä¸Šé¡å¹æ°£ï¼Œç™¼éŸ³æ¥è¿‘ã„•ã€ã„’",
         "examples": [
             "special",
             "sure",
@@ -548,22 +587,23 @@ export const KK_SYMBOLS = [
             "action"
         ],
         "audio": {
-            "local": "assets/kk-audio/?.mp3"
-        }
+            "local": "assets/kk-audio/Êƒ.mp3"
+        },
+        "category": "ç„¡è²å­éŸ³"
     },
     {
         "id": 41,
-        "symbol": "/t?/",
-        "spellings": "ch¡Btch¡Bture",
-        "description": "¦Ş­±³»¦í¤WÃE¡A°ô¦í®ğ¬y«áµoÁn¡A »P / ? / ¤f«¬¬Û¦P¡A µo­µ±µªñ£¥¡B£¢",
+        "symbol": "/tÊƒ/",
+        "spellings": "chã€tchã€ture",
+        "description": "èˆŒé¢é ‚ä½ä¸Šé¡ï¼Œå µä½æ°£æµå¾Œç™¼è²ï¼Œ èˆ‡ / Êƒ / å£å‹ç›¸åŒï¼Œ ç™¼éŸ³æ¥è¿‘ã„”ã€ã„‘",
         "examples": [
             "lunch",
             "catch",
             "adventure"
         ],
         "audio": {
-            "local": "assets/kk-audio/t?.mp3"
-        }
+            "local": "assets/kk-audio/tÊƒ.mp3"
+        },
+        "category": "ç„¡è²å­éŸ³"
     }
 ];
-

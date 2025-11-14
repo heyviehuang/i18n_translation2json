@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>RVOCA :: UVR Mode</title>
+        <title>RVOCA :: KK Mode</title>
         <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
         <link rel="apple-touch-icon" href="rvoca-cartB.ico">
         <link rel="stylesheet" href="css/style.css">
@@ -20,44 +20,38 @@
                 <span>Switch to</span>
                 <code>VOC</code>
             </a>
+            <a class="mode-switch__btn" href="vb-unit.html">
+                <span>Switch to</span>
+                <code>UVR</code>
+            </a>
             <a class="mode-switch__btn" href="ls.html">
                 <span>Switch to</span>
                 <code>LIS</code>
             </a>
-            <a class="mode-switch__btn" href="kk.html">
-                <span>Switch to</span>
-                <code>KK</code>
-            </a>
         </nav>
 
         <div class="wrap">
-            <label class="unit-select" for="unitSelect">
-                <span class="unit-select__label">Unit</span>
-                <select id="unitSelect" class="unit-select__control" aria-label="Select unit">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
+            <label class="unit-select" for="categoryFilter">
+                <span class="unit-select__label">Category</span>
+                <select id="categoryFilter" class="unit-select__control" aria-label="Select category">
+                    <option value="all">All</option>
                 </select>
             </label>
             <pre id="code" aria-live="polite"></pre>
-            <div class="status" id="status">Space/Enter: en-&gt;zh-&gt;next | K = mark known</div>
+            <div class="status" id="status">Space/Enter: symbol-&gt;details-&gt;next</div>
         </div>
 
         <div class="fab" id="fab">
-            <button class="known" id="btnKnown">Known</button>
+            <button class="known" id="btnReplay">Replay</button>
             <button class="no-advance" id="btnRoundSize">Round 15</button>
             <div class="copybar no-advance">
-                <button id="copyEn">Copy EN</button>
-                <button id="copyZh">Copy ZH</button>
+                <button id="copySymbol">Copy Symbol</button>
+                <button id="copyHint">Copy Tip</button>
+                <button id="copyExamples">Copy Examples</button>
             </div>
         </div>
-        <div class="badge" id="adminBadge">ADMIN</div>
 
-        <script type="module" src="js/vb-unit.js"></script>
+        <script type="module" src="js/kk.js"></script>
     </body>
 
 </html>
-
