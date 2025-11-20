@@ -46,12 +46,28 @@
             <div class="status" id="status">Space/Enter: en-&gt;zh-&gt;next | K = mark known</div>
         </div>
 
+        <div class="notes-overlay" id="pronOverlay" aria-hidden="true"></div>
+        <aside class="notes-panel reading-panel" id="pronPanel" aria-hidden="true" aria-label="Reading mark list">
+            <header class="notes-panel__header">
+                <h2>Pronunciation Review</h2>
+                <button type="button" id="btnPronClose" class="notes-panel__close" aria-label="Close reading list">
+                    &times;
+                </button>
+            </header>
+            <p class="notes-help">Words flagged for pronunciation sync to GAS (admin only).</p>
+            <ul class="notes-list" id="pronList" aria-live="polite"></ul>
+        </aside>
+
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known</button>
             <button class="no-advance" id="btnRoundSize">Round 15</button>
             <div class="copybar no-advance">
                 <button id="copyEn">Copy EN</button>
                 <button id="copyZh">Copy ZH</button>
+            </div>
+            <div class="pron-group no-advance" aria-label="Pronunciation tools">
+                <button type="button" id="btnPronMark" aria-pressed="false" aria-label="Toggle pronunciation mark">Pron Mark</button>
+                <button type="button" id="btnPronList" aria-haspopup="dialog" aria-expanded="false" aria-label="Show pronunciation list">Pron List</button>
             </div>
         </div>
         <div class="badge" id="adminBadge">ADMIN</div>

@@ -1,5 +1,5 @@
 import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
-import { fetchUnitVocabBatch, markUnitVocabKnown } from "./services/api.js";
+import { fetchUnitVocabBatch, markUnitVocabKnown, fetchUnitPronMarks, updateUnitPronMark } from "./services/api.js";
 import { speak } from "./utils/speech.js";
 import { copyText } from "./utils/clipboard.js";
 import { escapeHtml as esc } from "./utils/html.js";
@@ -18,6 +18,12 @@ const copyZhBtn = document.getElementById("copyZh");
 const roundSizeButton = document.getElementById("btnRoundSize");
 const unitSelect = document.getElementById("unitSelect");
 const unitSelectWrapper = document.querySelector(".unit-select");
+const readingMarkBtn = document.getElementById("btnPronMark");
+const readingListBtn = document.getElementById("btnPronList");
+const readingOverlay = document.getElementById("pronOverlay");
+const readingPanel = document.getElementById("pronPanel");
+const readingCloseBtn = document.getElementById("btnPronClose");
+const readingListEl = document.getElementById("pronList");
 let selectedUnit = unitSelect?.value || "1";
 if (unitSelect && unitSelect.value !== selectedUnit) {
     unitSelect.value = selectedUnit;
@@ -29,12 +35,22 @@ if (statusEl) {
     statusEl.textContent = [
         `Unit ${selectedUnit} :: loading`,
         `remaining --`,
-        `Space/Enter: en->zh->next | K = mark known`
+        `Space/Enter: en->zh->next | K = mark known | P = Pron mark (admin) | L = Pron list (admin)`
     ].join("\n");
 }
 
 const MODE_KEY = "vb-unit";
+const READING_MARKS_STORAGE_KEY = "vb-unit.readingMarks";
+const READING_MARK_IDLE_LABEL = "Pron Mark";
+const READING_MARK_ACTIVE_LABEL = "Pron Marked";
+const READING_LIST_LABEL = "Pron List";
 let roundSize = getRoundSize(MODE_KEY);
+let readingMarks = loadReadingMarks();
+let currentReadingKey = null;
+let readingMarksLoading = false;
+let readingMarksError = null;
+let readingMarksInitialized = Object.keys(readingMarks).length > 0;
+let syncCurrentItemForReading = null;
 
 function updateRoundSizeButton() {
     if (!roundSizeButton) return;
@@ -50,6 +66,9 @@ function applyRoundSize(value) {
 }
 
 applyRoundSize(roundSize);
+updateReadingListButton();
+syncReadingControlsForItem(null);
+refreshReadingMarksFromServer({ silent: true });
 const TEMPLATES = [
     ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
         `<span class="cm">// rvoca@${seed} :: runtime bootstrap</span>`,
@@ -135,7 +154,7 @@ function setStatus({ phase, progress, remaining, action }) {
         `Unit ${selectedUnit} :: ${phase}`,
         `progress ${progress}`,
         `remaining ${remaining}`,
-        `Space/Enter: ${action} | K = mark known`
+        `Space/Enter: ${action} | K = mark known | P = Pron mark (admin) | L = Pron list (admin)`
     ].join("\n");
 }
 
@@ -153,6 +172,7 @@ function render(state) {
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
         setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, revealed: false, action: "reload" });
+        syncReadingControlsForItem(null);
         return;
     }
 
@@ -180,7 +200,325 @@ function render(state) {
         revealed: showZh,
         action: showZh ? "next" : showEnglish ? "show zh" : "show en"
     });
+    syncReadingControlsForItem(current);
 }
+
+function makeReadingKey(item) {
+    if (!item) return null;
+    if (typeof item.id === "number" || (typeof item.id === "string" && item.id !== "")) {
+        return `id:${item.id}`;
+    }
+    const word = typeof item.word === "string" ? item.word.trim() : "";
+    if (!word) return null;
+    return `word:${word.toLowerCase()}`;
+}
+
+function syncReadingControlsForItem(item) {
+    currentReadingKey = makeReadingKey(item);
+    const isMarked = currentReadingKey ? Boolean(readingMarks[currentReadingKey]) : false;
+    updateReadingMarkButton(isMarked);
+    if (document?.body) {
+        document.body.dataset.readingMarked = isMarked ? "1" : "0";
+    }
+}
+
+function updateReadingMarkButton(isMarked) {
+    if (!readingMarkBtn) return;
+    const pressed = Boolean(isMarked);
+    readingMarkBtn.classList.toggle("is-active", pressed);
+    readingMarkBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+    readingMarkBtn.textContent = pressed ? READING_MARK_ACTIVE_LABEL : READING_MARK_IDLE_LABEL;
+}
+
+function getReadingCount() {
+    return Object.keys(readingMarks || {}).length;
+}
+
+function updateReadingListButton() {
+    if (!readingListBtn) return;
+    const count = getReadingCount();
+    readingListBtn.textContent = count ? `${READING_LIST_LABEL} (${count})` : READING_LIST_LABEL;
+}
+
+function getReadingEntries() {
+    return Object.values(readingMarks || {}).sort((a, b) => {
+        const aTime = typeof a?.timestamp === "number" ? a.timestamp : 0;
+        const bTime = typeof b?.timestamp === "number" ? b.timestamp : 0;
+        return bTime - aTime;
+    });
+}
+
+function parseReadingTimestamp(value) {
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    if (typeof value === "string" && value.trim()) {
+        const parsed = Date.parse(value);
+        if (!Number.isNaN(parsed)) return parsed;
+    }
+    return Date.now();
+}
+
+function normalizeReadingEntry(raw = {}, { fallbackUnit = "" } = {}) {
+    if (!raw || typeof raw !== "object") return null;
+    const id = raw.id ?? raw.vocabId ?? raw.wordId ?? null;
+    const word = typeof raw.word === "string"
+        ? raw.word
+        : typeof raw.en === "string"
+            ? raw.en
+            : "";
+    const zh = typeof raw.zh === "string"
+        ? raw.zh
+        : typeof raw.translation === "string"
+            ? raw.translation
+            : "";
+    const unitValue = raw.unit ?? raw.level ?? fallbackUnit ?? "";
+    const unit = typeof unitValue === "string" ? unitValue : unitValue != null ? String(unitValue) : "";
+    const entryKey = raw.key || makeReadingKey({ id, word });
+    if (!entryKey) return null;
+    return {
+        key: entryKey,
+        id,
+        word,
+        zh,
+        unit,
+        timestamp: parseReadingTimestamp(raw.timestamp ?? raw.updatedAt ?? raw.markedAt ?? raw.createdAt)
+    };
+}
+
+function cloneReadingMarks() {
+    return Object.values(readingMarks || {}).reduce((acc, entry) => {
+        if (!entry?.key) return acc;
+        acc[entry.key] = { ...entry };
+        return acc;
+    }, {});
+}
+
+function getReadingResponseItems(source) {
+    if (!source || typeof source !== "object") return [];
+    const candidates = [source.items, source.marks, source.entries, source.list];
+    for (const candidate of candidates) {
+        if (Array.isArray(candidate)) return candidate;
+    }
+    return [];
+}
+
+function loadReadingMarks() {
+    if (typeof localStorage === "undefined") return {};
+    try {
+        const raw = localStorage.getItem(READING_MARKS_STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return {};
+        const entries = Object.values(parsed)
+            .map((value) => normalizeReadingEntry(value, { fallbackUnit: selectedUnit }))
+            .filter(Boolean);
+        return entries.reduce((acc, entry) => {
+            acc[entry.key] = entry;
+            return acc;
+        }, {});
+    } catch (error) {
+        console.error("Failed to load reading marks", error);
+        return {};
+    }
+}
+
+function persistReadingMarks() {
+    if (typeof localStorage === "undefined") return;
+    try {
+        localStorage.setItem(READING_MARKS_STORAGE_KEY, JSON.stringify(readingMarks));
+    } catch (error) {
+        console.error("Failed to persist reading marks", error);
+    }
+}
+
+function formatReadingTimestamp(timestamp) {
+    if (typeof timestamp !== "number") return "";
+    try {
+        return new Date(timestamp).toLocaleString();
+    } catch {
+        return "";
+    }
+}
+
+function renderReadingList() {
+    if (!readingListEl) return;
+    if (readingMarksLoading && !readingMarksInitialized) {
+        readingListEl.innerHTML = `<li class="notes-empty">Syncing reading marks...</li>`;
+        return;
+    }
+    const entries = getReadingEntries();
+    if (readingMarksError && !entries.length) {
+        readingListEl.innerHTML = `<li class="notes-empty">Unable to load reading marks</li>`;
+        return;
+    }
+    if (!entries.length) {
+        readingListEl.innerHTML = `<li class="notes-empty">No reading marks yet</li>`;
+        return;
+    }
+    const items = entries.map((entry) => {
+        const zhBlock = entry.zh ? `<div class="notes-item__zh">${esc(entry.zh)}</div>` : "";
+        const unitLabel = entry.unit ? `Unit ${esc(entry.unit)}` : "Reading";
+        const timeLabel = formatReadingTimestamp(entry.timestamp);
+        const timeBlock = timeLabel ? `<span>${esc(timeLabel)}</span>` : "";
+        return `<li class="notes-item" data-reading-key="${esc(entry.key || "")}">
+    <div class="notes-item__meta">
+        <span class="notes-item__type">${unitLabel}</span>
+        ${timeBlock}
+    </div>
+    <div class="notes-item__main">
+        <div class="notes-item__en">${esc(entry.word || "")}</div>
+        ${zhBlock}
+    </div>
+    <div class="notes-item__actions">
+        <button type="button" data-action="speak">Speak</button>
+        <button type="button" data-action="copy-en">Copy EN</button>
+        <button type="button" data-action="copy-zh">Copy ZH</button>
+        <button type="button" data-action="remove">Remove</button>
+    </div>
+</li>`;
+    });
+    readingListEl.innerHTML = items.join("\n");
+}
+
+function renderReadingListIfOpen() {
+    if (isReadingPanelOpen()) {
+        renderReadingList();
+    }
+}
+
+function replaceReadingMarks(next = {}) {
+    readingMarks = next;
+    persistReadingMarks();
+    updateReadingListButton();
+    renderReadingListIfOpen();
+}
+
+function refreshReadingUiForCurrentItem() {
+    syncCurrentItemForReading?.();
+}
+
+function applyReadingEntries(entries = []) {
+    const normalized = entries
+        .map((entry) => normalizeReadingEntry(entry, { fallbackUnit: selectedUnit }))
+        .filter(Boolean);
+    const nextMap = normalized.reduce((acc, entry) => {
+        acc[entry.key] = entry;
+        return acc;
+    }, {});
+    replaceReadingMarks(nextMap);
+    refreshReadingUiForCurrentItem();
+}
+
+async function refreshReadingMarksFromServer({ silent = false } = {}) {
+    if (readingMarksLoading) return;
+    readingMarksLoading = true;
+    renderReadingListIfOpen();
+    try {
+        const response = await fetchUnitPronMarks();
+        if (response?.ok === false) {
+            throw new Error(response?.error || "Failed to sync reading marks");
+        }
+        const items = getReadingResponseItems(response);
+        applyReadingEntries(items);
+        readingMarksError = null;
+        readingMarksInitialized = true;
+    } catch (error) {
+        readingMarksError = error;
+        console.error("Failed to sync reading marks", error);
+        if (!silent) {
+            showToast("Failed to sync reading marks");
+        }
+    } finally {
+        readingMarksLoading = false;
+        renderReadingListIfOpen();
+    }
+}
+
+function isReadingPanelOpen() {
+    return readingPanel?.classList.contains("show") ?? false;
+}
+
+function openReadingPanel() {
+    renderReadingList();
+    readingPanel?.classList.add("show");
+    readingPanel?.setAttribute("aria-hidden", "false");
+    readingOverlay?.classList.add("show");
+    readingOverlay?.setAttribute("aria-hidden", "false");
+    readingListBtn?.setAttribute("aria-expanded", "true");
+}
+
+function closeReadingPanel({ focusToggle = false } = {}) {
+    readingPanel?.classList.remove("show");
+    readingPanel?.setAttribute("aria-hidden", "true");
+    readingOverlay?.classList.remove("show");
+    readingOverlay?.setAttribute("aria-hidden", "true");
+    readingListBtn?.setAttribute("aria-expanded", "false");
+    if (focusToggle) {
+        readingListBtn?.focus();
+    }
+}
+
+function toggleReadingPanel() {
+    if (isReadingPanelOpen()) {
+        closeReadingPanel({ focusToggle: false });
+    } else {
+        openReadingPanel();
+    }
+}
+
+async function toggleReadingMark() {
+    const current = session.getCurrentItem();
+    if (!current) return;
+    if (!adminMode && !ensureAdmin()) return;
+    const key = makeReadingKey(current);
+    if (!key) {
+        showToast("Unable to mark this word");
+        return;
+    }
+    const adminKey = getAdminKey();
+    const existing = readingMarks[key];
+    const willMark = !existing;
+    const previousState = cloneReadingMarks();
+
+    if (willMark) {
+        readingMarks[key] = {
+            key,
+            id: current.id ?? null,
+            word: current.word || "",
+            zh: current.zh || "",
+            unit: selectedUnit,
+            timestamp: Date.now()
+        };
+    } else {
+        delete readingMarks[key];
+    }
+    persistReadingMarks();
+    updateReadingListButton();
+    renderReadingListIfOpen();
+    syncReadingControlsForItem(current);
+
+    try {
+        await updateUnitPronMark({
+            id: current.id ?? existing?.id ?? null,
+            adminKey,
+            unit: selectedUnit,
+            marked: willMark,
+            word: current.word || "",
+            zh: current.zh || ""
+        });
+        showToast(willMark ? "Reading mark synced" : "Reading mark removed");
+        refreshReadingMarksFromServer({ silent: true });
+    } catch (error) {
+        console.error("Failed to sync reading mark", error);
+        readingMarks = previousState;
+        persistReadingMarks();
+        updateReadingListButton();
+        renderReadingListIfOpen();
+        syncReadingControlsForItem(current);
+        showToast("Failed to sync reading mark");
+    }
+}
+
+// Copy-all and clear-all functionality removed per request.
 
 const session = createRoundSession({
     fetchBatch: (options = {}) => {
@@ -195,6 +533,129 @@ const session = createRoundSession({
         templateIdx = (templateIdx + 1) % TEMPLATES.length;
         document.body.dataset.unit = selectedUnit;
         document.body.dataset.roundSize = String(roundSize);
+    }
+});
+
+syncCurrentItemForReading = () => {
+    syncReadingControlsForItem(session.getCurrentItem());
+};
+
+readingMarkBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleReadingMark();
+});
+
+readingListBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleReadingPanel();
+});
+
+readingCloseBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeReadingPanel({ focusToggle: true });
+});
+
+readingOverlay?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeReadingPanel({ focusToggle: true });
+});
+
+readingOverlay?.addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeReadingPanel({ focusToggle: true });
+}, { passive: false });
+
+readingPanel?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+readingPanel?.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+}, { passive: true });
+
+readingListEl?.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const action = target.dataset.action;
+    if (!action) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const itemEl = target.closest(".notes-item");
+    const key = itemEl?.getAttribute("data-reading-key") || "";
+    const entry = key ? readingMarks[key] : null;
+    if (!entry) return;
+
+    if (action === "speak") {
+        if (!(entry.word || "").trim()) {
+            showToast("No word");
+            return;
+        }
+        speak(entry.word || "");
+        return;
+    }
+
+    if (action === "remove") {
+        if (!adminMode && !ensureAdmin()) return;
+        target.setAttribute("disabled", "true");
+        const adminKey = getAdminKey();
+        const previousState = cloneReadingMarks();
+        delete readingMarks[key];
+        persistReadingMarks();
+        updateReadingListButton();
+        renderReadingList();
+        if (currentReadingKey === key) {
+            syncReadingControlsForItem(session.getCurrentItem());
+        }
+        try {
+            await updateUnitPronMark({
+                id: entry.id ?? null,
+                adminKey,
+                unit: entry.unit || selectedUnit,
+                marked: false,
+                word: entry.word || "",
+                zh: entry.zh || ""
+            });
+            showToast("Reading mark removed");
+            refreshReadingMarksFromServer({ silent: true });
+        } catch (error) {
+            console.error("Failed to remove reading mark", error);
+            readingMarks = previousState;
+            persistReadingMarks();
+            updateReadingListButton();
+            renderReadingList();
+            if (currentReadingKey === key) {
+                syncReadingControlsForItem(session.getCurrentItem());
+            }
+            showToast("Failed to remove reading mark");
+        } finally {
+            target.removeAttribute("disabled");
+        }
+        return;
+    }
+
+    let text = "";
+    if (action === "copy-en") {
+        text = entry.word || "";
+    } else if (action === "copy-zh") {
+        text = entry.zh || "";
+    }
+
+    if (!text) {
+        showToast("Nothing to copy");
+        return;
+    }
+
+    try {
+        const success = await copyText(text);
+        showToast(success ? "Copied" : "Copy failed");
+    } catch (error) {
+        console.error("Failed to copy reading mark", error);
+        showToast("Copy failed");
     }
 });
 
@@ -378,6 +839,21 @@ document.addEventListener("mouseup", () => {
 });
 
 document.addEventListener("keydown", (event) => {
+    const panelOpen = isReadingPanelOpen();
+    if (panelOpen && event.key === "Escape") {
+        event.preventDefault();
+        closeReadingPanel({ focusToggle: true });
+        return;
+    }
+
+    if (panelOpen) {
+        if (event.key === "l" || event.key === "L") {
+            event.preventDefault();
+            closeReadingPanel({ focusToggle: true });
+        }
+        return;
+    }
+
     if (event.code === "Space" || event.code === "Enter") {
         event.preventDefault();
         session.advance().catch((error) => console.error("Failed to advance session", error));
@@ -387,10 +863,17 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key === "r" || event.key === "R") {
         event.preventDefault();
         resetAdmin();
+    } else if (event.key === "p" || event.key === "P") {
+        event.preventDefault();
+        toggleReadingMark();
+    } else if (event.key === "l" || event.key === "L") {
+        event.preventDefault();
+        toggleReadingPanel();
     }
 });
 
 document.body.addEventListener("click", () => {
+    if (isReadingPanelOpen()) return;
     session.advance().catch((error) => console.error("Failed to advance session", error));
 });
 

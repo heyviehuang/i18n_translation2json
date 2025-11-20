@@ -220,6 +220,18 @@
                 transform: translateY(1px);
             }
 
+            .pron-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .pron-group button.is-active {
+                border-color: #f2cc60;
+                color: #f8e3a1;
+                background: rgba(242, 204, 96, 0.15);
+            }
+
             .fab .known {
                 border-color: rgba(46, 160, 67, .5);
                 color: #cfead6
@@ -521,6 +533,12 @@
                 outline: none;
             }
 
+            .notes-help {
+                margin: 0;
+                font-size: 12px;
+                color: var(--dim);
+            }
+
             .notes-form {
                 display: flex;
                 flex-direction: column;
@@ -732,6 +750,7 @@
                 color: #ffd4d1;
                 outline: none;
             }
+
 
             .notes-empty {
                 color: var(--dim);

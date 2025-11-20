@@ -107,6 +107,38 @@ export function markUnitVocabKnown(id, adminKey, { unit = null } = {}) {
     return jsonp(params, { base });
 }
 
+export function fetchUnitPronMarks({ unit = null } = {}) {
+    const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
+    const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
+    const base = hasDedicatedUnitBase ? configuredUnitBase : VOCAB_API_BASE;
+    if (!hasDedicatedUnitBase) {
+        console.warn("UNIT_VOCAB_API_BASE is not configured; falling back to VOCAB_API_BASE for reading marks");
+    }
+    const params = { action: "listPronMarks" };
+    if (unit) params.unit = unit;
+    return jsonp(params, { base });
+}
+
+export function updateUnitPronMark({ id = null, adminKey, unit = null, marked = true, word = "", zh = "" } = {}) {
+    if (!adminKey) throw new Error("Admin key is required for pronunciation marks");
+    const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
+    const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
+    const base = hasDedicatedUnitBase ? configuredUnitBase : VOCAB_API_BASE;
+    if (!hasDedicatedUnitBase) {
+        console.warn("UNIT_VOCAB_API_BASE is not configured; falling back to VOCAB_API_BASE for pronunciation marks");
+    }
+    const params = {
+        action: "setPronMark",
+        adminKey,
+        marked: marked ? "1" : "0"
+    };
+    if (id != null) params.id = id;
+    if (unit) params.unit = unit;
+    if (word) params.word = word;
+    if (zh) params.zh = zh;
+    return jsonp(params, { base });
+}
+
 export function markListeningKnown(id, adminKey, { series = null, unit = null } = {}) {
     const configuredListeningBase = typeof LISTENING_API_BASE === "string" ? LISTENING_API_BASE.trim() : "";
     const hasDedicatedListening = configuredListeningBase && !configuredListeningBase.includes("REPLACE_WITH");
