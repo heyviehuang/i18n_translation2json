@@ -55,19 +55,28 @@
                 </button>
             </header>
             <p class="notes-help">Words flagged for pronunciation sync to GAS (admin only).</p>
+            <div class="reading-panel__tools">
+            </div>
             <ul class="notes-list" id="pronList" aria-live="polite"></ul>
         </aside>
 
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known</button>
-            <button class="no-advance" id="btnRoundSize">Round 15</button>
             <div class="copybar no-advance">
                 <button id="copyEn">Copy EN</button>
                 <button id="copyZh">Copy ZH</button>
             </div>
             <div class="pron-group no-advance" aria-label="Pronunciation tools">
-                <button type="button" id="btnPronMark" aria-pressed="false" aria-label="Toggle pronunciation mark">Pron Mark</button>
-                <button type="button" id="btnPronList" aria-haspopup="dialog" aria-expanded="false" aria-label="Show pronunciation list">Pron List</button>
+                <button type="button" id="btnPronMark" aria-pressed="false" aria-label="Toggle pronunciation mark">Pron
+                    Mark</button>
+            </div>
+            <div class="other-group no-advance" aria-label="Other tools">
+                <button type="button" id="btnOtherToggle" aria-haspopup="true" aria-expanded="false">Other</button>
+                <div class="other-group__menu" id="otherMenu" aria-hidden="true">
+                    <button type="button" id="btnPracticeReset">Reset Counts</button>
+                    <button type="button" id="btnPronList" aria-label="Show pronunciation list">Pron List</button>
+                    <button class="no-advance" id="btnRoundSize">Round 15</button>
+                </div>
             </div>
         </div>
         <div class="badge" id="adminBadge">ADMIN</div>
@@ -76,4 +85,3 @@
     </body>
 
 </html>
-

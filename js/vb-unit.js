@@ -1,5 +1,5 @@
 import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
-import { fetchUnitVocabBatch, markUnitVocabKnown, fetchUnitPronMarks, updateUnitPronMark } from "./services/api.js";
+import { fetchUnitVocabBatch, markUnitVocabKnown, fetchUnitPronMarks, updateUnitPronMark, incrementUnitPracticeCounts } from "./services/api.js";
 import { speak } from "./utils/speech.js";
 import { copyText } from "./utils/clipboard.js";
 import { escapeHtml as esc } from "./utils/html.js";
@@ -24,6 +24,9 @@ const readingOverlay = document.getElementById("pronOverlay");
 const readingPanel = document.getElementById("pronPanel");
 const readingCloseBtn = document.getElementById("btnPronClose");
 const readingListEl = document.getElementById("pronList");
+const practiceResetBtn = document.getElementById("btnPracticeReset");
+const otherToggleBtn = document.getElementById("btnOtherToggle");
+const otherMenu = document.getElementById("otherMenu");
 let selectedUnit = unitSelect?.value || "1";
 if (unitSelect && unitSelect.value !== selectedUnit) {
     unitSelect.value = selectedUnit;
@@ -35,7 +38,8 @@ if (statusEl) {
     statusEl.textContent = [
         `Unit ${selectedUnit} :: loading`,
         `remaining --`,
-        `Space/Enter: en->zh->next | K = mark known | P = Pron mark (admin) | L = Pron list (admin)`
+        `revisit --`,
+        `Space/Enter: en->zh->next | K = mark known`
     ].join("\n");
 }
 
@@ -44,6 +48,8 @@ const READING_MARKS_STORAGE_KEY = "vb-unit.readingMarks";
 const READING_MARK_IDLE_LABEL = "Pron Mark";
 const READING_MARK_ACTIVE_LABEL = "Pron Marked";
 const READING_LIST_LABEL = "Pron List";
+const PRACTICE_COUNTS_STORAGE_KEY = "vb-unit.practiceCounts";
+const PRACTICE_SYNC_THRESHOLD = 5;
 let roundSize = getRoundSize(MODE_KEY);
 let readingMarks = loadReadingMarks();
 let currentReadingKey = null;
@@ -51,6 +57,36 @@ let readingMarksLoading = false;
 let readingMarksError = null;
 let readingMarksInitialized = Object.keys(readingMarks).length > 0;
 let syncCurrentItemForReading = null;
+let practiceCounts = loadPracticeCounts();
+let practiceSyncScheduled = false;
+let practiceSyncInFlight = false;
+let otherMenuOpen = false;
+
+function openOtherMenu() {
+    if (!otherMenu) return;
+    otherMenu.classList.add("show");
+    otherMenu.setAttribute("aria-hidden", "false");
+    otherToggleBtn?.setAttribute("aria-expanded", "true");
+    otherToggleBtn?.classList.add("open");
+    otherMenuOpen = true;
+}
+
+function closeOtherMenu() {
+    if (!otherMenu) return;
+    otherMenu.classList.remove("show");
+    otherMenu.setAttribute("aria-hidden", "true");
+    otherToggleBtn?.setAttribute("aria-expanded", "false");
+    otherToggleBtn?.classList.remove("open");
+    otherMenuOpen = false;
+}
+
+function toggleOtherMenu() {
+    if (otherMenuOpen) {
+        closeOtherMenu();
+    } else {
+        openOtherMenu();
+    }
+}
 
 function updateRoundSizeButton() {
     if (!roundSizeButton) return;
@@ -69,92 +105,111 @@ applyRoundSize(roundSize);
 updateReadingListButton();
 syncReadingControlsForItem(null);
 refreshReadingMarksFromServer({ silent: true });
+schedulePracticeSync();
 const TEMPLATES = [
-    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
-        `<span class="cm">// rvoca@${seed} :: runtime bootstrap</span>`,
-        `<span class="kw">import</span> <span class="var">{ jsonp, speak }</span> <span class="kw">from</span> <span class="str">'rvoca/runtime'</span>`,
-        `<span class="kw">const</span> <span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
-        `<span class="kw">let</span> <span class="var">batch</span><span class="op">:</span><span class="var">any[]</span> <span class="op">=</span> []<span class="op">,</span> <span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
-        ``,
-        `<span class="kw">async function</span> <span class="var">main</span>() {`,
-        `  <span class="kw">const</span> <span class="var">res</span> <span class="op">=</span> <span class="kw">await</span> <span class="var">jsonp</span>({ <span class="prop">action</span><span class="op">:</span> <span class="str">"nextBatch"</span>, <span class="prop">count</span><span class="op">:</span> <span class="var">ROUND_SIZE</span> })`,
-        `  <span class="var">batch</span> <span class="op">=</span> <span class="var">res</span>.<span class="prop">items</span> <span class="op">||</span> []`,
-        `  <span class="kw">const</span> <span class="var">progress</span> <span class="op">=</span> <span class="str">"${q}/${total}"</span> <span class="cm">// progress</span>`,
-        `  <span class="var">document</span>.<span class="prop">body</span>.<span class="prop">dataset</span>.<span class="prop">w</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm">// '${esc(zh)}'</span>` : ""}`,
-        `  <span class="var">console</span>.<span class="prop">debug</span>(<span class="str">"remaining"</span><span class="op">,</span> <span class="num">${remain}</span>)`,
-        `  <span class="kw">try</span> {`,
-        `    <span class="var">speak</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
-        `  } <span class="kw">catch</span> (<span class="var">err</span>) {`,
-        `    <span class="var">console</span>.<span class="prop">warn</span>(<span class="str">"tts failed"</span>, <span class="var">err</span>)`,
-        `  }`,
-        `}`,
-        ``,
-        `<span class="var">main</span>()`,
-        `<span class="cm">// remain:</span> <span class="num">${remain}</span> <span class="cm">// progress:</span> <span class="num">${q}</span>/<span class="num">${total}</span>`,
-        `<span class="cm">// press Space to reveal, then next</span><span class="cursor"></span>`
-    ],
-    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
-        `<span class="cm"># rvoca/${seed} :: inference session</span>`,
-        `<span class="kw">from</span> rvoca <span class="kw">import</span> jsonp, tts`,
-        `<span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
-        ``,
-        `<span class="kw">def</span> <span class="var">load</span>():`,
-        `    <span class="var">res</span> <span class="op">=</span> <span class="var">jsonp</span>({<span class="str">'action'</span><span class="op">:</span><span class="str">'nextBatch'</span>, <span class="str">'count'</span><span class="op">:</span><span class="var">ROUND_SIZE</span>})`,
-        `    <span class="kw">return</span> <span class="var">res</span>.<span class="prop">items</span> <span class="kw">or</span> []`,
-        ``,
-        `<span class="var">batch</span> <span class="op">=</span> <span class="var">load</span>()`,
-        `<span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
-        `<span class="cm"># embed word</span>`,
-        `<span class="var">token</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ""}`,
-        ``,
-        `<span class="kw">try</span>:`,
-        `    <span class="var">tts</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
-        `<span class="kw">except</span> <span class="var">Exception</span> <span class="kw">as</span> <span class="var">err</span>:`,
-        `    <span class="kw">pass</span>`,
-        ``,
-        `<span class="cm"># remaining</span> <span class="num">${remain}</span>`,
-        `<span class="cm"># progress ${q}/${total}</span><span class="cursor"></span>`,
-        ``,
-        `<span class="cm"># EOF</span>`
-    ],
-    ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
-        `<span class="cm"># rvoca build ${seed}</span>`,
-        `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${roundSize}</span>`,
-        `set -e`,
-        ``,
-        `res=$(jsonp <span class="str">action=nextBatch</span> <span class="str">count=${roundSize}</span>)`,
-        `items=$(echo $res | jq <span class="str">'.items'</span>)`,
-        ``,
-        `export WORD=<span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ""}`,
-        `echo <span class="str">"remaining ${remain}"</span>`,
-        ``,
-        `ix=0`,
-        `speak $(jq -r <span class="str">'.[0].word'</span> <<< "$items")`,
-        ``,
-        `<span class="cm"># progress ${q}/${total}</span><span class="cursor"></span>`,
-        `exit 0`
-    ]
+    ({ word, zh, showZh, q, total, remain, seed, roundSize, practiceCount }) => {
+        const seenLine = practiceCount > 0 ? `<span class="cm">// seen ${practiceCount}x</span>` : "";
+        return [
+            `<span class="cm">// rvoca@${seed} :: runtime bootstrap</span>`,
+            `<span class="kw">import</span> <span class="var">{ jsonp, speak }</span> <span class="kw">from</span> <span class="str">'rvoca/runtime'</span>`,
+            `<span class="kw">const</span> <span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
+            `<span class="kw">let</span> <span class="var">batch</span><span class="op">:</span><span class="var">any[]</span> <span class="op">=</span> []<span class="op">,</span> <span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
+            ``,
+            `<span class="kw">async function</span> <span class="var">main</span>() {`,
+            `  <span class="kw">const</span> <span class="var">res</span> <span class="op">=</span> <span class="kw">await</span> <span class="var">jsonp</span>({ <span class="prop">action</span><span class="op">:</span> <span class="str">"nextBatch"</span>, <span class="prop">count</span><span class="op">:</span> <span class="var">ROUND_SIZE</span> })`,
+            `  <span class="var">batch</span> <span class="op">=</span> <span class="var">res</span>.<span class="prop">items</span> <span class="op">||</span> []`,
+            `  <span class="kw">const</span> <span class="var">progress</span> <span class="op">=</span> <span class="str">"${q}/${total}"</span> <span class="cm">// progress</span>`,
+            `  <span class="var">document</span>.<span class="prop">body</span>.<span class="prop">dataset</span>.<span class="prop">w</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm">// '${esc(zh)}'</span>` : ""}`,
+            `  <span class="var">console</span>.<span class="prop">debug</span>(<span class="str">"remaining"</span><span class="op">,</span> <span class="num">${remain}</span>)`,
+            `  <span class="kw">try</span> {`,
+            `    <span class="var">speak</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
+            `  } <span class="kw">catch</span> (<span class="var">err</span>) {`,
+            `    <span class="var">console</span>.<span class="prop">warn</span>(<span class="str">"tts failed"</span>, <span class="var">err</span>)`,
+            `  }`,
+            `}`,
+            ``,
+            `<span class="var">main</span>()`,
+            `<span class="cm">// remain:</span> <span class="num">${remain}</span> <span class="cm">// progress:</span> <span class="num">${q}</span>/<span class="num">${total}</span>`,
+            seenLine,
+            `<span class="cm">// press Space to reveal, then next</span><span class="cursor"></span>`
+        ].filter(Boolean);
+    },
+    ({ word, zh, showZh, q, total, remain, seed, roundSize, practiceCount }) => {
+        const seenLine = practiceCount > 0 ? `<span class="cm"># seen ${practiceCount}x</span>` : "";
+        return [
+            `<span class="cm"># rvoca/${seed} :: inference session</span>`,
+            `<span class="kw">from</span> rvoca <span class="kw">import</span> jsonp, tts`,
+            `<span class="var">ROUND_SIZE</span> <span class="op">=</span> <span class="num">${roundSize}</span>`,
+            ``,
+            `<span class="kw">def</span> <span class="var">load</span>():`,
+            `    <span class="var">res</span> <span class="op">=</span> <span class="var">jsonp</span>({<span class="str">'action'</span><span class="op">:</span><span class="str">'nextBatch'</span>, <span class="str">'count'</span><span class="op">:</span><span class="var">ROUND_SIZE</span>})`,
+            `    <span class="kw">return</span> <span class="var">res</span>.<span class="prop">items</span> <span class="kw">or</span> []`,
+            ``,
+            `<span class="var">batch</span> <span class="op">=</span> <span class="var">load</span>()`,
+            `<span class="var">ix</span> <span class="op">=</span> <span class="num">0</span>`,
+            `<span class="cm"># embed word</span>`,
+            `<span class="var">token</span> <span class="op">=</span> <span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ""}`,
+            ``,
+            `<span class="kw">try</span>:`,
+            `    <span class="var">tts</span>(<span class="var">batch</span>[<span class="var">ix</span>].<span class="prop">word</span>)`,
+            `<span class="kw">except</span> <span class="var">Exception</span> <span class="kw">as</span> <span class="var">err</span>:`,
+            `    <span class="kw">pass</span>`,
+            ``,
+            `<span class="cm"># remaining</span> <span class="num">${remain}</span>`,
+            `<span class="cm"># progress ${q}/${total}</span>`,
+            seenLine,
+            `<span class="cursor"></span>`,
+            ``,
+            `<span class="cm"># EOF</span>`
+        ].filter(Boolean);
+    },
+    ({ word, zh, showZh, q, total, remain, seed, roundSize, practiceCount }) => {
+        const seenLine = practiceCount > 0 ? `<span class="cm"># seen ${practiceCount}x</span>` : "";
+        return [
+            `<span class="cm"># rvoca build ${seed}</span>`,
+            `<span class="var">ROUND_SIZE</span><span class="op">=</span><span class="num">${roundSize}</span>`,
+            `set -e`,
+            ``,
+            `res=$(jsonp <span class="str">action=nextBatch</span> <span class="str">count=${roundSize}</span>)`,
+            `items=$(echo $res | jq <span class="str">'.items'</span>)`,
+            ``,
+            `export WORD=<span class="str">"${esc(word)}"</span>${showZh ? ` <span class="cm"># '${esc(zh)}'</span>` : ""}`,
+            `echo <span class="str">"remaining ${remain}"</span>`,
+            ``,
+            `ix=0`,
+            `speak $(jq -r <span class="str">'.[0].word'</span> <<< "$items")`,
+            ``,
+            `<span class="cm"># progress ${q}/${total}</span>`,
+            seenLine,
+            `<span class="cursor"></span>`,
+            `exit 0`
+        ].filter(Boolean);
+    }
 ];
 
 let templateIdx = 0;
 let roundId = 0;
 let adminMode = false;
 
-function buildCode(word, zh, showZh, q, total, remain, currentRoundSize) {
+function buildCode(word, zh, showZh, q, total, remain, currentRoundSize, practiceCount) {
     const seed = (++roundId).toString(36).slice(-4);
-    const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed, roundSize: currentRoundSize });
+    const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed, roundSize: currentRoundSize, practiceCount });
     const start = Math.floor(Math.random() * 20) + 1;
     const lineNo = (n) => String(n).padStart(2, " ");
     return lines.map((line, index) => `<span class="gutter">${lineNo(start + index)}</span>${line}`).join("\n");
 }
 
-function setStatus({ phase, progress, remaining, action }) {
+function setStatus({ phase, progress, remaining, action, practiceCount }) {
     if (!statusEl) return;
+    const practiceDisplay = typeof practiceCount === "number" && Number.isFinite(practiceCount)
+        ? practiceCount
+        : "--";
     statusEl.textContent = [
         `Unit ${selectedUnit} :: ${phase}`,
         `progress ${progress}`,
         `remaining ${remaining}`,
-        `Space/Enter: ${action} | K = mark known | P = Pron mark (admin) | L = Pron list (admin)`
+        `revisit ${practiceDisplay}`,
+        `Space/Enter: ${action} | K = mark known`
     ].join("\n");
 }
 
@@ -168,10 +223,17 @@ function render(state) {
     document.body.dataset.roundSize = String(roundSize);
 
     if (index < 0 || index >= batch.length) {
-        codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, roundSize, remainingDisplay, roundSize);
+        codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, roundSize, remainingDisplay, roundSize, 0);
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
-        setStatus({ phase: "loading", progress: "0/0", remaining: remainingDisplay, revealed: false, action: "reload" });
+        setStatus({
+            phase: "loading",
+            progress: "0/0",
+            remaining: remainingDisplay,
+            revealed: false,
+            action: "reload",
+            practiceCount: "--"
+        });
         syncReadingControlsForItem(null);
         return;
     }
@@ -183,8 +245,14 @@ function render(state) {
     const total = batch.length || roundSize;
     const showEnglish = revealPhase >= 1;
     const showZh = revealPhase >= 2 && revealed;
+    let practiceCount = getPracticeCount(current);
+    if (showZh && !current.__practiceLogged) {
+        current.__practiceLogged = true;
+        incrementPracticeCount(current);
+        practiceCount = getPracticeCount(current);
+    }
 
-    codeEl.innerHTML = buildCode(showEnglish ? word : "", zh, showZh, q, total, remainingDisplay, roundSize);
+    codeEl.innerHTML = buildCode(showEnglish ? word : "", zh, showZh, q, total, remainingDisplay, roundSize, practiceCount);
 
     document.body.dataset.w = showEnglish ? word : "";
     if (showZh && zh) {
@@ -198,7 +266,8 @@ function render(state) {
         progress: q + "/" + total,
         remaining: remainingDisplay,
         revealed: showZh,
-        action: showZh ? "next" : showEnglish ? "show zh" : "show en"
+        action: showZh ? "next" : showEnglish ? "show zh" : "show en",
+        practiceCount
     });
     syncReadingControlsForItem(current);
 }
@@ -359,10 +428,13 @@ function renderReadingList() {
         const unitLabel = entry.unit ? `Unit ${esc(entry.unit)}` : "Reading";
         const timeLabel = formatReadingTimestamp(entry.timestamp);
         const timeBlock = timeLabel ? `<span>${esc(timeLabel)}</span>` : "";
+        const practiceCount = getPracticeCountByKey(entry.key || makePracticeKey(entry));
+        const practiceBadge = practiceCount > 0 ? `<span class="notes-item__badge">x${practiceCount}</span>` : "";
         return `<li class="notes-item" data-reading-key="${esc(entry.key || "")}">
     <div class="notes-item__meta">
         <span class="notes-item__type">${unitLabel}</span>
         ${timeBlock}
+        ${practiceBadge}
     </div>
     <div class="notes-item__main">
         <div class="notes-item__en">${esc(entry.word || "")}</div>
@@ -382,6 +454,150 @@ function renderReadingList() {
 function renderReadingListIfOpen() {
     if (isReadingPanelOpen()) {
         renderReadingList();
+    }
+}
+
+function loadPracticeCounts() {
+    if (typeof localStorage === "undefined") return {};
+    try {
+        const raw = localStorage.getItem(PRACTICE_COUNTS_STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return {};
+        return Object.entries(parsed).reduce((acc, [key, value]) => {
+            if (!value || typeof value !== "object") return acc;
+            const entryKey = key || value.key;
+            if (!entryKey) return acc;
+            acc[entryKey] = {
+                key: entryKey,
+                id: value.id ?? null,
+                word: typeof value.word === "string" ? value.word : "",
+                unit: typeof value.unit === "string" ? value.unit : "",
+                local: Number(value.local) || 0,
+                synced: Number(value.synced) || 0
+            };
+            return acc;
+        }, {});
+    } catch (error) {
+        console.error("Failed to load practice counts", error);
+        return {};
+    }
+}
+
+function persistPracticeCounts() {
+    if (typeof localStorage === "undefined") return;
+    try {
+        localStorage.setItem(PRACTICE_COUNTS_STORAGE_KEY, JSON.stringify(practiceCounts));
+    } catch (error) {
+        console.error("Failed to persist practice counts", error);
+    }
+}
+
+function makePracticeKey(item) {
+    if (!item) return null;
+    if (item.id != null && item.id !== "") return `id:${item.id}`;
+    const word = typeof item.word === "string" ? item.word.trim() : "";
+    if (!word) return null;
+    return `word:${word.toLowerCase()}`;
+}
+
+function getPracticeEntry(item) {
+    const key = makePracticeKey(item);
+    if (!key) return null;
+    return practiceCounts[key] || null;
+}
+
+function getPracticeCount(item) {
+    const entry = getPracticeEntry(item);
+    return entry?.local ?? 0;
+}
+
+function getPracticeCountByKey(key) {
+    return practiceCounts[key]?.local ?? 0;
+}
+
+function ensurePracticeEntry(item) {
+    const key = makePracticeKey(item);
+    if (!key) return null;
+    if (!practiceCounts[key]) {
+        practiceCounts[key] = {
+            key,
+            id: item.id ?? null,
+            word: item.word || "",
+            unit: item.unit || selectedUnit,
+            local: 0,
+            synced: 0
+        };
+    }
+    return practiceCounts[key];
+}
+
+function incrementPracticeCount(item) {
+    const entry = ensurePracticeEntry(item);
+    if (!entry) return;
+    entry.local += 1;
+    entry.word = item.word || entry.word;
+    entry.unit = item.unit || entry.unit || selectedUnit;
+    persistPracticeCounts();
+    schedulePracticeSync();
+}
+
+function schedulePracticeSync() {
+    if (practiceSyncInFlight || practiceSyncScheduled) return;
+    practiceSyncScheduled = true;
+    const timer = typeof window !== "undefined" && typeof window.setTimeout === "function" ? window.setTimeout : setTimeout;
+    timer(() => {
+        practiceSyncScheduled = false;
+        maybeSyncPracticeCounts();
+    }, 300);
+}
+
+async function maybeSyncPracticeCounts() {
+    if (practiceSyncInFlight) return;
+    const adminKey = getAdminKey();
+    if (!adminKey) return;
+    const candidates = Object.values(practiceCounts).filter((entry) => {
+        const delta = entry.local - entry.synced;
+        return delta >= PRACTICE_SYNC_THRESHOLD;
+    });
+    if (!candidates.length) return;
+    practiceSyncInFlight = true;
+    const payload = candidates.map((entry) => ({
+        id: entry.id ?? "",
+        word: entry.word || "",
+        unit: entry.unit || "",
+        delta: entry.local - entry.synced
+    }));
+    try {
+        await incrementUnitPracticeCounts(payload, adminKey);
+        candidates.forEach((entry) => {
+            entry.synced = entry.local;
+        });
+        persistPracticeCounts();
+    } catch (error) {
+        console.error("Failed to sync practice counts", error);
+    } finally {
+        practiceSyncInFlight = false;
+        if (Object.values(practiceCounts).some((entry) => entry.local - entry.synced >= PRACTICE_SYNC_THRESHOLD)) {
+            schedulePracticeSync();
+        }
+    }
+}
+
+function clearLocalPracticeCounts() {
+    if (!Object.keys(practiceCounts).length) {
+        showToast("No practice data");
+        return;
+    }
+    if (!adminMode && !ensureAdmin()) return;
+    const confirmed = confirm("Clear all local practice counts?");
+    if (!confirmed) return;
+    practiceCounts = {};
+    persistPracticeCounts();
+    showToast("Practice counts cleared");
+    renderReadingListIfOpen();
+    if (session?.state) {
+        render(session.state);
     }
 }
 
@@ -578,6 +794,25 @@ readingPanel?.addEventListener("touchstart", (event) => {
     event.stopPropagation();
 }, { passive: true });
 
+practiceResetBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    clearLocalPracticeCounts();
+});
+
+otherToggleBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleOtherMenu();
+});
+
+document.addEventListener("click", (event) => {
+    if (!otherMenuOpen) return;
+    const target = event.target;
+    if (target instanceof Element && (otherMenu?.contains(target) || otherToggleBtn?.contains(target))) return;
+    closeOtherMenu();
+}, true);
+
 readingListEl?.addEventListener("click", async (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
@@ -714,6 +949,7 @@ function ensureAdmin() {
     adminMode = true;
     fabEl?.classList.add("show");
     adminBadge?.classList.add("show");
+    schedulePracticeSync();
     return true;
 }
 
@@ -778,7 +1014,7 @@ function handleUnitChange(unit) {
         unitSelect.value = selectedUnit;
     }
     document.body.dataset.unit = selectedUnit;
-    setStatus({ phase: "loading", progress: "0/0", remaining: "--", revealed: false, action: "reload" });
+    setStatus({ phase: "loading", progress: "0/0", remaining: "--", revealed: false, action: "reload", practiceCount: "--" });
 
     session.startRound({ unit: selectedUnit, count: roundSize }).catch((error) => {
         console.error("Failed to load unit batch", error);
@@ -846,13 +1082,7 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
-    if (panelOpen) {
-        if (event.key === "l" || event.key === "L") {
-            event.preventDefault();
-            closeReadingPanel({ focusToggle: true });
-        }
-        return;
-    }
+    if (panelOpen) return;
 
     if (event.code === "Space" || event.code === "Enter") {
         event.preventDefault();
@@ -863,12 +1093,6 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key === "r" || event.key === "R") {
         event.preventDefault();
         resetAdmin();
-    } else if (event.key === "p" || event.key === "P") {
-        event.preventDefault();
-        toggleReadingMark();
-    } else if (event.key === "l" || event.key === "L") {
-        event.preventDefault();
-        toggleReadingPanel();
     }
 });
 
@@ -905,9 +1129,6 @@ copyZhBtn?.addEventListener("click", (event) => {
         showToast("Failed to load data");
     }
 })();
-
-
-
 
 
 

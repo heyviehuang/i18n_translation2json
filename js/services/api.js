@@ -107,6 +107,32 @@ export function markUnitVocabKnown(id, adminKey, { unit = null } = {}) {
     return jsonp(params, { base });
 }
 
+export function incrementUnitPracticeCounts(entries = [], adminKey) {
+    if (!Array.isArray(entries) || !entries.length) {
+        return Promise.resolve({ ok: true, changed: 0 });
+    }
+    if (!adminKey) throw new Error("Admin key required");
+    const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
+    const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
+    const base = hasDedicatedUnitBase ? configuredUnitBase : VOCAB_API_BASE;
+    if (!hasDedicatedUnitBase) {
+        console.warn("UNIT_VOCAB_API_BASE not configured; falling back to VOCAB_API_BASE for practice counts");
+    }
+    const payload = entries.map(({ id, word, unit, delta }) => ({
+        id: id ?? "",
+        word: word ?? "",
+        unit: unit ?? "",
+        delta: Number(delta) || 0
+    }));
+    return jsonp(
+        {
+            action: "addPracticeCounts",
+            adminKey,
+            entries: JSON.stringify(payload)
+        },
+        { base }
+    );
+}
 export function fetchUnitPronMarks({ unit = null } = {}) {
     const configuredUnitBase = typeof UNIT_VOCAB_API_BASE === "string" ? UNIT_VOCAB_API_BASE.trim() : "";
     const hasDedicatedUnitBase = configuredUnitBase && !configuredUnitBase.includes("REPLACE_WITH");
