@@ -19,6 +19,8 @@ const roundSizeButton = document.getElementById("btnRoundSize");
 const noteToggleBtn = document.getElementById("btnNotes");
 const notesOverlay = document.getElementById("notesOverlay");
 const notesPanel = document.getElementById("notesPanel");
+const tabQuiz = document.getElementById("tabQuiz");
+const tabReview = document.getElementById("tabReview");
 const noteForm = document.getElementById("noteForm");
 const noteEnInput = document.getElementById("noteEn");
 const noteZhInput = document.getElementById("noteZh");
@@ -28,6 +30,14 @@ const notesListEl = document.getElementById("notesList");
 const noteFilterButtons = document.querySelectorAll("[data-note-filter]");
 const unitSelect = document.getElementById("unitSelect");
 const unitSelectWrapper = document.querySelector(".unit-select");
+const addReviewBtn = document.getElementById("btnAddReview");
+const reviewCountEl = document.getElementById("reviewCount");
+const rateSlider = document.getElementById("rateSlider");
+const rateValue = document.getElementById("rateValue");
+const rateControl = document.getElementById("rateControl");
+const rateBar = document.getElementById("rateBar");
+const rateTrack = document.querySelector(".rate-track");
+const reviewListPanel = document.getElementById("reviewListPanel");
 
 const DEFAULT_LISTENING_UNIT = "1";
 let selectedUnit = unitSelect?.value || DEFAULT_LISTENING_UNIT;
@@ -43,6 +53,17 @@ function applySelectedUnit(value) {
 }
 
 applySelectedUnit(selectedUnit);
+
+const PLAYBACK_RATE_KEY = "ls:playbackRate";
+const PLAYBACK_RATE_DEFAULT = 1.0;
+const PLAYBACK_RATE_MIN = 0.5;
+const PLAYBACK_RATE_MAX = 1.5;
+const PLAYBACK_RATE_STEPS = [0.5, 1.0, 1.5];
+
+let playbackRate = PLAYBACK_RATE_DEFAULT;
+let reviewMode = false;
+let reviewQueue = [];
+let reviewIndex = 0;
 
 const englishSelector = "[data-role=\"sentence\"]";
 
@@ -63,6 +84,7 @@ let lastNotesSyncAt = 0;
 
 const MODE_KEY = "ls";
 let roundSize = getRoundSize(MODE_KEY);
+setActiveTab("quiz");
 
 function updateRoundSizeButton() {
     if (!roundSizeButton) return;
@@ -78,6 +100,244 @@ function applyRoundSize(value) {
 }
 
 applyRoundSize(roundSize);
+
+function clampPlaybackRate(value) {
+    const num = Number.parseFloat(String(value));
+    if (!Number.isFinite(num)) return PLAYBACK_RATE_DEFAULT;
+    return Math.min(PLAYBACK_RATE_MAX, Math.max(PLAYBACK_RATE_MIN, num));
+}
+
+function snapPlaybackRate(value) {
+    const target = clampPlaybackRate(value);
+    let best = PLAYBACK_RATE_STEPS[0];
+    let bestDiff = Math.abs(target - best);
+    for (const step of PLAYBACK_RATE_STEPS) {
+        const diff = Math.abs(target - step);
+        if (diff < bestDiff) {
+            best = step;
+            bestDiff = diff;
+        }
+    }
+    return best;
+}
+
+function loadPlaybackRate() {
+    const stored = localStorage.getItem(PLAYBACK_RATE_KEY);
+    if (!stored) return PLAYBACK_RATE_DEFAULT;
+    return clampPlaybackRate(stored);
+}
+
+function savePlaybackRate(value) {
+    localStorage.setItem(PLAYBACK_RATE_KEY, String(value));
+}
+
+function setPlaybackRate(value) {
+    playbackRate = snapPlaybackRate(value);
+    savePlaybackRate(playbackRate);
+    if (rateSlider) rateSlider.value = String(playbackRate);
+    if (rateValue) rateValue.textContent = `${playbackRate.toFixed(2)}x`;
+    updateRateBar();
+}
+
+function initPlaybackRate() {
+    setPlaybackRate(loadPlaybackRate());
+}
+
+function speakWithRate(text) {
+    speak(text, { rate: playbackRate });
+}
+
+function updateRateBar() {
+    if (!rateBar) return;
+    const min = PLAYBACK_RATE_MIN;
+    const max = PLAYBACK_RATE_MAX;
+    const pct = (clampPlaybackRate(playbackRate) - min) / (max - min);
+    const totalBars = 10;
+    const filled = Math.max(0, Math.min(totalBars, Math.round(pct * totalBars)));
+    const bar = `[${"#".repeat(filled)}${"-".repeat(totalBars - filled)}]`;
+    rateBar.textContent = bar;
+}
+
+function getReviewKey(item) {
+    if (!item) return null;
+    return item.id || item.en || item.word || null;
+}
+
+function updateReviewUIState() {
+    if (reviewCountEl) reviewCountEl.textContent = `Review: ${reviewQueue.length}`;
+    if (knownBtn) {
+        if (reviewMode) {
+            knownBtn.setAttribute("disabled", "true");
+        } else {
+            knownBtn.removeAttribute("disabled");
+        }
+    }
+    setActiveTab(reviewMode ? "review" : "quiz");
+    renderReviewList();
+    toggleReviewExtras(reviewMode);
+}
+
+function getCurrentReviewItem() {
+    if (!reviewQueue.length) return null;
+    const safeIndex = Math.max(0, Math.min(reviewQueue.length - 1, reviewIndex));
+    return reviewQueue[safeIndex] || null;
+}
+
+function renderReviewList() {
+    if (!reviewListPanel) return;
+    if (!reviewQueue.length) {
+        reviewListPanel.innerHTML = `<div class="review-list__empty">No review items yet</div>`;
+        return;
+    }
+    const items = reviewQueue.map((item, idx) => {
+        const en = esc(item?.en ?? item?.word ?? "");
+        const zh = item?.zh ? `<div class="review-list__zh">${esc(item.zh)}</div>` : "";
+        const isActive = reviewMode && idx === reviewIndex;
+        return `<div class="review-list__item${isActive ? " is-active" : ""}">
+    <div>
+        <div class="review-list__en">${en}</div>
+        ${zh}
+    </div>
+    <div class="review-list__meta">
+        #${idx + 1}
+        <button type="button" class="review-remove" data-review-index="${idx}" aria-label="Remove from review">×</button>
+    </div>
+</div>`;
+    });
+    reviewListPanel.innerHTML = items.join("\n");
+}
+
+function setActiveTab(mode) {
+    const quizActive = mode !== "review";
+    if (tabQuiz) {
+        tabQuiz.classList.toggle("active", quizActive);
+        tabQuiz.setAttribute("aria-selected", String(quizActive));
+    }
+    if (tabReview) {
+        tabReview.classList.toggle("active", !quizActive);
+        tabReview.setAttribute("aria-selected", String(!quizActive));
+    }
+    document.body.dataset.mode = quizActive ? "quiz" : "review";
+}
+
+function toggleReviewExtras(show) {
+    const displayBlock = show ? "" : "none";
+    if (reviewListPanel) reviewListPanel.style.display = displayBlock;
+    if (reviewCountEl) reviewCountEl.style.display = displayBlock;
+}
+
+function removeReviewAt(index) {
+    if (index < 0 || index >= reviewQueue.length) return;
+    reviewQueue.splice(index, 1);
+    if (reviewIndex >= reviewQueue.length) {
+        reviewIndex = Math.max(0, reviewQueue.length - 1);
+    }
+    if (!reviewQueue.length) {
+        renderReviewList();
+        renderReview();
+        return;
+    }
+    renderReviewList();
+    if (reviewMode) {
+        renderReview();
+    }
+}
+
+function renderReview() {
+    if (!codeEl) return;
+    setActiveTab("review");
+    document.body.dataset.roundSize = String(roundSize);
+    document.body.dataset.unit = selectedUnit;
+
+    if (!reviewQueue.length) {
+        codeEl.innerHTML = buildCode("Add sentences to review", "", 0, 0, "--", { showEnglish: true, showZh: false }, roundSize);
+        setStatus({
+            phase: "review (empty)",
+            progress: "0/0",
+            remaining: "--",
+            action: "add to review",
+            hotkeyHint: "Add sentences to review to start"
+        });
+        updateReviewUIState();
+        return;
+    }
+
+    const current = getCurrentReviewItem();
+    const en = current?.en ?? current?.word ?? "";
+    const zh = current?.zh ?? "";
+    const q = reviewIndex + 1;
+    const total = reviewQueue.length;
+    const remainingDisplay = Math.max(0, total - q);
+
+    codeEl.innerHTML = buildCode(en, zh, q, total, remainingDisplay, { showEnglish: true, showZh: Boolean(zh) }, roundSize);
+    setStatus({
+        phase: `review @ ${playbackRate.toFixed(2)}x`,
+        progress: `${q}/${total}`,
+        remaining: remainingDisplay,
+        action: "next",
+        hotkeyHint: "Space/Enter: next | Esc = exit review"
+    });
+    updateReviewUIState();
+}
+
+function addCurrentToReview() {
+    const current = getActiveItem();
+    if (!current) {
+        showToast("Load a sentence first");
+        return;
+    }
+    const key = getReviewKey(current);
+    if (!key) {
+        showToast("Unable to add this sentence");
+        return;
+    }
+    if (reviewQueue.some((item) => getReviewKey(item) === key)) {
+        showToast("Already in review");
+        return;
+    }
+    reviewQueue.push(current);
+    updateReviewUIState();
+    showToast("Added to review");
+}
+
+function startReview() {
+    if (!reviewQueue.length) {
+        showToast("Add sentences to review first");
+        return;
+    }
+    reviewMode = true;
+    reviewIndex = 0;
+    updateReviewUIState();
+    renderReview();
+    const current = getCurrentReviewItem();
+    if (current) speakWithRate(current.en ?? current.word ?? "");
+}
+
+function exitReview() {
+    if (!reviewMode) return;
+    reviewMode = false;
+    setActiveTab("quiz");
+    updateReviewUIState();
+    render(session.state);
+}
+
+function advanceReview() {
+    if (!reviewQueue.length) {
+        showToast("Review list is empty");
+        return;
+    }
+    reviewIndex = (reviewIndex + 1) % reviewQueue.length;
+    renderReview();
+    const current = getCurrentReviewItem();
+    if (current) speakWithRate(current.en ?? current.word ?? "");
+}
+
+function getActiveItem() {
+    return reviewMode ? getCurrentReviewItem() : session.getCurrentItem();
+}
+
+initPlaybackRate();
+toggleReviewExtras(false);
 
 function formatNoteDate(isoString) {
     if (!isoString) return "";
@@ -282,13 +542,14 @@ function shouldIgnoreHotkeys(target) {
         || tagName === "A";
 }
 
-function setStatus({ phase, progress, remaining, action }) {
+function setStatus({ phase, progress, remaining, action, hotkeyHint }) {
     if (!statusEl) return;
+    const hotkeys = hotkeyHint || `Space/Enter: ${action} | K = mark known`;
     statusEl.textContent = [
         `Unit ${selectedUnit} :: ${phase}`,
         `progress ${progress}`,
         `remaining ${remaining}`,
-        `Space/Enter: ${action} | K = mark known`
+        hotkeys
     ].join("\n");
 }
 
@@ -325,6 +586,10 @@ function buildCode(en, zh, q, total, remaining, { showEnglish, showZh }, current
 
 function render(state) {
     if (!codeEl) return;
+    if (reviewMode) {
+        renderReview();
+        return;
+    }
 
     const { batch, index, revealed, remaining, revealPhase = 0 } = state;
     const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
@@ -367,11 +632,12 @@ const session = createRoundSession({
         return fetchListeningBatch({ count: targetCount, series: targetSeries, unit: targetSeries });
     },
     render,
-    speakItem: (item) => speak(item.en ?? item.word ?? ""),
+    speakItem: (item) => speakWithRate(item.en ?? item.word ?? ""),
     enablePrefetch: true
 });
 
 function handleUnitChange(unit) {
+    if (reviewMode) exitReview();
     const normalized = unit && String(unit).trim() ? String(unit).trim() : DEFAULT_LISTENING_UNIT;
     if (normalized === selectedUnit) return;
     const previousUnit = selectedUnit;
@@ -392,8 +658,65 @@ function handleUnitChange(unit) {
 
 updateFilterButtons();
 updateNoteToggleLabel();
+updateReviewUIState();
 void syncNotes({ silent: true }).catch((error) => {
     console.error("Failed to preload notes", error);
+});
+
+addReviewBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    addCurrentToReview();
+});
+
+rateSlider?.addEventListener("input", (event) => {
+    const value = event.target?.value ?? playbackRate;
+    setPlaybackRate(value);
+});
+
+tabQuiz?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    exitReview();
+});
+
+tabReview?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    startReview();
+});
+
+rateTrack?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!rateTrack) return;
+    const rect = rateTrack.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+    const value = PLAYBACK_RATE_MIN + ratio * (PLAYBACK_RATE_MAX - PLAYBACK_RATE_MIN);
+    setPlaybackRate(value);
+});
+
+reviewListPanel?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (target.classList.contains("review-remove")) {
+        event.preventDefault();
+        event.stopPropagation();
+        const idx = Number.parseInt(target.dataset.reviewIndex || "-1", 10);
+        if (Number.isInteger(idx) && idx >= 0) removeReviewAt(idx);
+        return;
+    }
+
+    const itemEl = target.closest(".review-list__item");
+    if (itemEl && reviewListPanel.contains(itemEl)) {
+        event.preventDefault();
+        event.stopPropagation();
+        const idx = Number.parseInt(itemEl.querySelector(".review-remove")?.dataset.reviewIndex || "-1", 10);
+        if (Number.isInteger(idx) && idx >= 0 && idx < reviewQueue.length) {
+            reviewIndex = idx;
+            renderReview();
+        }
+    }
 });
 
 unitSelect?.addEventListener("change", () => {
@@ -611,6 +934,10 @@ function resetAdmin(silent = false) {
 }
 
 async function markCurrentKnown() {
+    if (reviewMode) {
+        showToast("Exit review to mark known");
+        return;
+    }
     const current = session.getCurrentItem();
     if (!current) return;
     if (!adminMode && !ensureAdmin()) return;
@@ -643,7 +970,7 @@ async function markCurrentKnown() {
 }
 
 async function handleCopy(getText) {
-    const current = session.getCurrentItem();
+    const current = getActiveItem();
     if (!current) return;
     const text = getText(current);
     if (!text) return;
@@ -658,9 +985,9 @@ async function handleCopy(getText) {
 }
 
 function replayCurrent() {
-    const current = session.getCurrentItem();
+    const current = getActiveItem();
     if (!current) return;
-    speak(current.en ?? current.word ?? "");
+    speakWithRate(current.en ?? current.word ?? "");
 }
 
 codeEl?.addEventListener("click", (event) => {
@@ -669,6 +996,10 @@ codeEl?.addEventListener("click", (event) => {
     const sentenceTarget = target.closest(englishSelector);
     if (!sentenceTarget) return;
     event.stopPropagation();
+    if (reviewMode) {
+        replayCurrent();
+        return;
+    }
     replayCurrent();
     if (!session.state.revealed) {
         session.reveal();
@@ -702,6 +1033,17 @@ document.addEventListener("keydown", (event) => {
 
     if (isNotesPanelOpen()) return;
 
+    if (reviewMode) {
+        if (event.key === "r" || event.key === "R") {
+            event.preventDefault();
+            resetAdmin();
+        } else if (event.key === "Escape") {
+            event.preventDefault();
+            exitReview();
+        }
+        return;
+    }
+
     if (event.code === "Space" || event.code === "Enter") {
         event.preventDefault();
         session.advance().catch((error) => console.error("Failed to advance session", error));
@@ -726,7 +1068,11 @@ document.body.addEventListener("click", (event) => {
         return;
     }
 
-    session.advance().catch((error) => console.error("Failed to advance session", error));
+    if (reviewMode) {
+        replayCurrent();
+    } else {
+        session.advance().catch((error) => console.error("Failed to advance session", error));
+    }
 });
 
 document.addEventListener("touchstart", () => {

@@ -319,6 +319,11 @@
                 color: #cfead6
             }
 
+            .fab .review-add {
+                border-color: rgba(46, 160, 67, 0.5);
+                color: #cfead6;
+            }
+
             .fab .wrong {
                 border-color: rgba(248, 81, 73, .5);
                 color: #ffd4d1
@@ -848,4 +853,178 @@
                 font-size: 13px;
                 text-align: center;
                 padding: 12px 0;
+            }
+
+            .rate-control {
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                gap: 8px;
+                font-size: 14px;
+                align-items: center;
+                margin-top: 10px;
+                padding: 6px 8px;
+                border: 1px dashed rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                background: rgba(17, 21, 29, 0.8);
+            }
+
+            .rate-track {
+                position: relative;
+                width: 12ch;         /* [##########] = 12 chars */
+                min-width: 12ch;
+                font-family: "Fira Code", Consolas, monospace;
+                min-height: 22px;
+                cursor: pointer;
+            }
+
+            .rate-track input[type="range"] {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 22px;
+                opacity: 0;
+                cursor: pointer;
+                z-index: 2;
+                pointer-events: all;
+                appearance: none;
+            }
+
+            .rate-bar {
+                display: block;
+                padding: 4px 0;
+                color: #2eff2e;
+                text-shadow: 0 0 6px rgba(46, 255, 46, 0.6);
+                letter-spacing: 0;
+                user-select: none;
+                pointer-events: none;
+                text-align: left;
+            }
+
+            .rate-value,
+            .review-count {
+                font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+                font-size: 13px;
+                color: #cbd5e1;
+            }
+
+            .mode-tabs {
+                display: inline-flex;
+                gap: 4px;
+                margin-bottom: 10px;
+                padding: 2px 4px;
+                background: none;
+                border: 1px dashed rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+            }
+
+            .mode-tab {
+                border: none;
+                background: rgba(255, 255, 255, 0.03);
+                color: inherit;
+                font: inherit;
+                padding: 6px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+                border: 1px solid transparent;
+                font-size: 14px;
+            }
+
+            .mode-tab.active {
+                background: rgba(108, 196, 109, 0.14);
+                color: #d9f7e3;
+                border-color: rgba(108, 196, 109, 0.6);
+            }
+
+            .review-list {
+                max-height: 180px;
+                overflow-y: auto;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 8px;
+                background: rgba(255, 255, 255, 0.02);
+                font-size: 13px;
+            }
+
+            .review-list__item {
+                padding: 6px 4px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .review-list__item:last-child {
+                border-bottom: none;
+            }
+
+            .review-list__en {
+                font-weight: 600;
+            }
+
+            .review-list__zh {
+                color: var(--cm);
+                font-size: 12px;
+            }
+
+            .review-list__meta {
+                color: var(--dim);
+                font-size: 12px;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .review-list__item.is-active {
+                background: rgba(108, 196, 109, 0.12);
+                border-radius: 6px;
+            }
+
+            .review-remove {
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                background: rgba(255, 255, 255, 0.04);
+                color: inherit;
+                font: inherit;
+                padding: 2px 6px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+            }
+
+            .review-remove:hover,
+            .review-remove:focus {
+                border-color: #f85149;
+                color: #ffd4d1;
+                background: rgba(248, 81, 73, 0.12);
+                outline: none;
+            }
+
+            .review-mode-only {
+                display: none;
+            }
+
+            body[data-mode="review"] .review-mode-only {
+                display: block;
+            }
+
+            body[data-mode="review"] .review-mode-only.rate-control {
+                display: flex;
+            }
+
+            .review-panel {
+                margin-top: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            .review-head {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 8px;
             }

@@ -31,6 +31,10 @@
         </nav>
 
         <div class="wrap">
+            <div class="mode-tabs" role="tablist" aria-label="Listening modes">
+                <button type="button" id="tabQuiz" class="mode-tab active" role="tab" aria-selected="true">test()</button>
+                <button type="button" id="tabReview" class="mode-tab" role="tab" aria-selected="false">review()</button>
+            </div>
             <label class="unit-select" for="unitSelect">
                 <span class="unit-select__label">Unit</span>
                 <select id="unitSelect" class="unit-select__control" aria-label="Select unit">
@@ -44,6 +48,20 @@
             </label>
             <pre id="code" aria-live="polite"></pre>
             <div class="status" id="status">Unit 1 :: translation :: hidden&#10;progress 0/0&#10;remaining --&#10;Space/Enter: en-&gt;zh-&gt;next | K = mark known</div>
+            <label class="rate-control" id="rateControl">
+                <span>Rate</span>
+                <div class="rate-track">
+                    <input type="range" id="rateSlider" min="0.5" max="1.5" step="0.5" value="1" aria-label="Playback rate">
+                    <span class="rate-bar" id="rateBar" aria-hidden="true">[#####-----]</span>
+                </div>
+                <span class="rate-value" id="rateValue">1.00x</span>
+            </label>
+            <div class="review-panel review-mode-only" aria-label="Review controls">
+                <div class="review-head">
+                    <span class="review-count" id="reviewCount">Review: 0</span>
+                </div>
+                <div class="review-list" id="reviewListPanel" aria-live="polite" aria-label="Review queue list"></div>
+            </div>
         </div>
 
         <button class="notes-toggle" id="btnNotes" type="button" aria-haspopup="true" aria-expanded="false">
@@ -90,6 +108,7 @@
         </aside>
 
         <div class="fab" id="fab">
+            <button class="review-add" id="btnAddReview">Add to review</button>
             <button class="known" id="btnKnown">Known</button>
             <button class="no-advance" id="btnRoundSize">Round 15</button>
             <div class="copybar no-advance">
