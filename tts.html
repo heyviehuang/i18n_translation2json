@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>RVOCA :: TTS Mode</title>
+        <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
+        <link rel="apple-touch-icon" href="rvoca-cartB.ico">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <nav class="mode-switch" aria-label="Mode switch">
+            <div class="mode-switch__dropdown">
+                <button class="mode-switch__toggle" type="button" aria-expanded="false" aria-haspopup="true"
+                    aria-controls="modeMenu">
+                    <span>Modes</span>
+                    <code>switch</code>
+                </button>
+                <div class="mode-switch__menu" id="modeMenu" aria-hidden="true" role="menu">
+                    <a href="index.html" role="menuitem">Menu</a>
+                    <a href="vb.html" role="menuitem">VOC</a>
+                    <a href="vb-unit.html" role="menuitem">UVR</a>
+                    <a href="ls.html" role="menuitem">LIS</a>
+                    <a href="kk.html" role="menuitem">KK</a>
+                    <a href="tts.html" role="menuitem" aria-current="page">TTS</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="wrap">
+            <header class="practice-head">
+                <h1>TTS</h1>
+                <p>Type words or sentences and let the browser speak. No GAS calls.</p>
+            </header>
+
+            <div class="practice-controls">
+                <span class="practice-note muted">Auto language detect (en / zh)</span>
+
+                <label class="rate-control practice-rate" for="rateSlider">
+                    <span>Rate</span>
+                    <div class="rate-track">
+                        <input type="range" id="rateSlider" min="0.5" max="1.5" step="0.5" value="1"
+                            aria-label="Playback rate">
+                        <span class="rate-bar" id="rateBar" aria-hidden="true">[##########]</span>
+                    </div>
+                    <span class="rate-value" id="rateValue">1.00x</span>
+                </label>
+            </div>
+
+            <div class="practice-input">
+                <label class="practice-label" for="practiceText">Text to read</label>
+                <textarea id="practiceText" rows="4" placeholder="e.g. curator, This is an example sentence. 館長"
+                    aria-label="Text to speak"></textarea>
+            </div>
+
+            <div class="practice-actions">
+                <button type="button" id="btnSpeak">Speak</button>
+                <button type="button" id="btnClear">Clear</button>
+            </div>
+
+            <div class="status" id="practiceStatus">Ready. Enter text then press Speak or Ctrl/Cmd+Enter.</div>
+        </div>
+
+        <script type="module">
+            import { initModeSwitch } from "./js/mode-switch.js";
+            initModeSwitch();
+        </script>
+        <script type="module" src="js/practice.js"></script>
+    </body>
+
+</html>

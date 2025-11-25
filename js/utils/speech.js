@@ -1,15 +1,19 @@
 const DEFAULT_OPTIONS = {
     lang: "en-US",
-    rate: 0.95
+    rate: 0.95,
+    queue: false
 };
 
 export function speak(text, options = {}) {
     if (!("speechSynthesis" in window) || !text) return;
 
-    speechSynthesis.cancel();
+    const { lang, rate, queue } = { ...DEFAULT_OPTIONS, ...options };
+
+    if (!queue) {
+        speechSynthesis.cancel();
+    }
 
     const utterance = new SpeechSynthesisUtterance(text);
-    const { lang, rate } = { ...DEFAULT_OPTIONS, ...options };
 
     utterance.lang = lang;
     utterance.rate = rate;

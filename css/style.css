@@ -1058,6 +1058,90 @@
                 outline: none;
             }
 
+            /* practice mode */
+            .practice-head h1 {
+                margin: 0 0 6px;
+                font-size: 22px;
+            }
+
+            .practice-head p {
+                margin: 0 0 14px;
+                color: var(--dim);
+            }
+
+            .practice-controls {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+
+            .practice-rate {
+                margin: 0;
+                border: none;
+                background: transparent;
+                padding: 0;
+            }
+
+            .practice-note {
+                font-size: 13px;
+            }
+
+            .practice-input {
+                margin-bottom: 12px;
+            }
+
+            .practice-label {
+                display: block;
+                margin-bottom: 6px;
+                color: var(--dim);
+            }
+
+            .practice-input textarea {
+                width: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 10px;
+                background: rgba(17, 21, 29, 0.85);
+                color: inherit;
+                font: inherit;
+                padding: 10px 12px;
+                resize: vertical;
+                min-height: 120px;
+                box-sizing: border-box;
+            }
+
+            .practice-input textarea:focus {
+                outline: none;
+                border-color: #2ea043;
+                background: rgba(26, 33, 45, 0.95);
+            }
+
+            .practice-actions {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+            }
+
+            .practice-actions button {
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: #161b22;
+                color: inherit;
+                font: inherit;
+                padding: 10px 14px;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+            }
+
+            .practice-actions button:hover,
+            .practice-actions button:focus {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
             .review-mode-only {
                 display: none;
             }
