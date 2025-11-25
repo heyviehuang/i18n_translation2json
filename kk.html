@@ -12,22 +12,20 @@
 
     <body>
         <nav class="mode-switch" aria-label="Mode switch">
-            <a class="mode-switch__btn" href="index.html">
-                <span>Back to</span>
-                <code>Menu</code>
-            </a>
-            <a class="mode-switch__btn" href="vb.html">
-                <span>Switch to</span>
-                <code>VOC</code>
-            </a>
-            <a class="mode-switch__btn" href="vb-unit.html">
-                <span>Switch to</span>
-                <code>UVR</code>
-            </a>
-            <a class="mode-switch__btn" href="ls.html">
-                <span>Switch to</span>
-                <code>LIS</code>
-            </a>
+            <div class="mode-switch__dropdown">
+                <button class="mode-switch__toggle" type="button" aria-expanded="false" aria-haspopup="true"
+                    aria-controls="modeMenu">
+                    <span>Modes</span>
+                    <code>switch</code>
+                </button>
+                <div class="mode-switch__menu" id="modeMenu" aria-hidden="true" role="menu">
+                    <a href="index.html" role="menuitem">Menu</a>
+                    <a href="vb.html" role="menuitem">VOC</a>
+                    <a href="vb-unit.html" role="menuitem">UVR</a>
+                    <a href="ls.html" role="menuitem">LIS</a>
+                    <a href="kk.html" role="menuitem" aria-current="page">KK</a>
+                </div>
+            </div>
         </nav>
 
         <div class="wrap">
@@ -51,6 +49,10 @@
             </div>
         </div>
 
+        <script type="module">
+            import { initModeSwitch } from "./js/mode-switch.js";
+            initModeSwitch();
+        </script>
         <script type="module" src="js/kk.js"></script>
     </body>
 
