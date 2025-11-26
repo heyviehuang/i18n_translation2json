@@ -644,6 +644,7 @@
 
             .notes-panel.show {
                 transform: translateX(0);
+                transition-duration: 0.16s;
             }
 
             .notes-panel__header {
@@ -1140,6 +1141,217 @@
                 border-color: #2ea043;
                 transform: translateY(-1px);
                 outline: none;
+            }
+
+            /* vocab tracker */
+            .vocab-flag {
+                margin-top: 8px;
+                border: none;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.6);
+                font: inherit;
+                padding: 0;
+                cursor: pointer;
+                transition: color 0.15s ease, transform 0.15s ease;
+            }
+
+            .vocab-flag:hover,
+            .vocab-flag:focus {
+                color: #f2cc60;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .vocab-flag.is-active {
+                color: #f2cc60;
+            }
+
+            .vocab-toolbar {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 12px;
+            }
+
+            .vocab-toolbar button {
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: #11151d;
+                color: inherit;
+                font: inherit;
+                padding: 8px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+            }
+
+            .vocab-toolbar button:hover,
+            .vocab-toolbar button:focus {
+                border-color: #2ea043;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .vocab-toolbar button.is-active {
+                border-color: rgba(46, 160, 67, 0.5);
+                color: #cfead6;
+            }
+
+            .vocab-lists {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .vocab-lists--panel {
+                margin-top: 4px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                flex: 1 1 auto;
+                min-height: 0;
+            }
+
+            .vocab-list {
+                padding: 6px 0 0;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                min-height: 80px;
+            }
+
+            .vocab-lists--panel .vocab-list {
+                flex: 1 1 auto;
+            }
+
+            .vocab-list__title {
+                font-size: 13px;
+                color: var(--dim);
+            }
+
+            .vocab-list__items {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                max-height: 180px;
+                overflow-y: auto;
+            }
+
+            .vocab-lists--panel .vocab-list__items {
+                max-height: none;
+                flex: 1 1 auto;
+                min-height: 0;
+            }
+
+            .vocab-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 8px 10px;
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            .vocab-item__meta {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                min-width: 0;
+            }
+
+            .vocab-item__flag-dot {
+                border: none;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.6);
+                font: inherit;
+                font-size: 16px;
+                line-height: 1;
+                cursor: pointer;
+                padding: 0 6px 0 0;
+                transition: color 0.15s ease, transform 0.15s ease;
+                align-self: center;
+            }
+
+            .vocab-item__flag-dot:hover,
+            .vocab-item__flag-dot:focus {
+                color: #f8e3a1;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .vocab-item.is-flagged .vocab-item__flag-dot {
+                color: #f2cc60;
+            }
+
+            .code-flag {
+                border: none;
+                background: transparent;
+                color: rgba(242, 204, 96, 0.8);
+                font: inherit;
+                margin-right: 8px;
+                cursor: pointer;
+                transition: transform 0.15s ease, color 0.15s ease;
+            }
+
+            .code-flag:hover,
+            .code-flag:focus {
+                color: #f8e3a1;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .code-flag.is-active {
+                color: #f2cc60;
+            }
+
+            .vocab-item__meta {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                min-width: 0;
+            }
+
+            .vocab-item__word {
+                font-weight: 600;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .vocab-item__zh {
+                font-size: 12px;
+                color: var(--cm);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .vocab-item__flag {
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: transparent;
+                color: inherit;
+                font: inherit;
+                padding: 4px 8px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, color 0.15s ease;
+            }
+
+            .vocab-item__flag:hover,
+            .vocab-item__flag:focus {
+                border-color: #2ea043;
+                color: #cfead6;
+                outline: none;
+            }
+
+            .vocab-item.is-flagged .vocab-item__flag {
+                border-color: #f2cc60;
+                color: #f8e3a1;
             }
 
             .review-mode-only {

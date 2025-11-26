@@ -32,7 +32,24 @@
         <div class="wrap">
             <pre id="code" aria-live="polite"></pre>
             <div class="status" id="status">Space/Enter: en-&gt;zh-&gt;next | K = mark known</div>
+            <button class="vocab-flag" id="btnFlag" aria-pressed="false" title="Flag/Unflag current word">*</button>
         </div>
+
+        <div class="notes-overlay" id="vocabOverlay" aria-hidden="true"></div>
+        <aside class="notes-panel reading-panel" id="vocabPanel" aria-hidden="true" aria-label="Vocab list">
+            <header class="notes-panel__header">
+                <h2>Vocab Review</h2>
+                <button type="button" id="btnVocabClose" class="notes-panel__close" aria-label="Close vocab list">
+                    &times;
+                </button>
+            </header>
+            <div class="vocab-lists vocab-lists--panel">
+                <div class="vocab-list">
+                    <div class="vocab-list__title">pipeline::active()</div>
+                    <ul class="vocab-list__items" id="vocabListActive"></ul>
+                </div>
+            </div>
+        </aside>
 
         <div class="fab" id="fab">
             <button class="known" id="btnKnown">Known</button>
@@ -40,6 +57,12 @@
             <div class="copybar no-advance">
                 <button id="copyEn">Copy EN</button>
                 <button id="copyZh">Copy ZH</button>
+            </div>
+            <div class="other-group no-advance" aria-label="Other tools">
+                <button type="button" id="btnOtherToggle" aria-haspopup="true" aria-expanded="false">Other</button>
+                <div class="other-group__menu" id="otherMenu" aria-hidden="true">
+                    <button type="button" id="btnVocabList">VOC List</button>
+                </div>
             </div>
         </div>
         <div class="badge" id="adminBadge">ADMIN</div>
@@ -52,4 +75,3 @@
     </body>
 
 </html>
-

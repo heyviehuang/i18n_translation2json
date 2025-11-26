@@ -1,5 +1,4 @@
-
-import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
+﻿import { LONGPRESS_MS, ADMIN_KEY_NAME } from "./config.js";
 import { fetchVocabBatch, markKnown } from "./services/api.js";
 import { speak } from "./utils/speech.js";
 import { copyText } from "./utils/clipboard.js";
@@ -8,6 +7,7 @@ import { showToast } from "./ui/toast.js";
 import { createRoundSession } from "./core/session.js";
 import { getRoundSize, setRoundSize, resetRoundSize, ROUND_SIZE_LIMITS, DEFAULT_ROUND_SIZE } from "./core/round-size.js";
 import { runBootSequence } from "./boot-screen.js";
+import { createTracker } from "./vocab-tracker.js";
 
 const codeEl = document.getElementById("code");
 const statusEl = document.getElementById("status");
@@ -17,6 +17,18 @@ const adminBadge = document.getElementById("adminBadge");
 const copyEnBtn = document.getElementById("copyEn");
 const copyZhBtn = document.getElementById("copyZh");
 const roundSizeButton = document.getElementById("btnRoundSize");
+const flagBtn = document.getElementById("btnFlag");
+const otherToggleBtn = document.getElementById("btnOtherToggle");
+const otherMenu = document.getElementById("otherMenu");
+const vocabListBtn = document.getElementById("btnVocabList");
+const listActiveEl = document.getElementById("vocabListActive");
+const vocabOverlay = document.getElementById("vocabOverlay");
+const vocabPanel = document.getElementById("vocabPanel");
+const vocabCloseBtn = document.getElementById("btnVocabClose");
+
+const LIST_FETCH_COUNT = 500;
+const STAR_ON = "\u2605";
+const STAR_OFF = "\u2606";
 
 const TEMPLATES = [
     ({ word, zh, showZh, q, total, remain, seed, roundSize }) => [
@@ -80,7 +92,8 @@ const TEMPLATES = [
         `ix=0`,
         `speak $(jq -r <span class="str">'.[0].word'</span> <<< "$items")`,
         ``,
-        `<span class="cm"># progress ${q}/${total}</span><span class="cursor"></span>`,
+        `<span class="cm"># progress ${q}/${total}</span>`,
+        `<span class="cursor"></span>`,
         `exit 0`
     ]
 ];
@@ -91,6 +104,7 @@ let adminMode = false;
 
 const MODE_KEY = "vb";
 let roundSize = getRoundSize(MODE_KEY);
+const tracker = createTracker({ mode: MODE_KEY, onChange: renderTrackerLists });
 
 function updateRoundSizeButton() {
     if (!roundSizeButton) return;
@@ -106,6 +120,7 @@ function applyRoundSize(value) {
 }
 
 applyRoundSize(roundSize);
+
 function setStatus({ phase, progress, remaining, action }) {
     if (!statusEl) return;
     statusEl.textContent = [
@@ -115,6 +130,69 @@ function setStatus({ phase, progress, remaining, action }) {
         `Space/Enter: ${action} | K = mark known`
     ].join("\n");
 }
+
+function renderList(targetEl, items = []) {
+    if (!targetEl) return;
+    if (!items.length) {
+        targetEl.innerHTML = `<li class="vocab-item"><div class="vocab-item__meta"><span class="vocab-item__word muted">Empty</span></div></li>`;
+        return;
+    }
+    targetEl.innerHTML = items.map((item) => {
+        const star = item.flagged ? STAR_ON : STAR_OFF;
+        return `<li class="vocab-item${item.flagged ? " is-flagged" : ""}" data-key="${esc(item.key)}">
+            <div class="vocab-item__meta">
+                <span class="vocab-item__word">${esc(item.word || "")}</span>
+                ${item.zh ? `<span class="vocab-item__zh">${esc(item.zh)}</span>` : ""}
+            </div>
+            <button class="vocab-item__flag-dot" type="button" data-action="flag" data-key="${esc(item.key)}">${star}</button>
+        </li>`;
+    }).join("");
+}
+
+function updateFlagButton(currentItem) {
+    if (!flagBtn) return;
+    const flagged = currentItem ? tracker.isFlagged(currentItem) : false;
+    flagBtn.classList.toggle("is-active", flagged);
+    flagBtn.setAttribute("aria-pressed", flagged ? "true" : "false");
+    flagBtn.textContent = flagged ? STAR_ON : STAR_OFF;
+}
+
+function renderTrackerLists(currentItem = null) {
+    const { studying } = tracker.getLists();
+    renderList(listActiveEl, studying);
+    updateFlagButton(currentItem);
+}
+
+function toggleOtherMenu() {
+    if (!otherMenu || !otherToggleBtn) return;
+    const isOpen = otherMenu.classList.toggle("show");
+    otherMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    otherToggleBtn.classList.toggle("open", isOpen);
+    otherToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+}
+
+async function loadFullList() {
+    try {
+        const response = await fetchVocabBatch(LIST_FETCH_COUNT);
+        const items = Array.isArray(response?.items) ? response.items : [];
+        if (items.length) {
+            tracker.upsertBatch(items);
+        }
+        renderTrackerLists(session.getCurrentItem());
+    } catch (error) {
+        console.error("Failed to load full list", error);
+        showToast("Failed to load list");
+    }
+}
+
+function toggleListPanel() {
+    if (!vocabPanel || !vocabOverlay) return;
+    const isOpen = vocabPanel.classList.toggle("show");
+    vocabOverlay.classList.toggle("show", isOpen);
+    vocabPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    vocabOverlay.setAttribute("aria-hidden", isOpen ? "false" : "true");
+}
+
 function buildCode(word, zh, showZh, q, total, remain, currentRoundSize) {
     const seed = (++roundId).toString(36).slice(-4);
     const lines = TEMPLATES[templateIdx]({ word, zh, showZh, q, total, remain, seed, roundSize: currentRoundSize });
@@ -122,10 +200,12 @@ function buildCode(word, zh, showZh, q, total, remain, currentRoundSize) {
     const lineNo = (n) => String(n).padStart(2, " ");
     return lines.map((line, index) => `<span class="gutter">${lineNo(start + index)}</span>${line}`).join("\n");
 }
+
 function render(state) {
     if (!codeEl) return;
 
     const { batch, index, revealed, remaining, revealPhase = 0 } = state;
+    tracker.upsertBatch(batch);
     const remainingDisplay = typeof remaining === "number" && !Number.isNaN(remaining) ? remaining : "--";
 
     document.body.dataset.roundSize = String(roundSize);
@@ -134,6 +214,7 @@ function render(state) {
         codeEl.innerHTML = buildCode("RVOCA.reload()", "not loaded", false, 0, roundSize, remainingDisplay, roundSize);
         document.body.dataset.w = "";
         delete document.body.dataset.zh;
+        renderTrackerLists(null);
         setStatus({
             phase: "loading",
             progress: "0/0",
@@ -155,6 +236,7 @@ function render(state) {
     document.body.dataset.w = showEnglish ? (current.word || "") : "";
     if (showZh && current.zh) document.body.dataset.zh = current.zh;
     else delete document.body.dataset.zh;
+    renderTrackerLists(current);
 
     const phaseLabel = showZh ? "translation" : showEnglish ? "english" : "hidden";
     const actionHint = showZh ? "next" : showEnglish ? "show zh" : "show en";
@@ -165,6 +247,7 @@ function render(state) {
         action: actionHint
     });
 }
+
 const session = createRoundSession({
     fetchBatch: ({ roundSize: sizeOverride } = {}) => {
         const count = typeof sizeOverride === "number" ? sizeOverride : roundSize;
@@ -177,6 +260,7 @@ const session = createRoundSession({
     },
     enablePrefetch: true
 });
+
 roundSizeButton?.addEventListener("click", (event) => {
     event.stopPropagation();
     event.preventDefault();
@@ -212,6 +296,7 @@ roundSizeButton?.addEventListener("click", (event) => {
     showToast(`Round size set to ${roundSize}`);
     session.startRound({ roundSize });
 });
+
 function getAdminKey() {
     return localStorage.getItem(ADMIN_KEY_NAME) || "";
 }
@@ -240,6 +325,7 @@ function resetAdmin(silent = false) {
     disableAdmin();
     if (!silent) alert("Admin PIN cleared. Please re-enter");
 }
+
 async function markCurrentKnown() {
     const current = session.getCurrentItem();
     if (!current) return;
@@ -268,9 +354,12 @@ async function markCurrentKnown() {
             : Math.max(0, session.state.remaining - 1);
         session.setRemaining(remaining);
         session.invalidatePrefetch?.();
+        tracker.markDeleted(current);
+        renderTrackerLists(current);
         await session.advance().catch((error) => console.error("Failed to advance after markKnown", error));
     }
 }
+
 async function handleCopy(getText) {
     const current = session.getCurrentItem();
     if (!current) return;
@@ -285,6 +374,7 @@ async function handleCopy(getText) {
         showToast("Copy failed");
     }
 }
+
 let pressTimer = null;
 
 document.addEventListener("touchstart", () => {
@@ -331,6 +421,67 @@ knownBtn?.addEventListener("click", (event) => {
     markCurrentKnown();
 });
 
+flagBtn?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const current = session.getCurrentItem();
+    tracker.toggleFlag(current);
+    renderTrackerLists(current);
+});
+
+otherToggleBtn?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleOtherMenu();
+});
+
+vocabListBtn?.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    toggleOtherMenu();
+    await loadFullList();
+    toggleListPanel();
+});
+
+otherMenu?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
+vocabOverlay?.addEventListener("click", () => {
+    toggleListPanel();
+});
+
+vocabCloseBtn?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleListPanel();
+});
+
+vocabPanel?.addEventListener("click", (event) => {
+    const flagControl = event.target.closest?.("[data-action='flag']");
+    if (!flagControl) return;
+    event.stopPropagation();
+    const key = flagControl.dataset.key;
+    tracker.toggleFlagByKey(key);
+    renderTrackerLists(session.getCurrentItem());
+});
+
+document.addEventListener("click", (event) => {
+    if (!vocabPanel || !vocabOverlay) return;
+    if (!vocabPanel.classList.contains("show")) return;
+    const target = event.target;
+    if (target instanceof Element && vocabPanel.contains(target)) return;
+    if (target instanceof Element && otherMenu?.contains(target)) return;
+    toggleListPanel();
+}, true);
+
+document.addEventListener("click", (event) => {
+    if (!otherMenu || !otherToggleBtn) return;
+    if (!otherMenu.classList.contains("show")) return;
+    const target = event.target;
+    if (target instanceof Element && (otherMenu.contains(target) || otherToggleBtn.contains(target))) return;
+    otherMenu.classList.remove("show");
+    otherMenu.setAttribute("aria-hidden", "true");
+    otherToggleBtn.classList.remove("open");
+    otherToggleBtn.setAttribute("aria-expanded", "false");
+}, true);
+
 copyEnBtn?.addEventListener("click", (event) => {
     event.stopPropagation();
     handleCopy((item) => item.word || "");
@@ -340,6 +491,7 @@ copyZhBtn?.addEventListener("click", (event) => {
     event.stopPropagation();
     handleCopy((item) => item.zh || "");
 });
+
 (async () => {
     await runBootSequence();
     try {
@@ -349,3 +501,5 @@ copyZhBtn?.addEventListener("click", (event) => {
         showToast("Failed to load data");
     }
 })();
+
+
