@@ -1,8 +1,8 @@
-import { escapeHtml as esc } from "./utils/html.js";
+﻿import { escapeHtml as esc } from "./utils/html.js";
 import { copyText } from "./utils/clipboard.js";
 import { showToast } from "./ui/toast.js";
-
-const STORAGE_KEY = "rvoca:logs";
+import { jsonp } from "./services/api.js";
+import { LOG_API_BASE, TOKEN, ADMIN_KEY_NAME } from "./config.js";
 
 const form = document.getElementById("logForm");
 const titleInput = document.getElementById("noteTitle");
@@ -23,12 +23,65 @@ const paletteBtn = document.getElementById("btnPalette");
 const paletteCloseBtn = document.getElementById("btnPaletteClose");
 const palettePanel = document.getElementById("palettePanel");
 const paletteOverlay = document.getElementById("paletteOverlay");
+const prevBtn = document.getElementById("btnPrevLog");
+const nextBtn = document.getElementById("btnNextLog");
+const speakBtn = document.getElementById("btnSpeak");
+let speaking = false;
+let voices = [];
 
-let notes = loadNotes();
+let notes = [];
 let editingId = null;
-let selectedNoteId = notes[0]?.id || null;
+let selectedNoteId = null;
+let loading = false;
 
 const maskEnabled = true;
+
+function getAdminKey() {
+    return localStorage.getItem(ADMIN_KEY_NAME) || "";
+}
+
+function ensureAdmin() {
+    let key = getAdminKey();
+    if (!key) {
+        key = prompt("Enter admin PIN");
+        if (!key) return null;
+        localStorage.setItem(ADMIN_KEY_NAME, key);
+    }
+    return key;
+}
+
+function guardLogAccess() {
+    const key = ensureAdmin();
+    if (!key) {
+        showToast("Log PIN required");
+        return false;
+    }
+    return true;
+}
+
+async function fetchLogs() {
+    const response = await jsonp({ action: "list", token: TOKEN }, { base: LOG_API_BASE });
+    if (!response?.ok) throw new Error(response?.error || "Failed to load logs");
+    const payload = Array.isArray(response.items) ? response.items : [];
+    return payload.map(normalizeNote);
+}
+
+async function createRemoteLog({ title, body }) {
+    const response = await jsonp({ action: "add", token: TOKEN, title, body }, { base: LOG_API_BASE });
+    if (!response?.ok) throw new Error(response?.error || "Failed to add log");
+    const item = response.item ?? response;
+    return normalizeNote(item);
+}
+
+async function deleteRemoteLogs(ids = [], adminKey) {
+    if (!ids?.length) return 0;
+    const response = await jsonp(
+        { action: "delete", token: TOKEN, ids: ids.join(","), adminKey },
+        { base: LOG_API_BASE }
+    );
+    if (!response?.ok) throw new Error(response?.error || "Failed to delete log");
+    return response.changed ?? ids.length;
+}
 
 function normalizeNote(raw = {}) {
     const now = new Date().toISOString();
@@ -45,19 +98,8 @@ function normalizeNote(raw = {}) {
     };
 }
 
-function loadNotes() {
-    try {
-        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        if (!Array.isArray(raw)) return [];
-        return raw.map(normalizeNote);
-    } catch (error) {
-        console.warn("Failed to parse saved notes", error);
-        return [];
-    }
-}
-
 function persistNotes() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+    /* no-op placeholder for legacy calls */
 }
 
 function renderStats(position = 0, total = 0) {
@@ -83,7 +125,10 @@ function formatDate(iso) {
 }
 
 function formatBody(body) {
-    return esc(body).replace(/\n/g, "<br>");
+    const encoded = esc(body);
+    const withLines = encoded.replace(/\n/g, "<br>");
+    const highlighted = withLines.replace(/([A-Za-z0-9][A-Za-z0-9\s'\-]*)/g, '<span class="log-en">$1</span>');
+    return `<div class="log-body">${highlighted}</div>`;
 }
 
 function sortedNotes() {
@@ -101,7 +146,7 @@ function renderViewer(note) {
         return;
     }
     viewerTitle.textContent = note.title || "Untitled";
-    viewerBody.innerHTML = note.body ? formatBody(note.body) : `<p class="muted">(empty)</p>`;
+    viewerBody.innerHTML = formatBody(note.body || "");
 }
 
 function renderNotes() {
@@ -111,6 +156,12 @@ function renderNotes() {
         if (!query) return true;
         return note.title.toLowerCase().includes(query) || note.body.toLowerCase().includes(query);
     });
+
+    if (loading) {
+        notesList.innerHTML = `<li class="notes-item notes-empty">Loading logs...</li>`;
+        renderStats(0, notes.length);
+        return;
+    }
 
     if (!filtered.length) {
         notesList.innerHTML = `<li class="notes-item notes-empty">No logs yet. Hit "New" on the right.</li>`;
@@ -155,6 +206,24 @@ function renderNotes() {
     renderStats(position, total);
 }
 
+async function syncLogs({ silent = false } = {}) {
+    if (!guardLogAccess()) return;
+    loading = true;
+    renderNotes();
+    try {
+        const items = await fetchLogs();
+        notes = items;
+        selectedNoteId = notes[0]?.id || null;
+        renderNotes();
+    } catch (error) {
+        console.error("Failed to sync logs", error);
+        if (!silent) showToast(error?.message || "Failed to load logs");
+    } finally {
+        loading = false;
+        renderNotes();
+    }
+}
+
 function resetForm() {
     editingId = null;
     form?.reset();
@@ -184,9 +253,9 @@ function upsertNote({ title, body }) {
             existing.title = title || "Untitled";
             existing.body = body;
             existing.updatedAt = now;
-            persistNotes();
             renderNotes();
             closeDrawer();
+            speakMixed(existing);
             return existing;
         }
     }
@@ -200,13 +269,13 @@ function upsertNote({ title, body }) {
     });
     notes = [created, ...notes];
     selectedNoteId = created.id;
-    persistNotes();
     renderNotes();
     closeDrawer();
+    speakMixed(created);
     return created;
 }
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault();
     const title = (titleInput?.value || "").trim();
     const body = (bodyInput?.value || "").trim();
@@ -215,12 +284,37 @@ function handleSubmit(event) {
         titleInput?.focus();
         return;
     }
-    upsertNote({ title, body });
-    resetForm();
-    showToast("Saved");
+    const submitButton = form?.querySelector('button[type="submit"]');
+    submitButton?.setAttribute("disabled", "true");
+    try {
+        let created;
+        if (editingId) {
+            const adminKey = ensureAdmin();
+            if (!adminKey) {
+                showToast("Admin PIN required to update");
+                return;
+            }
+            await deleteRemoteLogs([editingId], adminKey);
+            notes = notes.filter((entry) => entry.id !== editingId);
+        }
+        created = await createRemoteLog({ title, body });
+        notes = [created, ...notes.filter((entry) => entry.id !== created.id)];
+        selectedNoteId = created.id;
+        resetForm();
+        renderNotes();
+        closeDrawer();
+        speakMixed(created);
+        showToast("Saved");
+    } catch (error) {
+        console.error("Failed to save log", error);
+        showToast(error?.message || "Failed to save log");
+    } finally {
+        submitButton?.removeAttribute("disabled");
+        editingId = null;
+    }
 }
 
-function handleListClick(event) {
+async function handleListClick(event) {
     const target = event.target;
     if (!(target instanceof Element)) return;
     const action = target.dataset.action;
@@ -241,12 +335,22 @@ function handleListClick(event) {
     event.stopPropagation();
 
     if (action === "delete") {
-        notes = notes.filter((entry) => entry.id !== noteId);
-        persistNotes();
-        selectedNoteId = notes[0]?.id || null;
-        renderNotes();
-        showToast("Deleted");
-        if (editingId === noteId) resetForm();
+        const adminKey = ensureAdmin();
+        if (!adminKey) {
+            showToast("Admin PIN required");
+            return;
+        }
+        try {
+            await deleteRemoteLogs([noteId], adminKey);
+            notes = notes.filter((entry) => entry.id !== noteId);
+            selectedNoteId = notes[0]?.id || null;
+            renderNotes();
+            showToast("Deleted");
+            if (editingId === noteId) resetForm();
+        } catch (error) {
+            console.error("Failed to delete log", error);
+            showToast(error?.message || "Failed to delete log");
+        }
         return;
     }
 
@@ -260,7 +364,6 @@ function handleListClick(event) {
     if (action === "pin") {
         note.pinned = !note.pinned;
         note.updatedAt = new Date().toISOString();
-        persistNotes();
         renderNotes();
         return;
     }
@@ -307,8 +410,90 @@ function closeDrawer() {
     openDrawerBtn?.setAttribute("aria-expanded", "false");
 }
 
+function getFilteredNotes() {
+    const query = (searchInput?.value || "").trim().toLowerCase();
+    return sortedNotes().filter((note) => {
+        if (!query) return true;
+        return note.title.toLowerCase().includes(query) || note.body.toLowerCase().includes(query);
+    });
+}
+
+function moveSelection(step = 1) {
+    const filtered = getFilteredNotes();
+    if (!filtered.length) return;
+    const idx = filtered.findIndex((note) => note.id === selectedNoteId);
+    const currentIdx = idx >= 0 ? idx : 0;
+    const nextIdx = (currentIdx + step + filtered.length) % filtered.length;
+    selectedNoteId = filtered[nextIdx].id;
+    renderNotes();
+    speakMixed(filtered[nextIdx]);
+}
+
+function speakMixed(log) {
+    if (!log || !log.body) return;
+    try {
+        const text = String(log.body || "");
+        const segments = splitSegments(text);
+        speechSynthesis.cancel();
+        speaking = true;
+        updateSpeakLabel();
+        let remaining = segments.length;
+        segments.forEach((segment) => {
+            const utterance = new SpeechSynthesisUtterance(segment.text);
+            utterance.lang = segment.isEnglish ? "en-US" : "zh-TW";
+            utterance.onend = () => {
+                remaining -= 1;
+                if (remaining <= 0) {
+                    speaking = false;
+                    updateSpeakLabel();
+                }
+            };
+            speechSynthesis.speak(utterance);
+        });
+    } catch (error) {
+        console.warn("Speak failed", error);
+    }
+}
+
+function toggleSpeak() {
+    if (speaking) {
+        speechSynthesis.cancel();
+        speaking = false;
+        updateSpeakLabel();
+        return;
+    }
+    const current = notes.find((n) => n.id === selectedNoteId) || notes[0];
+    speakMixed(current);
+}
+
+function updateSpeakLabel() {
+    if (!speakBtn) return;
+    speakBtn.textContent = speaking ? "// pause()" : "// speak()";
+}
+
+function splitSegments(text) {
+    const regex = /[A-Za-z0-9\s'’.,!?;-]+|[^A-Za-z0-9\s'’.,!?;-]+/g;
+    const segments = [];
+    for (const match of text.matchAll(regex)) {
+        const chunk = match[0];
+        if (!chunk.trim()) continue;
+        const isEnglish = /^[A-Za-z0-9\s'’.,!?;-]+$/.test(chunk);
+        segments.push({ text: chunk, isEnglish });
+    }
+    return segments.length ? segments : [{ text, isEnglish: false }];
+}
+
+function pickVoice(isEnglish) {
+    const target = isEnglish ? "en" : "zh-TW";
+    const exact = voices.find((v) => v.lang === (isEnglish ? "en-US" : "zh-TW"));
+    if (exact) return exact;
+    const match = voices.find((v) => v.lang?.toLowerCase().startsWith(target.toLowerCase()));
+    return match || null;
+}
+
 renderStats();
 renderNotes();
+void syncLogs({ silent: true });
 
 form?.addEventListener("submit", handleSubmit);
 
@@ -342,6 +527,18 @@ paletteCloseBtn?.addEventListener("click", () => {
 paletteOverlay?.addEventListener("click", () => {
     closePalette();
 });
+prevBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    moveSelection(-1);
+});
+nextBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    moveSelection(1);
+});
+speakBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    toggleSpeak();
+});
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
@@ -354,3 +551,10 @@ document.addEventListener("keydown", (event) => {
         }
     }
 });
+
+if (typeof window !== "undefined" && window.speechSynthesis) {
+    voices = window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+        voices = window.speechSynthesis.getVoices();
+    };
+}

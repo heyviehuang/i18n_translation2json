@@ -46,7 +46,12 @@
                             <h2 id="viewerTitle">Select a log</h2>
                         </div>
                         <div class="log-viewer__tools">
-                            <div id="noteStats" class="log-stats">0/0</div>
+                            <button type="button" id="btnSpeak" class="log-speak" aria-label="Speak log">// speak()</button>
+                            <div class="log-nav-group">
+                                <button type="button" id="btnPrevLog" class="log-nav" aria-label="Previous log">&lt;</button>
+                                <span id="noteStats" class="log-stats">0/0</span>
+                                <button type="button" id="btnNextLog" class="log-nav" aria-label="Next log">&gt;</button>
+                            </div>
                         </div>
                     </div>
                     <article class="log-article" id="viewerBody">

@@ -482,7 +482,7 @@
                 position: fixed;
                 bottom: 18px;
                 left: 18px;
-                z-index: 1100;
+                z-index: 2200;
             }
 
             .mode-switch__dropdown {
@@ -826,6 +826,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
+                cursor: pointer;
             }
 
             .notes-item__meta {
@@ -1438,7 +1439,31 @@
             .log-viewer__tools {
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                justify-content: flex-end;
+            }
+
+            .log-nav-group {
+                display: inline-flex;
+                gap: 6px;
+                align-items: center;
+                height: 28px;
+            }
+
+            .log-speak {
+                border: none;
+                background: transparent;
+                color: var(--cm);
+                font: inherit;
+                padding: 4px 8px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: color 0.15s ease;
+            }
+
+            .log-speak:hover,
+            .log-speak:focus-visible {
+                color: #2ea043;
+                outline: none;
             }
 
             .log-article {
@@ -1456,6 +1481,42 @@
             .log-article p {
                 margin: 0 0 12px;
             }
+
+            .log-body {
+                font-family: "Segoe Print", "Comic Sans MS", "Bradley Hand", cursive;
+                line-height: 1.7;
+            }
+
+            .log-body .log-en {
+                color: #79c0ff;
+            }
+
+            .log-nav {
+                border: none;
+                background: transparent;
+                color: inherit;
+                font: inherit;
+                padding: 4px 6px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: color 0.15s ease;
+                line-height: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .log-nav:hover,
+            .log-nav:focus-visible {
+                color: #2ea043;
+                outline: none;
+            }
+
+            .log-stats {
+                font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+                font-size: 13px;
+            }
+
 
             .log-panel__head {
                 display: flex;
