@@ -1,0 +1,109 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>RVOCA :: LOG</title>
+        <link rel="icon" type="image/x-icon" href="rvoca-cartB.ico">
+        <link rel="apple-touch-icon" href="rvoca-cartB.ico">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <nav class="mode-switch" aria-label="Mode switch">
+            <div class="mode-switch__dropdown">
+                <button class="mode-switch__toggle" type="button" aria-expanded="false" aria-haspopup="true"
+                    aria-controls="modeMenu">
+                    <span>Modes</span>
+                    <code>switch</code>
+                </button>
+                <div class="mode-switch__menu" id="modeMenu" aria-hidden="true" role="menu">
+                    <a href="index.html" role="menuitem">Menu</a>
+                    <a href="vb.html" role="menuitem">VOC</a>
+                    <a href="vb-unit.html" role="menuitem">UVR</a>
+                    <a href="ls.html" role="menuitem">LIS</a>
+                    <a href="kk.html" role="menuitem">KK</a>
+                    <a href="tts.html" role="menuitem">TTS</a>
+                    <a href="log.html" role="menuitem" aria-current="page">LOG</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="wrap log-wrap">
+            <header class="log-hero">
+                <div>
+                    <p class="muted">// local-only stash</p>
+                    <h1>log()</h1>
+                    <p class="muted">// sidecar drawer, notion-ish reading</p>
+                </div>
+            </header>
+
+            <main class="log-layout single">
+                <section class="log-viewer">
+                    <div class="log-panel__head log-panel__head--viewer">
+                        <div>
+                            <h2 id="viewerTitle">Select a log</h2>
+                        </div>
+                        <div class="log-viewer__tools">
+                            <div id="noteStats" class="log-stats">0/0</div>
+                        </div>
+                    </div>
+                    <article class="log-article" id="viewerBody">
+                        <p class="muted">// select a log; focus view only.</p>
+                    </article>
+                </section>
+            </main>
+
+            <div class="fab fab--log show">
+                <button type="button" id="btnPalette" aria-haspopup="true" aria-expanded="false">List</button>
+                <button type="button" id="openDrawer" aria-haspopup="true" aria-expanded="false">New</button>
+            </div>
+
+            <div class="log-overlay" id="drawerOverlay" aria-hidden="true"></div>
+            <aside class="log-drawer" id="drawer" aria-hidden="true" aria-label="Add log entry">
+                <header class="log-drawer__head">
+                    <h3 id="drawerTitle">Add log</h3>
+                    <button type="button" id="closeDrawer" aria-label="Close drawer">&times;</button>
+                </header>
+                <form id="logForm" class="log-form">
+                    <label class="log-field">
+                        <span>Title</span>
+                        <input id="noteTitle" type="text" name="title" placeholder="e.g. do-not-forget this block"
+                            autocomplete="off">
+                    </label>
+                    <label class="log-field">
+                        <span>Body</span>
+                        <textarea id="noteBody" name="body" rows="8"
+                            placeholder="Only stays in this browser. multi-line friendly."></textarea>
+                    </label>
+                    <div class="log-actions">
+                        <button type="submit" id="noteSave">Save</button>
+                        <button type="button" id="noteClear">Clear</button>
+                    </div>
+                </form>
+            </aside>
+
+            <div class="notes-overlay" id="paletteOverlay" aria-hidden="true"></div>
+            <aside class="notes-panel reading-panel" id="palettePanel" aria-hidden="true" aria-label="Note list">
+                <header class="notes-panel__header">
+                    <h2>Logs</h2>
+                    <button type="button" id="btnPaletteClose" class="notes-panel__close" aria-label="Close list">
+                        &times;
+                    </button>
+                </header>
+                <div class="log-search">
+                    <input type="search" id="noteSearch" placeholder="Filter (title/body)">
+                </div>
+                <ul class="notes-list" id="logNotes" aria-live="polite"></ul>
+            </aside>
+        </div>
+
+        <script type="module">
+            import { initModeSwitch } from "./js/mode-switch.js";
+            initModeSwitch();
+        </script>
+        <script type="module" src="js/log.js"></script>
+    </body>
+
+</html>
