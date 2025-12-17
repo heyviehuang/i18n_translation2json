@@ -728,7 +728,7 @@ async function markCurrentKnown() {
         session.invalidatePrefetch?.();
         tracker.markDeleted(current);
         renderTrackerLists(current);
-        await session.advance().catch((error) => console.error("Failed to advance after markKnown", error));
+        await advanceSession();
     }
 }
 
@@ -808,6 +808,18 @@ document.addEventListener("mouseup", () => {
     }
 });
 
+function shouldRotateTemplateOnAdvance() {
+    const { batch, index, revealPhase } = session.state;
+    return batch.length > 0 && index === batch.length - 1 && revealPhase === 2;
+}
+
+function advanceSession() {
+    if (shouldRotateTemplateOnAdvance()) {
+        setNextTemplate();
+    }
+    return session.advance().catch((error) => console.error("Failed to advance session", error));
+}
+
 document.addEventListener("keydown", (event) => {
     const panelOpen = isReadingPanelOpen();
     if (panelOpen && event.key === "Escape") {
@@ -818,7 +830,7 @@ document.addEventListener("keydown", (event) => {
     if (panelOpen) return;
     if (event.code === "Space" || event.code === "Enter") {
         event.preventDefault();
-        session.advance().catch((error) => console.error("Failed to advance session", error));
+        advanceSession();
     } else if (event.key === "k" || event.key === "K") {
         event.preventDefault();
         markCurrentKnown();
@@ -830,7 +842,7 @@ document.addEventListener("keydown", (event) => {
 
 document.body.addEventListener("click", () => {
     if (isReadingPanelOpen()) return;
-    session.advance().catch((error) => console.error("Failed to advance session", error));
+    advanceSession();
 });
 
 document.body.addEventListener("touchstart", () => {
@@ -959,12 +971,6 @@ copyZhBtn?.addEventListener("click", (event) => {
 
 fabEl?.addEventListener("click", (event) => event.stopPropagation());
 
-codeEl?.addEventListener("click", (event) => {
-    event.stopPropagation();
-    setNextTemplate();
-    render(session.state);
-});
-
 (async () => {
     await runBootSequence();
     try {
@@ -974,6 +980,3 @@ codeEl?.addEventListener("click", (event) => {
         showToast("Failed to load data");
     }
 })();
-
-
-
